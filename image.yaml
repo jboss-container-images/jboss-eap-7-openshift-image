@@ -1,4 +1,5 @@
 name: "jboss-eap-7/eap70-openshift"
+description: "Red Hat JBoss Enterprise Application Platform 7.0 OpenShift container image"
 version: "1.6"
 from: "jboss-eap-7/eap70:latest"
 user: 185
@@ -180,7 +181,6 @@ packages:
     - hostname
     - python-requests
     - python-enum34
-    - python-setuptools
     - PyYAML
 sources:
     - artifact: https://maven.repository.redhat.com/ga/org/jolokia/jolokia-jvm/1.3.6.redhat-1/jolokia-jvm-1.3.6.redhat-1-agent.jar
@@ -208,82 +208,86 @@ sources:
       md5: ce858a47c707b362a968ffd5c66768dd
       hint: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44801&product=core.service.rhsso&version=7.0&downloadType=distributions"
 dogen:
-      version: 2.0.1
+    version: 2.1.0
+    plugins:
+        dist_git:
+            repo: jboss-eap-7-docker
+            branch: ce-1.6-openshift-eap-7.0-jdk-8-rhel-7
+        cct:
+            verbose: true
 cct:
-      verbose: 1
-      configure:
-          - name: EAP
-            modules:
-                - url: https://github.com/jboss-openshift/cct_module.git
-            changes:
-                - cct_module.dynamic-resources:
-                      - install_sh:
-                - cct_module.s2i-common:
-                      - install_sh:
-                - cct_module.java-alternatives:
-                      - run_sh:
-                - cct_module.os-eap7-openshift:
-                      - prepare_sh:
-                - cct_module.os-eap-s2i:
-                      - prepare_sh:
-                - cct_module.os-java-jolokia:
-                      - install_as_root:
-                - cct_module.jolokia:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap7-openshift:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap7-modules:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap7-ping:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap-activemq-rar:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-java-run:
-                      - install_as_root:
-                - cct_module.os-eap-launch:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap7-launch:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap-logging:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap-probes:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.jboss-maven:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap-db-drivers:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap-sso:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap70-sso:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-java-hawkular:
-                      - install_as_root:
-                - cct_module.os-eap70-hawkular:
-                      - install_as_root:
-                - cct_module.os-eap-hawkular:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap-deployment-scanner:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.os-eap-extensions:
-                      - user: 185
-                      - configure_sh:
-                - cct_module.openshift-layer:
-                      - user: 185
-                      - configure_layers_sh:
-                - cct_module.openshift-layer:
-                      - configure_passwd_sh:
+    - name: EAP
+      modules:
+          - url: https://github.com/jboss-openshift/cct_module.git
+      changes:
+          - cct_module.dynamic-resources:
+                - install_sh:
+          - cct_module.s2i-common:
+                - install_sh:
+          - cct_module.java-alternatives:
+                - run_sh:
+          - cct_module.os-eap7-openshift:
+                - prepare_sh:
+          - cct_module.os-eap-s2i:
+                - prepare_sh:
+          - cct_module.os-java-jolokia:
+                - install_as_root:
+          - cct_module.jolokia:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap7-openshift:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap7-modules:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap7-ping:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap-activemq-rar:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-java-run:
+                - install_as_root:
+          - cct_module.os-eap-launch:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap7-launch:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap-logging:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap-probes:
+                - user: 185
+                - configure_sh:
+          - cct_module.jboss-maven:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap-db-drivers:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap-sso:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap70-sso:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-java-hawkular:
+                - install_as_root:
+          - cct_module.os-eap70-hawkular:
+                - install_as_root:
+          - cct_module.os-eap-hawkular:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap-deployment-scanner:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap-extensions:
+                - user: 185
+                - configure_sh:
+          - cct_module.openshift-layer:
+                - user: 185
+                - configure_layers_sh:
+          - cct_module.openshift-layer:
+                - configure_passwd_sh:
