@@ -1,4 +1,4 @@
-# Red Hat JBoss Enterprise Application Platform 7.0 OpenShift container image
+# Red Hat JBoss Enterprise Application Platform 7.1 OpenShift container image
 
 NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image[Red Hat JBoss Enterprise Application Platform 7 container image]
 
