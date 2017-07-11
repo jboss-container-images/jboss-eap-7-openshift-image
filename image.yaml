@@ -1,13 +1,13 @@
-name: "jboss-eap-7/eap70-openshift"
-description: "Red Hat JBoss Enterprise Application Platform 7.0 OpenShift container image"
-version: "1.6"
-from: "jboss-eap-7/eap70:latest"
+name: "jboss-eap-7/eap71-openshift"
+description: "Red Hat JBoss Enterprise Application Platform 7.1 OpenShift container image"
+version: "1.0"
+from: "jboss-eap-7/eap71:latest"
 user: 185
 labels:
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP 7.0"
+      value: "Platform for building and running JavaEE applications on JBoss EAP 7.1"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP 7.0"
+      value: "JBoss EAP 7.1"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -26,7 +26,7 @@ envs:
     - name: AB_JOLOKIA_HTTPS
       value: "true"
     - name: HTTPS_ENABLE_HTTP2
-      value: "false"
+      value: "true"
     - name: "OPENSHIFT_KUBE_PING_NAMESPACE"
       example: "myproject"
       description: "Clustering project namespace."
@@ -240,13 +240,13 @@ cct:
           - cct_module.os-eap7-openshift:
                 - user: 185
                 - configure_sh:
-          - cct_module.os-eap70-openshift:
+          - cct_module.os-eap71-openshift:
                 - user: 185
                 - configure_sh:
           - cct_module.os-eap7-modules:
                 - user: 185
                 - configure_sh:
-          - cct_module.os-eap70-modules:
+          - cct_module.os-eap71-modules:
                 - user: 185
                 - configure_sh:
           - cct_module.os-eap7-ping:
