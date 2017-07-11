@@ -25,6 +25,8 @@ envs:
       value: "true"
     - name: AB_JOLOKIA_HTTPS
       value: "true"
+    - name: HTTPS_ENABLE_HTTP2
+      value: "false"
     - name: "OPENSHIFT_KUBE_PING_NAMESPACE"
       example: "myproject"
       description: "Clustering project namespace."
@@ -218,7 +220,7 @@ dogen:
 cct:
     - name: EAP
       modules:
-          - url: https://github.com/jboss-openshift/cct_module.git
+          - url: https://github.com/jboss-openshift/cct_module.git 
       changes:
           - cct_module.dynamic-resources:
                 - install_sh:
@@ -238,7 +240,13 @@ cct:
           - cct_module.os-eap7-openshift:
                 - user: 185
                 - configure_sh:
+          - cct_module.os-eap70-openshift:
+                - user: 185
+                - configure_sh:
           - cct_module.os-eap7-modules:
+                - user: 185
+                - configure_sh:
+          - cct_module.os-eap70-modules:
                 - user: 185
                 - configure_sh:
           - cct_module.os-eap7-ping:
