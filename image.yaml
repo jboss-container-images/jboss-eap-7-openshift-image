@@ -191,12 +191,12 @@ sources:
       md5: 569870f975deeeb6691fcb9bc02a9555
     - artifact: jboss-logmanager-ext-1.0.0.Alpha2-redhat-1.jar
       md5: 7c743e35463db5f55f415dd666d705c5
-    - artifact: openshift-ping-common-1.1.4.Final-redhat-1.jar
-      md5: b01126ed440b854653696b86c5eba325
-    - artifact: openshift-ping-dns-1.1.4.Final-redhat-1.jar
-      md5: 7e34b050c4e7fe2afbd3893a1fa4e558
-    - artifact: openshift-ping-kube-1.1.4.Final-redhat-1.jar
-      md5: 7681e42eda03d9ad990fbe39c96677a4
+    - artifact: openshift-ping-common-1.1.5.Final-redhat-1.jar
+      md5: e27cdcf626ab1366c8d7d18ebd399ec4
+    - artifact: openshift-ping-dns-1.1.5.Final-redhat-1.jar
+      md5: ecab0d5ad969cb001e778305485b4640
+    - artifact: openshift-ping-kube-1.1.5.Final-redhat-1.jar
+      md5: 2f74acc3efc68e3781b7004f5a683fdc
     - artifact: oauth-20100527.jar
       md5: 91c7c70579f95b7ddee95b2143a49b41
     - artifact: activemq-rar-5.11.0.redhat-621084.rar
