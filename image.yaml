@@ -220,7 +220,8 @@ dogen:
 cct:
     - name: EAP
       modules:
-          - url: https://github.com/jboss-openshift/cct_module.git 
+          - url: https://github.com/jboss-openshift/cct_module.git
+            version: "1.0"
       changes:
           - cct_module.dynamic-resources:
                 - install_sh:
