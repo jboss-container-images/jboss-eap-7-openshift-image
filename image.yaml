@@ -199,8 +199,8 @@ sources:
       md5: 2f74acc3efc68e3781b7004f5a683fdc
     - artifact: oauth-20100527.jar
       md5: 91c7c70579f95b7ddee95b2143a49b41
-    - artifact: https://maven.repository.redhat.com/ga/org/apache/activemq/activemq-rar/5.11.0.redhat-630262/activemq-rar-5.11.0.redhat-630262.rar
-      md5: d0c70b9b2da1f02473d52f59d1d14b0b
+    - artifact: activemq-rar-5.11.0.redhat-621084.rar
+      md5: 207e17ac8102c93233fe2764d1fe8499
     - artifact: hawkular-javaagent-1.0.0.CR5-redhat-1-shaded.jar
       md5: f5d3e0220e10c706ef86af84771cf74e
     - artifact: rh-sso-7.0.0-eap7-adapter.zip
