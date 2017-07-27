@@ -210,7 +210,7 @@ sources:
       md5: ce858a47c707b362a968ffd5c66768dd
       hint: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44801&product=core.service.rhsso&version=7.0&downloadType=distributions"
 dogen:
-    version: 2.3.0
+    version: 2.4.0
     plugins:
         dist_git:
             repo: jboss-eap-7-docker
