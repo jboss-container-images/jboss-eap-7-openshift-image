@@ -170,6 +170,9 @@ envs:
     - name: "PROBE_DISABLE_BOOT_ERRORS_CHECK"
       example: "true"
       description: Disable the boot errors check in the probes.
+    - name: "ENABLE_ACCESS_LOG"
+      example: "true"
+      description: Enable the Access Log.
 ports:
     - value: 8443
     - value: 8778
@@ -220,7 +223,7 @@ dogen:
 cct:
     - name: EAP
       modules:
-          - url: https://github.com/jboss-openshift/cct_module.git 
+          - url: https://github.com/jboss-openshift/cct_module.git
       changes:
           - cct_module.dynamic-resources:
                 - install_sh:
