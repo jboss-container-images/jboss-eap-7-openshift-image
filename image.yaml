@@ -25,6 +25,8 @@ envs:
       value: "true"
     - name: AB_JOLOKIA_HTTPS
       value: "true"
+    - name: "DEFAULT_ADMIN_USERNAME"
+      value: "eapadmin"
     - name: HTTPS_ENABLE_HTTP2
       value: "true"
     - name: "OPENSHIFT_KUBE_PING_NAMESPACE"
