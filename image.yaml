@@ -219,7 +219,7 @@ dogen:
     plugins:
         dist_git:
             repo: jboss-eap-7-docker
-            branch: ce-1.0-openshift-eap-7.1-tech-preview-jdk-8-rhel-7
+            branch: ce-1.1-openshift-eap-7.1-tech-preview-jdk-8-rhel-7
         cct:
             verbose: true
 cct:
