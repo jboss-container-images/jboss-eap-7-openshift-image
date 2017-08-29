@@ -1,7 +1,7 @@
 name: "jboss-eap-7-tech-preview/eap71-openshift"
 # description: "Red Hat JBoss Enterprise Application Platform 7.1 OpenShift container image"
 version: "1.1"
-from: "jboss-eap-7/eap71:7.1.0.Beta"
+from: "jboss-eap-7/eap71:7.1.0"
 user: 185
 labels:
     - name: "io.k8s.description"
