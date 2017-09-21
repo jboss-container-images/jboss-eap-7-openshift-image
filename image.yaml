@@ -175,6 +175,9 @@ envs:
     - name: "ENABLE_ACCESS_LOG"
       example: "true"
       description: Enable the Access Log.
+    - name: "ENABLE_JSON_LOGGING"
+      example: "true"
+      description: Enable JSON-formatted logging
 ports:
     - value: 8443
     - value: 8778
