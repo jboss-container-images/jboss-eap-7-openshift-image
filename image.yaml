@@ -177,6 +177,24 @@ envs:
     - name: "ENABLE_ACCESS_LOG"
       example: "true"
       description: Enable the Access Log.
+    - name: "HTTPS_NAME"
+      example: "jboss"
+      description: "SSL key alias"
+    - name: "HTTPS_PASSWORD"
+      example: "mykeystorepass"
+      description: "SSL keystore password"
+    - name: "HTTPS_KEY_PASSWORD"
+      example: "mykeypass"
+      description: "SSL key password"
+    - name: "HTTPS_KEYSTORE"
+      example: "keystore.jks"
+      description: "The filename of the keystore"
+    - name: "HTTPS_KEYSTORE_DIR"
+      example: "/etc/eap-secret-volume"
+      description: "The path of the keystore file"
+    - name: "HTTPS_KEYSTORE_TYPE"
+      example: "JKS"
+      description: "The type of the keystore file (JKS or JCEKS)"
 ports:
     - value: 8443
     - value: 8778
