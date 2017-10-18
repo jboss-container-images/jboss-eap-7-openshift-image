@@ -204,6 +204,7 @@ modules:
           - name: os-eap-extensions
           - name: openshift-layer
           - name: openshift-passwd
+          - name: os-logging
 packages:
       repositories:
           - jboss-os
