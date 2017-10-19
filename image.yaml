@@ -14,7 +14,7 @@ labels:
     - name: "io.openshift.tags"
       value: "builder,javaee,eap,eap7"
     - name: "io.openshift.s2i.scripts-url"
-      value: "image:///usr/local/s2i"
+      value: "image:///usr/libexec/s2i"
 envs:
     - name: "STI_BUILDER"
       value: "jee"
