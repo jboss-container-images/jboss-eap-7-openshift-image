@@ -212,7 +212,6 @@ packages:
           - rh-mongodb32-mongo-java-driver
           - postgresql-jdbc
           - mysql-connector-java
-          - rh-maven33
           - hostname
           - python-requests
           - python-enum34
