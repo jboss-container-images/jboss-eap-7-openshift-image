@@ -30,12 +30,6 @@ envs:
       value: "eapadmin"
     - name: HTTPS_ENABLE_HTTP2
       value: "false"
-    - name: "OPENSHIFT_KUBE_PING_NAMESPACE"
-      example: "myproject"
-      description: "Clustering project namespace."
-    - name: "OPENSHIFT_KUBE_PING_LABELS"
-      example: "application=eap-app"
-      description: "Clustering labels selector."
     - name: "JAVA_OPTS_APPEND"
       example: "-Dfoo=bar"
       description: "Server startup options."
@@ -182,7 +176,8 @@ ports:
     - value: 8778
 modules:
       repositories:
-          - git:
+          - name: cct_module
+            git:
                   url: https://github.com/jboss-openshift/cct_module.git
                   ref: master
       install:
@@ -235,12 +230,6 @@ artifacts:
       md5: 569870f975deeeb6691fcb9bc02a9555
     - path: jboss-logmanager-ext-1.0.0.Alpha2-redhat-1.jar
       md5: 7c743e35463db5f55f415dd666d705c5
-    - path: openshift-ping-common-1.1.5.Final-redhat-1.jar
-      md5: e27cdcf626ab1366c8d7d18ebd399ec4
-    - path: openshift-ping-dns-1.1.5.Final-redhat-1.jar
-      md5: ecab0d5ad969cb001e778305485b4640
-    - path: openshift-ping-kube-1.1.5.Final-redhat-1.jar
-      md5: 2f74acc3efc68e3781b7004f5a683fdc
     - path: oauth-20100527.jar
       md5: 91c7c70579f95b7ddee95b2143a49b41
     - url: https://maven.repository.redhat.com/ga/org/apache/activemq/activemq-rar/5.11.0.redhat-630262/activemq-rar-5.11.0.redhat-630262.rar
