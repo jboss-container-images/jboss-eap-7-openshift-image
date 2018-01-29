@@ -173,7 +173,7 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  ref: sprint-13
       install:
           - name: dynamic-resources
           - name: s2i-common
