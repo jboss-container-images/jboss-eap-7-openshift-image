@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap71-openshift"
 description: "Red Hat JBoss Enterprise Application Platform 7.1 OpenShift container image"
-version: "1.1"
+version: "1.2"
 from: "jboss-eap-7/eap71:latest"
 labels:
     - name: "io.k8s.description"
@@ -243,4 +243,4 @@ run:
 osbs:
       repository:
             name: jboss-eap-7-docker
-            branch: ce-1.1-openshift-eap-7.1-jdk-8-rhel-7
+            branch: ce-1.2-openshift-eap-7.1-jdk-8-rhel-7
