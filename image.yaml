@@ -1,16 +1,16 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap71-openshift"
-description: "Red Hat JBoss Enterprise Application Platform 7.1 OpenShift container image"
-version: "1.2"
-from: "jboss-eap-7/eap71:latest"
+name: "jboss-eap-7-tech-preview/eap72-el12-openshift"
+description: "EAP 7.2 EL releases are intended to be Technology Preview - The JBoss EAP 7.2 EL12 OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
+version: "1.0"
+from: "jboss-eap-7-tech-preview/eap72-el12:latest"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap71-openshift-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP 7.1"
+      value: "Platform for building and running JavaEE applications on JBoss EAP Live"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP 7.1"
+      value: "JBoss EAP 7.2 EL12"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -99,8 +99,8 @@ modules:
       repositories:
           - name: cct_module
             git:
-                  url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  url: https://github.com/luck3y/cct_module.git
+                  ref: eap-live
       install:
           - name: dynamic-resources
           - name: s2i-common
@@ -118,6 +118,7 @@ modules:
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch
+          - name: os-logging
           - name: os-eap-logging
           - name: os-eap-probes
           - name: jboss-maven
@@ -153,6 +154,8 @@ artifacts:
       md5: 91c7c70579f95b7ddee95b2143a49b41
     - path: activemq-rar-5.11.0.redhat-621084.rar
       md5: 207e17ac8102c93233fe2764d1fe8499
+    - path: hawkular-javaagent-1.0.1.Final-redhat-2-shaded.jar
+      md5: f5d3e0220e10c706ef86af84771cf74e
     - path: rh-sso-7.1.0-eap7-adapter.zip
       description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44831&product=core.service.rhsso&version=7.0&downloadType=distributions"
       sha256: 3d12e310a9b15f79cd46255819a0198acd569921797204c0936772e71dec8d23
@@ -166,4 +169,4 @@ run:
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.1-openshift-rhel-7
+            branch: jb-eap72-el12-openshift-jdk-8-rhel-7
