@@ -97,6 +97,7 @@ ports:
     - value: 8443
 modules:
       repositories:
+          - path: modules
           - name: cct_module
             git:
                   url: https://github.com/luck3y/cct_module.git
@@ -110,9 +111,9 @@ modules:
           - name: os-java-jolokia
           - name: jolokia
           - name: os-eap7-openshift
-          - name: os-eap71-openshift
+          - name: os-eap-live-openshift
           - name: os-eap7-modules
-          - name: os-eap71-modules
+          - name: os-eap-live-modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
           - name: os-java-run
