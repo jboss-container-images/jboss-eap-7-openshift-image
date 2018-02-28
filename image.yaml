@@ -123,7 +123,7 @@ modules:
           - name: os-eap-logging
           - name: os-eap-probes
           - name: jboss-maven
-          - name: os-eap-live-db-drivers
+          - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
           - name: os-java-hawkular
@@ -139,7 +139,9 @@ packages:
           - jboss-os
           - jboss-rhscl
       install:
+          - rh-mongodb32-mongo-java-driver
           - postgresql-jdbc
+          - mysql-connector-java
           - hostname
           - python-requests
           - python-enum34
