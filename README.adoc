@@ -1,6 +1,6 @@
-# Red Hat JBoss Enterprise Application Platform 7.1 OpenShift container image
+# JBoss Enterprise Application Platform Continuous Delivery OpenShift container image
 
-NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image[Red Hat JBoss Enterprise Application Platform 7 container image]
+NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image/tree/eap-cd[JBoss EAP CD container image]
 
 # License
 

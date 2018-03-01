@@ -1,16 +1,16 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap72-el12-openshift"
-description: "EAP 7.2 EL releases are intended to be Technology Preview - The JBoss EAP 7.2 EL12 OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "1.0"
-from: "jboss-eap-7-tech-preview/eap72-el12:latest"
+name: "jboss-eap-7-tech-preview/eap-cd-openshift"
+description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
+version: "12.0"
+from: "jboss-eap-7/eap-cd:latest"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap71-openshift-container"
+      value: "jboss-eap-7-eap-cd-openshift-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP Live"
+      value: "Platform for building and running JavaEE applications on JBoss EAP Continuous Delivery"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP 7.2 EL12"
+      value: "JBoss EAP Continuous Delivery"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -42,7 +42,7 @@ envs:
       example: "true"
       description: "If set to any non zero length value then the image will prevent shutdown with the TERM signal and will require execution of the shutdown command through jboss-cli."
     - name: SCRIPT_DEBUG
-      description: If set to true, ensurses that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
       example: "true"
     - name: JAVA_MAX_MEM_RATIO
       description: This is used to calculate a default maximal heap memory based on a containers restriction. If used in a Docker container without any memory constraints for the container then this option has no effect. If there is a memory constraint then `-Xmx` is set to a ratio of the container available memory as set here. The default is `50` which means 50% of the available memory is used as an upper boundary. You can skip this mechanism by setting this value to `0` in which case no `-Xmx` option
@@ -100,8 +100,8 @@ modules:
           - path: modules
           - name: cct_module
             git:
-                  url: https://github.com/luck3y/cct_module.git
-                  ref: eap-live
+                  url: https://github.com/jboss-openshift/cct_module
+                  ref: master
       install:
           - name: dynamic-resources
           - name: s2i-common
@@ -111,9 +111,9 @@ modules:
           - name: os-java-jolokia
           - name: jolokia
           - name: os-eap7-openshift
-          - name: os-eap-live-openshift
+          - name: jboss.eap.cd.openshift.launch
           - name: os-eap7-modules
-          - name: os-eap-live-modules
+          - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
           - name: os-java-run
@@ -123,6 +123,7 @@ modules:
           - name: os-eap-logging
           - name: os-eap-probes
           - name: jboss-maven
+          - name: jboss.eap.cd.openshift.maven
           - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
@@ -153,8 +154,8 @@ artifacts:
       md5: 7c743e35463db5f55f415dd666d705c5
     - path: oauth-20100527.jar
       md5: 91c7c70579f95b7ddee95b2143a49b41
-    - path: activemq-rar-5.11.0.redhat-621084.rar
-      md5: 207e17ac8102c93233fe2764d1fe8499
+    - url: https://maven.repository.redhat.com/ga/org/apache/activemq/activemq-rar/5.11.0.redhat-630329/activemq-rar-5.11.0.redhat-630329.rar
+      md5: 76ed338d86bb3dbba2d4bd48daff7dbb
     - path: hawkular-javaagent-1.0.1.Final-redhat-2-shaded.jar
       md5: f5d3e0220e10c706ef86af84771cf74e
     - path: rh-sso-7.1.0-eap7-adapter.zip
@@ -170,4 +171,4 @@ run:
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap72-el12-openshift-jdk-8-rhel-7
+            branch: jb-eap-7.2-cd-openshift-rhel-7
