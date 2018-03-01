@@ -352,7 +352,7 @@
                 <transport lock-timeout="60000"/>
                 <replicated-cache name="repl">
                     <locking isolation="REPEATABLE_READ"/>
-                    <eviction strategy="LRU" max-entries="10000"/>
+                    <object-memory size="10000"/>
                     <transaction mode="BATCH"/>
                     <file-store/>
                 </replicated-cache>
