@@ -337,12 +337,12 @@
             </cache-container>
             <cache-container name="web" default-cache="repl" module="org.wildfly.clustering.web.infinispan">
                 <transport lock-timeout="60000"/>
-                <replicated-cache name="repl" mode="ASYNC">
+                <replicated-cache name="repl">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
                     <file-store/>
                 </replicated-cache>
-                <distributed-cache name="dist" mode="ASYNC">
+                <distributed-cache name="dist">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
                     <file-store/>
@@ -350,13 +350,13 @@
             </cache-container>
             <cache-container name="ejb" aliases="sfsb" default-cache="repl" module="org.wildfly.clustering.ejb.infinispan">
                 <transport lock-timeout="60000"/>
-                <replicated-cache name="repl" mode="ASYNC">
+                <replicated-cache name="repl">
                     <locking isolation="REPEATABLE_READ"/>
                     <eviction strategy="LRU" max-entries="10000"/>
                     <transaction mode="BATCH"/>
                     <file-store/>
                 </replicated-cache>
-                <distributed-cache name="dist" mode="ASYNC">
+                <distributed-cache name="dist">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
                     <file-store/>
