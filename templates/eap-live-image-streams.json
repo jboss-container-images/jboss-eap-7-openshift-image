@@ -9,11 +9,11 @@
         }
     },
     "items": [
-        {
+    {
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-eap-7-live-openshift",
+                "name": "jboss-eap72-el12-openshift",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat JBoss EAP Live",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -59,7 +59,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap72-el12-openshift:latest"
+                            "name": "172.30.1.1:5000/jboss-eap-7-tech-preview/eap72-el12-openshift"
                         }
                     }
                 ]
