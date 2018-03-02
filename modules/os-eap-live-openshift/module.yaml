@@ -1,7 +1,0 @@
-schema_version: 1
-name: os-eap-live-openshift
-version: '1.0'
-description: Legacy os-eap-live-openshift script package.
-execute:
-- script: configure.sh
-  user: '185'

@@ -2,9 +2,9 @@
     "kind": "List",
     "apiVersion": "v1",
     "metadata": {
-        "name": "jboss-eap-7-live-image-stream",
+        "name": "jboss-online-image-streams",
         "annotations": {
-            "description": "ImageStream definitions for Red Hat JBoss EAP Live 12.",
+            "description": "ImageStream definitions for Red Hat JBoss Enterprise Application Platform Online.",
             "openshift.io/provider-display-name": "Red Hat, Inc."
         }
     },
@@ -13,30 +13,30 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-eap72-el12-openshift",
+                "name": "eap72-online-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss EAP Live",
+                    "openshift.io/display-name": "JBoss EAP Online",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "12.0"
                 }
             },
             "labels": {
-                "xpaas": "12.0"
+                "xpaas": "1.4.8"
             },
             "spec": {
                 "tags": [
                     {
-                        "name": "TP",
+                        "name": "12",
                         "annotations": {
-                            "description": "The latest available build of JBoss EAP 7 Live Tech Preview.",
+                            "description": "The latest available build of JBoss EAP Online Tech Preview.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.1.0.GA",
-                            "version": "TP",
-                            "openshift.io/display-name": "Red Hat JBoss EAP 7 Live (Tech Preview)"
+                            "sampleRef": "7.2.0.CR1",
+                            "version": "12",
+                            "openshift.io/display-name": "Red Hat JBoss EAP Online (Tech Preview)"
                         },
                         "from": {
                             "kind": "ImageStreamTag",
@@ -47,19 +47,19 @@
                     {
                         "name": "12.0",
                         "annotations": {
-                            "description": "JBoss EAP 7 Live Tech Preview S2I Image",
+                            "description": "JBoss EAP Online Tech Preview S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.1.0.GA",
-                            "version": "1.0",
-                            "openshift.io/display-name": "Red Hat JBoss EAP 7 Live (Tech Preview)"
+                            "sampleRef": "7.2.0.CR1",
+                            "version": "12.0",
+                            "openshift.io/display-name": "Red Hat JBoss EAP Online (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "172.30.1.1:5000/jboss-eap-7-tech-preview/eap72-el12-openshift"
+                            "name": "eap72-online-openshift:12.0"
                         }
                     }
                 ]

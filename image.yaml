@@ -1,16 +1,16 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap72-el12-openshift"
-description: "EAP 7.2 EL releases are intended to be Technology Preview - The JBoss EAP 7.2 EL12 OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "1.0"
-from: "jboss-eap-7-tech-preview/eap72-el12:latest"
+name: "jboss-eap-7-tech-preview/eap72-online-openshift"
+description: "Red Hat JBoss Enterprise Application Platform Online releases are intended to be Technology Preview - The JBoss EAP Online OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
+version: "12.0"
+from: "jboss-eap-7/eap72-online:latest"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap71-openshift-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP Live"
+      value: "Platform for building and running JavaEE applications on JBoss EAP Online"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP 7.2 EL12"
+      value: "JBoss EAP 7.2 Online 12"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -101,7 +101,7 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/luck3y/cct_module.git
-                  ref: eap-live
+                  ref: eap72-online
       install:
           - name: dynamic-resources
           - name: s2i-common
@@ -111,9 +111,9 @@ modules:
           - name: os-java-jolokia
           - name: jolokia
           - name: os-eap7-openshift
-          - name: os-eap-live-openshift
+          - name: os-eap72-online-openshift
           - name: os-eap7-modules
-          - name: os-eap-live-modules
+          - name: os-eap72-online-modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
           - name: os-java-run

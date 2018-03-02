@@ -1,0 +1,7 @@
+schema_version: 1
+name: os-eap72-online-openshift
+version: '1.0'
+description: os-eap72-online-openshift script package.
+execute:
+- script: configure.sh
+  user: '185'
