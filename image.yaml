@@ -5,6 +5,8 @@ description: "Red Hat JBoss Enterprise Application Platform 7.1 OpenShift contai
 version: "1.2"
 from: "jboss-eap-7/eap71:latest"
 labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-eap71-openshift-container"
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP 7.1"
     - name: "io.k8s.display-name"
@@ -163,5 +165,5 @@ run:
           - "/opt/eap/bin/openshift-launch.sh"
 osbs:
       repository:
-            name: jboss-eap-7-docker
+            name: containers/jboss-eap-7
             branch: jb-eap-7.1-openshift-rhel-7
