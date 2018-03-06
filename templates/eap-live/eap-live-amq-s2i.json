@@ -5,21 +5,21 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
-            "version": "1.4.8",
-            "openshift.io/display-name": "JBoss EAP 7 Live + A-MQ (with https)",
+            "version": "1.4.9",
+            "openshift.io/display-name": "JBoss EAP Online + A-MQ (with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example EAP 7 Live A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration, using Red Hat JBoss A-MQ and secure communication using https.",
+            "description": "An example EAP Online A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat EAP Online based application, including a build configuration, application deployment configuration, using Red Hat JBoss A-MQ and secure communication using https.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap7-live-amq-s2i"
+        "name": "eap-online-amq-s2i"
     },
     "labels": {
-        "template": "eap7-live-amq-s2i",
-        "xpaas": "1.4.8"
+        "template": "eap-online-amq-s2i",
+        "xpaas": "1.4.9"
     },
-    "message": "A new EAP 7 Live and A-MQ based application with SSL support has been created in your project. The username/password for accessing the A-MQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new EAP Online and A-MQ based application with SSL support has been created in your project. The username/password for accessing the A-MQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -464,7 +464,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap7-live-openshift:latest"
+                            "name": "eap-online-openshift:12"
                         }
                     }
                 },

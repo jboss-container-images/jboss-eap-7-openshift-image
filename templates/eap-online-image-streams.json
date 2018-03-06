@@ -13,7 +13,7 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "eap72-online-openshift",
+                "name": "eap-online-openshift",
                 "annotations": {
                     "openshift.io/display-name": "JBoss EAP Online",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -21,7 +21,7 @@
                 }
             },
             "labels": {
-                "xpaas": "1.4.8"
+                "xpaas": "1.4.9"
             },
             "spec": {
                 "tags": [
@@ -59,7 +59,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "eap72-online-openshift:12.0"
+                            "name": "eap-online-openshift:12.0"
                         }
                     }
                 ]

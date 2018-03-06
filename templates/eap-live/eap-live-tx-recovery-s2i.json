@@ -5,21 +5,21 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
-            "version": "1.4.8",
-            "openshift.io/display-name": "JBoss EAP 7 Live (tx recovery)",
+            "version": "1.4.9",
+            "openshift.io/display-name": "JBoss EAP Online (tx recovery)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example EAP 7 Live application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration and insecure communication using http.  The template also demonstrates how to enable automated transaction recovery on scale down of application pods.  Automated transaction recovery is currently Technology Preview.",
+            "description": "An example EAP Online application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat EAP Online based application, including a build configuration, application deployment configuration and insecure communication using http.  The template also demonstrates how to enable automated transaction recovery on scale down of application pods.  Automated transaction recovery is currently Technology Preview.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap7-live-tx-recovery-s2i"
+        "name": "eap-online-tx-recovery-s2i"
     },
     "labels": {
-        "template": "eap7-live-tx-recovery-s2i",
+        "template": "eap-online-tx-recovery-s2i",
         "xpaas": "1.4.8"
     },
-    "message": "A new EAP 7 Live based application has been created in your project.",
+    "message": "A new EAP Online based application has been created in your project.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -266,7 +266,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap7-live-openshift:1.1"
+                            "name": "eap-online-openshift:12"
                         }
                     }
                 },
