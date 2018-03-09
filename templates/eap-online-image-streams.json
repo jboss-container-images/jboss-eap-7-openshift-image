@@ -34,7 +34,7 @@
                             "supports": "eap:7.2,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.2.0.CR1",
+                            "sampleRef": "7.1",
                             "version": "12",
                             "openshift.io/display-name": "Red Hat JBoss EAP Online (Tech Preview)"
                         },
@@ -53,7 +53,7 @@
                             "supports": "eap:7.2,javaee:7,java:8",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.2.0.CR1",
+                            "sampleRef": "7.1",
                             "version": "12.0",
                             "openshift.io/display-name": "Red Hat JBoss EAP Online (Tech Preview)"
                         },
