@@ -496,7 +496,7 @@
                             },
                             {
                                 "name": "MAVEN_ARGS_APPEND",
-                                "value": ""
+                                "value": "-Pjboss-community-repository"
                             },
                             {
                                 "name": "MAVEN_MIRROR_URL",

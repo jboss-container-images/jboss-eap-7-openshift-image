@@ -114,6 +114,7 @@ modules:
           - name: os-eap7-openshift
           - name: os-eap-online-openshift
           - name: os-eap7-modules
+          - name: os-eap-online-modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
           - name: os-java-run

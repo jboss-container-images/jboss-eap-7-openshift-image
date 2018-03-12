@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module-alias xmlns="urn:jboss:module:1.5" name="org.infinispan.cachestore.remote" target-name="org.infinispan.persistence.remote"/>
