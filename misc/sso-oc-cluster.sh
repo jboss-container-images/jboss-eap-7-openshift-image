@@ -5,6 +5,7 @@ oc login -u system:admin
 oc adm policy add-cluster-role-to-user cluster-admin developer
 oc login -u developer
 oc create route edge --service=docker-registry -n default
+oc create -n openshift -f templates/eap-online-image-streams.json
 sleep 5
 AUTH=`oc whoami -t`
 CLUSTER_IP=`oc get -n default svc/docker-registry -o=yaml | grep clusterIP  | awk -F: '{print $2}'`

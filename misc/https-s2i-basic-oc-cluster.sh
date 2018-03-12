@@ -14,4 +14,5 @@ docker tag jboss-eap-7-tech-preview/eap-online-openshift:12.0 $CLUSTER_IP:5000/o
 docker tag jboss-eap-7-tech-preview/eap-online-openshift:12.0 $CLUSTER_IP:5000/openshift/eap-online-openshift:12.0
 docker push $CLUSTER_IP:5000/openshift/eap-online-openshift:12
 docker push $CLUSTER_IP:5000/openshift/eap-online-openshift:12.0
-oc process -n myproject -f templates/eap-online/eap-online-basic-s2i.json -p APPLICATION_NAME=helloworld -p SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts -p SOURCE_REPOSITORY_REF=7.0.0.GA -p CONTEXT_DIR=helloworld | oc create -n myproject -f -
+oc process -n myproject -f templates/eap-online/eap-online-https-s2i.json -p APPLICATION_NAME=helloworld-https -p SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts -p SOURCE_REPOSITORY_REF=7.0.0.GA -p CONTEXT_DIR=helloworld | oc create -n myproject -f -
+

@@ -1,5 +1,7 @@
 #!/bin/bash
-
+############################################################################################################################################
+# NOTE: this needs the amq imagestreams installed: oc create -n openshift -f ~/os/git/application-templates/amq/amq62-image-stream.json    #
+############################################################################################################################################
 oc cluster up # start cluster
 oc login -u system:admin
 oc adm policy add-cluster-role-to-user cluster-admin developer
@@ -14,4 +16,5 @@ docker tag jboss-eap-7-tech-preview/eap-online-openshift:12.0 $CLUSTER_IP:5000/o
 docker tag jboss-eap-7-tech-preview/eap-online-openshift:12.0 $CLUSTER_IP:5000/openshift/eap-online-openshift:12.0
 docker push $CLUSTER_IP:5000/openshift/eap-online-openshift:12
 docker push $CLUSTER_IP:5000/openshift/eap-online-openshift:12.0
-oc process -n myproject -f templates/eap-online/eap-online-basic-s2i.json -p APPLICATION_NAME=helloworld -p SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts -p SOURCE_REPOSITORY_REF=7.0.0.GA -p CONTEXT_DIR=helloworld | oc create -n myproject -f -
+oc process -n myproject -f templates/eap-online/eap-online-amq-s2i.json -p APPLICATION_NAME=helloworld-amq -p SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts -p SOURCE_REPOSITORY_REF=7.0.0.GA -p CONTEXT_DIR=helloworld | oc create -n myproject -f -
+
