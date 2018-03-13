@@ -151,8 +151,8 @@ artifacts:
       md5: 7c743e35463db5f55f415dd666d705c5
     - path: oauth-20100527.jar
       md5: 91c7c70579f95b7ddee95b2143a49b41
-    - path: activemq-rar-5.11.0.redhat-621084.rar
-      md5: 207e17ac8102c93233fe2764d1fe8499
+    - url: https://maven.repository.redhat.com/ga/org/apache/activemq/activemq-rar/5.11.0.redhat-630329/activemq-rar-5.11.0.redhat-630329.rar
+      md5: 76ed338d86bb3dbba2d4bd48daff7dbb
     - path: rh-sso-7.1.0-eap7-adapter.zip
       description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44831&product=core.service.rhsso&version=7.0&downloadType=distributions"
       sha256: 3d12e310a9b15f79cd46255819a0198acd569921797204c0936772e71dec8d23
