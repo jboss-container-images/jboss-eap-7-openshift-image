@@ -14,3 +14,8 @@ docker tag jboss-eap-7-tech-preview/eap-online-openshift:12.0 $CLUSTER_IP:5000/o
 docker tag jboss-eap-7-tech-preview/eap-online-openshift:12.0 $CLUSTER_IP:5000/openshift/eap-online-openshift:12.0
 docker push $CLUSTER_IP:5000/openshift/eap-online-openshift:12
 docker push $CLUSTER_IP:5000/openshift/eap-online-openshift:12.0
+# testsuite uses the docker img
+docker tag jboss-eap-7/eap-online:latest $CLUSTER_IP:5000/openshift/eap-online:12
+docker tag jboss-eap-7/eap-online:latest $CLUSTER_IP:5000/openshift/eap-online:12.0
+docker push $CLUSTER_IP:5000/openshift/eap-online:12
+docker push $CLUSTER_IP:5000/openshift/eap-online:12.0
