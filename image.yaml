@@ -217,25 +217,6 @@ packages:
           - python-requests
           - python-enum34
           - PyYAML
-artifacts:
-    - url: https://maven.repository.redhat.com/ga/org/jolokia/jolokia-jvm/1.3.6.redhat-1/jolokia-jvm-1.3.6.redhat-1-agent.jar
-      md5: 75e5b5ba0b804cd9def9f20a70af649f
-    - path: javax.json-1.0.4.jar
-      md5: 569870f975deeeb6691fcb9bc02a9555
-    - path: jboss-logmanager-ext-1.0.0.Alpha2-redhat-1.jar
-      md5: 7c743e35463db5f55f415dd666d705c5
-    - path: oauth-20100527.jar
-      md5: 91c7c70579f95b7ddee95b2143a49b41
-    - path: activemq-rar-5.11.0.redhat-621084.rar
-      md5: 207e17ac8102c93233fe2764d1fe8499
-    - path: hawkular-javaagent-1.0.0.CR5-redhat-1-shaded.jar
-      md5: f5d3e0220e10c706ef86af84771cf74e
-    - path: rh-sso-7.1.0-eap7-adapter.zip
-      description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44831&product=core.service.rhsso&version=7.0&downloadType=distributions"
-      sha256: 3d12e310a9b15f79cd46255819a0198acd569921797204c0936772e71dec8d23
-    - path: rh-sso-7.1.2-saml-eap7-adapter.zip
-      description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44801&product=core.service.rhsso&version=7.0&downloadType=distributions"
-      sha256: f48b2b15ccfd17589f5a424c689697b8cfefbe95a553ba589c14eaba4978a823
 run:
       user: 185
       cmd:
