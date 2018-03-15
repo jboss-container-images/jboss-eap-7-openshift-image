@@ -6,7 +6,7 @@ version: "12.0"
 from: "jboss-eap-7/eap-online:latest"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap71-openshift-container"
+      value: "jboss-eap-7-eap-cd-openshift-container"
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP Online"
     - name: "io.k8s.display-name"
