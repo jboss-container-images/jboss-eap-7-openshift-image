@@ -2,9 +2,9 @@
     "kind": "List",
     "apiVersion": "v1",
     "metadata": {
-        "name": "jboss-online-image-streams",
+        "name": "jboss-cd-image-streams",
         "annotations": {
-            "description": "ImageStream definitions for Red Hat JBoss Enterprise Application Platform Online.",
+            "description": "ImageStream definitions for JBoss Enterprise Application Platform Continuous Delivery.",
             "openshift.io/provider-display-name": "Red Hat, Inc."
         }
     },
@@ -13,9 +13,9 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "eap-online-openshift",
+                "name": "eap-cd-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "JBoss EAP Online",
+                    "openshift.io/display-name": "JBoss EAP Continuous Delivery",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "12.0"
                 }
@@ -28,7 +28,7 @@
                     {
                         "name": "12",
                         "annotations": {
-                            "description": "The latest available build of JBoss EAP Online Tech Preview.",
+                            "description": "The latest available build of JBoss EAP Continuous Delivery Tech Preview.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -36,7 +36,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.1",
                             "version": "12",
-                            "openshift.io/display-name": "Red Hat JBoss EAP Online (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP Continuous Delivery (Tech Preview)"
                         },
                         "from": {
                             "kind": "ImageStreamTag",
@@ -47,7 +47,7 @@
                     {
                         "name": "12.0",
                         "annotations": {
-                            "description": "JBoss EAP Online Tech Preview S2I Image",
+                            "description": "JBoss EAP Continuous Delivery Tech Preview S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -55,11 +55,11 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.1",
                             "version": "12.0",
-                            "openshift.io/display-name": "Red Hat JBoss EAP Online (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP Continuous Delivery (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "eap-online-openshift:12.0"
+                            "name": "eap-cd-openshift:12.0"
                         }
                     }
                 ]

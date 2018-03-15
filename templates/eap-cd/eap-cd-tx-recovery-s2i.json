@@ -4,22 +4,22 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-eap",
-            "tags": "eap,javaee,java,jboss,hidden",
+            "tags": "eap,javaee,java,jboss",
             "version": "1.4.9",
-            "openshift.io/display-name": "JBoss EAP Online (with https)",
+            "openshift.io/display-name": "JBoss Enterprise Application Platform Continuous Delivery (tx recovery)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example EAP Online application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat Enterprise Application Online application, including a build configuration, application deployment configuration and secure communication using https.",
+            "description": "An example JBoss Enterprise Application Platform Continuous Delivery application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform Continuous Delivery based application, including a build configuration, application deployment configuration and insecure communication using http.  The template also demonstrates how to enable automated transaction recovery on scale down of application pods.  Automated transaction recovery is currently Technology Preview.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-live-https-s2i"
+        "name": "eap-cd-tx-recovery-s2i"
     },
     "labels": {
-        "template": "eap-live-https-s2i",
-        "xpaas": "1.4.9"
+        "template": "eap-cd-tx-recovery-s2i",
+        "xpaas": "1.4.8"
     },
-    "message": "A new EAP Online based application with SSL support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new JBoss EAP CD based application has been created in your project.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -32,13 +32,6 @@
             "displayName": "Custom http Route Hostname",
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Custom https Route Hostname",
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
-            "name": "HOSTNAME_HTTPS",
             "value": "",
             "required": false
         },
@@ -78,41 +71,6 @@
             "required": false
         },
         {
-            "displayName": "Server Keystore Secret Name",
-            "description": "The name of the secret containing the keystore file",
-            "name": "HTTPS_SECRET",
-            "value": "eap7-app-secret",
-            "required": true
-        },
-        {
-            "displayName": "Server Keystore Filename",
-            "description": "The name of the keystore file within the secret",
-            "name": "HTTPS_KEYSTORE",
-            "value": "keystore.jks",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Type",
-            "description": "The type of the keystore file (JKS or JCEKS)",
-            "name": "HTTPS_KEYSTORE_TYPE",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "HTTPS_NAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "HTTPS_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
             "displayName": "A-MQ cluster password",
             "description": "A-MQ cluster admin password",
             "name": "MQ_CLUSTER_PASSWORD",
@@ -142,34 +100,6 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "value": "openshift",
             "required": true
-        },
-        {
-            "displayName": "JGroups Secret Name",
-            "description": "The name of the secret containing the keystore file",
-            "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap7-app-secret",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Keystore Filename",
-            "description": "The name of the keystore file within the secret",
-            "name": "JGROUPS_ENCRYPT_KEYSTORE",
-            "value": "jgroups.jceks",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "",
-            "required": false
         },
         {
             "displayName": "JGroups Cluster Password",
@@ -204,6 +134,20 @@
             "name": "MEMORY_LIMIT",
             "value": "1Gi",
             "required": false
+        },
+        {
+            "displayName": "EAP Volume Size",
+            "description": "Size of the volume used by EAP for persisting data.",
+            "name": "VOLUME_CAPACITY",
+            "value": "1Gi",
+            "required": true
+        },
+        {
+             "displayName": "Split the data directory?",
+             "description": "Split the data directory for each node in a cluster.",
+             "name": "SPLIT_DATA",
+             "value": "true",
+             "required": false
         }
     ],
     "objects": [
@@ -228,30 +172,6 @@
                 },
                 "annotations": {
                     "description": "The web server's http port."
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 8443,
-                        "targetPort": 8443
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The web server's https port."
                 }
             }
         },
@@ -302,29 +222,6 @@
             }
         },
         {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-https",
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's https service."
-                }
-            },
-            "spec": {
-                "host": "${HOSTNAME_HTTPS}",
-                "to": {
-                    "name": "secure-${APPLICATION_NAME}"
-                },
-                "tls": {
-                    "termination": "passthrough"
-                }
-            }
-        },
-        {
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
@@ -369,7 +266,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-online-openshift:12"
+                            "name": "eap-cd-openshift:12"
                         }
                     }
                 },
@@ -457,18 +354,6 @@
                                         "memory": "${MEMORY_LIMIT}"
                                     }
                                 },
-                                "volumeMounts": [
-                                    {
-                                        "name": "eap-keystore-volume",
-                                        "mountPath": "/etc/eap-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
-                                        "name": "eap-jgroups-keystore-volume",
-                                        "mountPath": "/etc/jgroups-encrypt-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -488,6 +373,12 @@
                                         ]
                                     }
                                 },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/eap/standalone/partitioned_data",
+                                        "name": "${APPLICATION_NAME}-eap-pvol"
+                                    }
+                                ],
                                 "ports": [
                                     {
                                         "name": "jolokia",
@@ -497,11 +388,6 @@
                                     {
                                         "name": "http",
                                         "containerPort": 8080,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "https",
-                                        "containerPort": 8443,
                                         "protocol": "TCP"
                                     },
                                     {
@@ -524,24 +410,137 @@
                                         "value": "8888"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/eap-secret-volume"
+                                        "name": "MQ_CLUSTER_PASSWORD",
+                                        "value": "${MQ_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE_TYPE",
-                                        "value": "${HTTPS_KEYSTORE_TYPE}"
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
+                                        "name": "JGROUPS_CLUSTER_PASSWORD",
+                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "name": "AUTO_DEPLOY_EXPLODED",
+                                        "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "SPLIT_DATA",
+                                        "value": "${SPLIT_DATA}"
+                                    }
+                                ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-eap-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-eap-claim"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-migration",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-migration"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}:latest"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-migration"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-migration",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-migration",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 75,
+                        "containers": [
+                            {
+                                "name": "${APPLICATION_NAME}-migration",
+                                "image": "${APPLICATION_NAME}",
+                                "command": [
+                                    "/opt/eap/bin/openshift-migrate.sh"
+                                ],
+                                "imagePullPolicy": "Always",
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/eap/standalone/partitioned_data",
+                                        "name": "${APPLICATION_NAME}-eap-pvol"
+                                    }
+                                ],
+                                "ports": [
+                                    {
+                                        "name": "jolokia",
+                                        "containerPort": 8778,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "http",
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "ping",
+                                        "containerPort": 8888,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
                                         "name": "MQ_CLUSTER_PASSWORD",
@@ -556,50 +555,48 @@
                                         "value": "${MQ_TOPICS}"
                                     },
                                     {
-                                        "name": "JGROUPS_ENCRYPT_SECRET",
-                                        "value": "${JGROUPS_ENCRYPT_SECRET}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
-                                        "value": "/etc/jgroups-encrypt-secret-volume"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
-                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_NAME",
-                                        "value": "${JGROUPS_ENCRYPT_NAME}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
-                                    },
-                                    {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "SPLIT_DATA",
+                                        "value": "${SPLIT_DATA}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
                             {
-                                "name": "eap-keystore-volume",
-                                "secret": {
-                                    "secretName": "${HTTPS_SECRET}"
-                                }
-                            },
-                            {
-                                "name": "eap-jgroups-keystore-volume",
-                                "secret": {
-                                    "secretName": "${JGROUPS_ENCRYPT_SECRET}"
+                                "name": "${APPLICATION_NAME}-eap-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-eap-claim"
                                 }
                             }
                         ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-eap-claim",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteMany"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }

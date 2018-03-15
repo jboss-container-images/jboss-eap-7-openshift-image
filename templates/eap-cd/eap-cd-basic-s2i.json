@@ -6,26 +6,26 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "1.4.9",
-            "openshift.io/display-name": "JBoss EAP 7 Online (no https)",
+            "openshift.io/display-name": "JBoss Enterprise Application Platform Continuous Delivery (no https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example EAP Online application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat Enterprise Application Server based application, including a build configuration, application deployment configuration and insecure communication using http.",
+            "description": "An example JBoss Enterprise Application Platform Continuous Delivery application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform Continuous Delivery based application, including a build configuration, application deployment configuration and insecure communication using http.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-online-basic-s2i"
+        "name": "eap-cd-basic-s2i"
     },
     "labels": {
-        "template": "eap-online-basic-s2i",
+        "template": "eap-cd-basic-s2i",
         "xpaas": "1.4.9"
     },
-    "message": "A new EAP Online based application has been created in your project.",
+    "message": "A new JBoss EAP CD based application has been created in your project.",
     "parameters": [
         {
             "displayName": "Application Name",
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
-            "value": "eap-online-app",
+            "value": "eap-cd-app",
             "required": true
         },
         {
@@ -252,7 +252,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-online-openshift:12"
+                            "name": "eap-cd-openshift:12"
                         }
                     }
                 },
