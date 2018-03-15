@@ -59,7 +59,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "eap-cd-openshift:12.0"
+                            "name": "jboss-eap-7-tech-preview/eap-cd-openshift:12.0"
                         }
                     }
                 ]
