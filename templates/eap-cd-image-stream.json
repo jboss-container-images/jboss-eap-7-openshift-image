@@ -21,7 +21,7 @@
                 }
             },
             "labels": {
-                "xpaas": "1.4.9"
+                "xpaas": "1.4.10"
             },
             "spec": {
                 "tags": [
@@ -36,7 +36,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "7.1",
                             "version": "12",
-                            "openshift.io/display-name": "JBoss EAP Continuous Delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
                         "from": {
                             "kind": "ImageStreamTag",
@@ -47,7 +47,7 @@
                     {
                         "name": "12.0",
                         "annotations": {
-                            "description": "JBoss EAP Continuous Delivery Tech Preview S2I Image",
+                            "description": "JBoss EAP continuous delivery Tech Preview S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
