@@ -31,3 +31,4 @@ docker push $CLUSTER_IP:$PORT/$PREFIX/$NAME:$VERSION_TAG
 #docker tag jboss-eap-7/eap-cd:latest $CLUSTER_IP:$PORT/$PREFIX/$NAME:$VERSION_TAG
 #docker push $CLUSTER_IP:5000/openshift/eap-cd:12
 #docker push $CLUSTER_IP:5000/openshift/eap-cd:12.0
+
