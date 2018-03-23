@@ -4,22 +4,22 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-eap",
-            "tags": "eap,javaee,java,jboss,hidden",
+            "tags": "eap,javaee,java,jboss",
             "version": "1.4.10",
-            "openshift.io/display-name": "JBoss EAP CD + MongoDB (with https)",
+            "openshift.io/display-name": "JBoss EAP CD + MySQL (with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example JBoss Enterprise Application Platform continuous delivery application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop JBoss Enterprise Application Server continuous delivery based application, including a build configuration, application deployment configuration, database deployment configuration for MongoDB using persistence and secure communication using https.",
+            "description": "An example JBoss Enterprise Application Platform continuous delivery application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop JBoss Enterprise Application Server continuous delivery based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using persistence and secure communication using https.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-mongodb-persistent-s2i"
+        "name": "eap-cd-mysql-persistent-s2i"
     },
     "labels": {
-        "template": "eap-cd-mongodb-persistent-s2i",
+        "template": "eap-cd-mysql-persistent-s2i",
         "xpaas": "1.4.10"
     },
-    "message": "A new JBoss EAP CD and MongoDB persistent based application with SSL support has been created in your project. The username/password for accessing the MongoDB database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD} (Admin password is \"${DB_ADMIN_PASSWORD}\"). Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new EAP CD and MySQL persistent based application with SSL support has been created in your project. The username/password for accessing the MySQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -60,14 +60,14 @@
             "displayName": "Context Directory",
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "todolist/todolist-mongodb",
+            "value": "todolist/todolist-jdbc",
             "required": false
         },
         {
             "displayName": "Database JNDI Name",
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql",
             "name": "DB_JNDI",
-            "value": "",
+            "value": "java:jboss/datasources/TodoListDS",
             "required": false
         },
         {
@@ -152,21 +152,33 @@
             "required": false
         },
         {
-            "displayName": "MongoDB No Preallocation",
-            "description": "Disable data file preallocation.",
-            "name": "MONGODB_NOPREALLOC",
+            "displayName": "MySQL Lower Case Table Names",
+            "description": "Sets how the table names are stored and compared.",
+            "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
             "required": false
         },
         {
-            "displayName": "MongoDB Small Files",
-            "description": "Set MongoDB to use a smaller default data file size.",
-            "name": "MONGODB_SMALLFILES",
+            "displayName": "MySQL Maximum number of connections",
+            "description": "The maximum permitted number of simultaneous client connections.",
+            "name": "MYSQL_MAX_CONNECTIONS",
             "required": false
         },
         {
-            "displayName": "MongoDB Quiet",
-            "description": "Runs MongoDB in a quiet mode that attempts to limit the amount of output.",
-            "name": "MONGODB_QUIET",
+            "displayName": "MySQL FullText Minimum Word Length",
+            "description": "The minimum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MIN_WORD_LEN",
+            "required": false
+        },
+        {
+            "displayName": "MySQL FullText Maximum Word Length",
+            "description": "The maximum length of the word to be included in a FULLTEXT index.",
+            "name": "MYSQL_FT_MAX_WORD_LEN",
+            "required": false
+        },
+        {
+            "displayName": "MySQL AIO",
+            "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
+            "name": "MYSQL_AIO",
             "required": false
         },
         {
@@ -189,14 +201,6 @@
             "displayName": "Database Password",
             "description": "Database user password",
             "name": "DB_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "Database admin password",
-            "description": "Database admin password",
-            "name": "DB_ADMIN_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "required": true
@@ -281,10 +285,10 @@
             "required": false
         },
         {
-            "displayName": "MongoDB Image Stream Tag",
-            "description": "The tag to use for the \"mongodb\" image stream.  Typically, this aligns with the major.minor version of MongoDB.",
-            "name": "MONGODB_IMAGE_STREAM_TAG",
-            "value": "3.2",
+            "displayName": "MySQL Image Stream Tag",
+            "description": "The tag to use for the \"mysql\" image stream.  Typically, this aligns with the major.minor version of MySQL.",
+            "name": "MYSQL_IMAGE_STREAM_TAG",
+            "value": "5.7",
             "required": true
         },
         {
@@ -316,7 +320,7 @@
                 },
                 "annotations": {
                     "description": "The web server's http port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mongodb\", \"kind\": \"Service\"}]"
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -341,7 +345,7 @@
                 },
                 "annotations": {
                     "description": "The web server's https port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mongodb\", \"kind\": \"Service\"}]"
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -351,16 +355,16 @@
             "spec": {
                 "ports": [
                     {
-                        "port": 27017,
-                        "targetPort": 27017
+                        "port": 3306,
+                        "targetPort": 3306
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mongodb"
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
                 }
             },
             "metadata": {
-                "name": "${APPLICATION_NAME}-mongodb",
+                "name": "${APPLICATION_NAME}-mysql",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -627,7 +631,7 @@
                                 "env": [
                                     {
                                         "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mongodb=DB"
+                                        "value": "${APPLICATION_NAME}-mysql=DB"
                                     },
                                     {
                                         "name": "DB_JNDI",
@@ -646,8 +650,8 @@
                                         "value": "${DB_DATABASE}"
                                     },
                                     {
-                                        "name": "DB_ADMIN_PASSWORD",
-                                        "value": "${DB_ADMIN_PASSWORD}"
+                                        "name": "TX_DATABASE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-mysql=DB"
                                     },
                                     {
                                         "name": "DB_MIN_POOL_SIZE",
@@ -732,6 +736,14 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "DEFAULT_JOB_REPOSITORY",
+                                        "value": "${APPLICATION_NAME}-mysql"
+                                    },
+                                    {
+                                        "name": "TIMER_SERVICE_DATA_STORE",
+                                        "value": "${APPLICATION_NAME}-mysql"
                                     }
                                 ]
                             }
@@ -758,7 +770,7 @@
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${APPLICATION_NAME}-mongodb",
+                "name": "${APPLICATION_NAME}-mysql",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
@@ -773,12 +785,12 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-mongodb"
+                                "${APPLICATION_NAME}-mysql"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "mongodb:${MONGODB_IMAGE_STREAM_TAG}"
+                                "name": "mysql:${MYSQL_IMAGE_STREAM_TAG}"
                             }
                         }
                     },
@@ -788,13 +800,13 @@
                 ],
                 "replicas": 1,
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mongodb"
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
                 },
                 "template": {
                     "metadata": {
-                        "name": "${APPLICATION_NAME}-mongodb",
+                        "name": "${APPLICATION_NAME}-mysql",
                         "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-mongodb",
+                            "deploymentConfig": "${APPLICATION_NAME}-mysql",
                             "application": "${APPLICATION_NAME}"
                         }
                     },
@@ -802,72 +814,77 @@
                         "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
-                                "name": "${APPLICATION_NAME}-mongodb",
-                                "image": "mongodb",
+                                "name": "${APPLICATION_NAME}-mysql",
+                                "image": "mysql",
                                 "imagePullPolicy": "Always",
                                 "ports": [
                                     {
-                                        "containerPort": 27017,
+                                        "containerPort": 3306,
                                         "protocol": "TCP"
                                     }
                                 ],
                                 "readinessProbe": {
                                     "timeoutSeconds": 1,
-                                    "initialDelaySeconds": 3,
+                                    "initialDelaySeconds": 5,
                                     "exec": {
-                                        "command": [ "/bin/sh", "-i", "-c", "mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""]
+                                        "command": [ "/bin/sh", "-i", "-c",
+                                            "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"]
                                     }
                                 },
                                 "livenessProbe": {
                                     "timeoutSeconds": 1,
                                     "initialDelaySeconds": 30,
                                     "tcpSocket": {
-                                        "port": 27017
+                                        "port": 3306
                                     }
                                 },
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/var/lib/mongodb/data",
-                                        "name": "${APPLICATION_NAME}-mongodb-pvol"
+                                        "mountPath": "/var/lib/mysql/data",
+                                        "name": "${APPLICATION_NAME}-mysql-pvol"
                                     }
                                 ],
                                 "env": [
                                     {
-                                        "name": "MONGODB_USER",
+                                        "name": "MYSQL_USER",
                                         "value": "${DB_USERNAME}"
                                     },
                                     {
-                                        "name": "MONGODB_PASSWORD",
+                                        "name": "MYSQL_PASSWORD",
                                         "value": "${DB_PASSWORD}"
                                     },
                                     {
-                                        "name": "MONGODB_DATABASE",
+                                        "name": "MYSQL_DATABASE",
                                         "value": "${DB_DATABASE}"
                                     },
                                     {
-                                        "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "${DB_ADMIN_PASSWORD}"
+                                        "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
+                                        "value": "${MYSQL_LOWER_CASE_TABLE_NAMES}"
                                     },
                                     {
-                                        "name": "MONGODB_NOPREALLOC",
-                                        "value": "${MONGODB_NOPREALLOC}"
+                                        "name": "MYSQL_MAX_CONNECTIONS",
+                                        "value": "${MYSQL_MAX_CONNECTIONS}"
                                     },
                                     {
-                                        "name": "MONGODB_SMALLFILES",
-                                        "value": "${MONGODB_SMALLFILES}"
+                                        "name": "MYSQL_FT_MIN_WORD_LEN",
+                                        "value": "${MYSQL_FT_MIN_WORD_LEN}"
                                     },
                                     {
-                                        "name": "MONGODB_QUIET",
-                                        "value": "${MONGODB_QUIET}"
+                                        "name": "MYSQL_FT_MAX_WORD_LEN",
+                                        "value": "${MYSQL_FT_MAX_WORD_LEN}"
+                                    },
+                                    {
+                                        "name": "MYSQL_AIO",
+                                        "value": "${MYSQL_AIO}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
                             {
-                                "name": "${APPLICATION_NAME}-mongodb-pvol",
+                                "name": "${APPLICATION_NAME}-mysql-pvol",
                                 "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-mongodb-claim"
+                                    "claimName": "${APPLICATION_NAME}-mysql-claim"
                                 }
                             }
                         ]
@@ -879,7 +896,7 @@
             "apiVersion": "v1",
             "kind": "PersistentVolumeClaim",
             "metadata": {
-                "name": "${APPLICATION_NAME}-mongodb-claim",
+                "name": "${APPLICATION_NAME}-mysql-claim",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
