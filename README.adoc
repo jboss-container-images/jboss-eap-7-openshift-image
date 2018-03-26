@@ -1,4 +1,4 @@
-# JBoss Enterprise Application Platform Continuous Delivery OpenShift container image
+# JBoss Enterprise Application Platform continuous delivery OpenShift container image
 
 NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image/tree/eap-cd[JBoss EAP CD container image]
 

@@ -8,9 +8,9 @@ labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP Continuous Delivery"
+      value: "Platform for building and running JavaEE applications on JBoss EAP continuous delivery"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP Continuous Delivery"
+      value: "JBoss EAP continuous delivery"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -97,10 +97,13 @@ ports:
     - value: 8443
 modules:
       repositories:
-          - path: modules
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module
+                  ref: master
+          - name: jboss-eap-modules
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
                   ref: master
       install:
           - name: dynamic-resources
@@ -147,23 +150,6 @@ packages:
           - python-requests
           - python-enum34
           - PyYAML
-artifacts:
-    - path: javax.json-1.0.4.jar
-      md5: 569870f975deeeb6691fcb9bc02a9555
-    - path: jboss-logmanager-ext-1.0.0.Alpha2-redhat-1.jar
-      md5: 7c743e35463db5f55f415dd666d705c5
-    - path: oauth-20100527.jar
-      md5: 91c7c70579f95b7ddee95b2143a49b41
-    - url: https://maven.repository.redhat.com/ga/org/apache/activemq/activemq-rar/5.11.0.redhat-630329/activemq-rar-5.11.0.redhat-630329.rar
-      md5: 76ed338d86bb3dbba2d4bd48daff7dbb
-    - path: hawkular-javaagent-1.0.1.Final-redhat-2-shaded.jar
-      md5: f5d3e0220e10c706ef86af84771cf74e
-    - path: rh-sso-7.2.0.GA-eap7-adapter.zip
-      description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44831&product=core.service.rhsso&version=7.0&downloadType=distributions"
-      sha256: 6f12b49724e0b1fbd07adddaf72327ec9e4c330238ef747e15ec460dfe892e98
-    - path: rh-sso-7.2.0.GA-saml-eap7-adapter.zip
-      description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44801&product=core.service.rhsso&version=7.0&downloadType=distributions"
-      sha256: 60ae348b00b1b4ffcbe2f8fe19635d27e55b92610358bdd0bd18e16a855ab24b
 run:
       user: 185
       cmd:

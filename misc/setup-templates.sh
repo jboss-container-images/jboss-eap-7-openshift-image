@@ -13,7 +13,9 @@ oc adm policy add-cluster-role-to-user cluster-admin developer
 oc login -u developer
 oc create route edge --service=docker-registry -n default
 oc create -n $PREFIX -f templates/eap-cd-image-stream.json
-oc create -n myproject -f secrets
+oc create -n myproject -f https://raw.githubusercontent.com/luck3y/application-templates/master/secrets/eap-app-secret.json
+oc create -n myproject -f https://raw.githubusercontent.com/luck3y/application-templates/master/secrets/eap7-app-secret.json
+oc create -n myproject -f https://raw.githubusercontent.com/luck3y/application-templates/master/secrets/sso-app-secret.json
 sleep 5
 AUTH=`oc whoami -t`
 CLUSTER_IP=`oc get -n default svc/docker-registry -o=yaml | grep clusterIP  | awk -F: '{print $2}'`
