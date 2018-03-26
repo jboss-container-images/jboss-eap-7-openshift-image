@@ -26,6 +26,25 @@
             "spec": {
                 "tags": [
                     {
+                        "name": "latest",
+                        "annotations": {
+                            "description": "The latest available build of JBoss EAP Continuous Delivery Tech Preview.",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.2,javaee:7,java:8",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "7.1",
+                            "version": "12",
+                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "latest"
+
+                        }
+                    },
+                    {
                         "name": "12",
                         "annotations": {
                             "description": "The latest available build of JBoss EAP Continuous Delivery Tech Preview.",
@@ -45,6 +64,24 @@
                         }
                     },
                     {
+                        "name": "latest",
+                        "annotations": {
+                            "description": "JBoss EAP continuous delivery Tech Preview S2I Image",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.2,javaee:7,java:8",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "7.1",
+                            "version": "12.0",
+                            "openshift.io/display-name": "JBoss EAP Continuous Delivery (Tech Preview)"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "jboss-eap-7-tech-preview/eap-cd-openshift:latest"
+                        }
+                    },
+                    {
                         "name": "12.0",
                         "annotations": {
                             "description": "JBoss EAP continuous delivery Tech Preview S2I Image",
@@ -59,7 +96,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "eap-cd-openshift:12.0"
+                            "name": "jboss-eap-7-tech-preview/eap-cd-openshift:12.0"
                         }
                     }
                 ]
