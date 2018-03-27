@@ -99,7 +99,7 @@ modules:
       repositories:
           - name: cct_module
             git:
-                  url: https://github.com/jboss-openshift/cct_module
+                  url: https://github.com/jboss-openshift/cct_module.git
                   ref: master
           - name: jboss-eap-modules
             git:
