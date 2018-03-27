@@ -60,7 +60,7 @@
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.1.0.GA",
+            "value": "1.3",
             "required": false
         },
         {
@@ -323,7 +323,6 @@
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
                 }

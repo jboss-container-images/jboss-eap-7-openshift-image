@@ -46,7 +46,7 @@
             "displayName": "Git Repository URL",
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/jbossas/eap-quickstarts/openshift",
+            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
             "required": true
         },
         {
@@ -295,7 +295,6 @@
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
                 }
