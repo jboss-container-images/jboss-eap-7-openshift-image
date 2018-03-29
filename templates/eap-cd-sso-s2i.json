@@ -29,13 +29,6 @@
             "required": true
         },
         {
-            "displayName": "Custom http Route Hostname",
-            "description": "Hostname for http service route (e.g. eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server.",
-            "name": "HOSTNAME_HTTP",
-            "value": "",
-            "required": true
-        },
-        {
             "displayName": "Custom https Route Hostname",
             "description": "Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server.",
             "name": "HOSTNAME_HTTPS",
