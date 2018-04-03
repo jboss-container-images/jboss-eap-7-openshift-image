@@ -487,10 +487,6 @@
                                 "value": "${ARTIFACT_DIR}"
                             },
                             {
-                                "name": "MAVEN_ARGS_APPEND",
-                                "value": "-Pjboss-community-repository"
-                            },
-                            {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
                             }
