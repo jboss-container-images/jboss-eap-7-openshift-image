@@ -4,7 +4,7 @@
     "metadata": {
         "name": "jboss-cd-image-streams",
         "annotations": {
-            "description": "ImageStream definitions for JBoss Enterprise Application Platform Continuous Delivery.",
+            "description": "ImageStream definitions for JBoss Enterprise Application Platform continuous delivery.",
             "openshift.io/provider-display-name": "Red Hat, Inc."
         }
     },
@@ -15,7 +15,7 @@
             "metadata": {
                 "name": "eap-cd-openshift",
                 "annotations": {
-                    "openshift.io/display-name": "JBoss EAP Continuous Delivery",
+                    "openshift.io/display-name": "JBoss EAP continuous delivery",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "12.0"
                 }
@@ -28,7 +28,7 @@
                     {
                         "name": "12",
                         "annotations": {
-                            "description": "The latest available build of JBoss EAP Continuous Delivery Tech Preview.",
+                            "description": "The latest available build of JBoss EAP continuous delivery Tech Preview.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -55,7 +55,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "12.0",
-                            "openshift.io/display-name": "JBoss EAP Continuous Delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
@@ -73,7 +73,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "12.0",
-                            "openshift.io/display-name": "JBoss EAP Continuous Delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
                         "from": {
                             "kind": "DockerImage",
