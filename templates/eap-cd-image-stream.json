@@ -4,7 +4,7 @@
     "metadata": {
         "name": "jboss-cd-image-streams",
         "annotations": {
-            "description": "ImageStream definitions for JBoss Enterprise Application Platform continuous delivery.",
+            "description": "ImageStream definition for JBoss Enterprise Application Platform continuous delivery.",
             "openshift.io/provider-display-name": "Red Hat, Inc."
         }
     },
