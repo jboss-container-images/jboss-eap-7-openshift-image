@@ -17,7 +17,7 @@
     },
     "labels": {
         "template": "eap-cd-sso-s2i",
-        "xpaas": "1.4.9"
+        "xpaas": "1.4.10"
     },
     "message": "A new JBoss EAP CD based application with SSL and SSO support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
