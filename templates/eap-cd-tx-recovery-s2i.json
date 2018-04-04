@@ -39,7 +39,7 @@
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "openshift",
+            "value": "7.2.0.CD12",
             "required": false
         },
         {
