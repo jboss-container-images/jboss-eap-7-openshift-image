@@ -1,16 +1,16 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap71-openshift"
-description: "Red Hat JBoss Enterprise Application Platform 7.1 OpenShift container image"
-version: "1.2"
-from: "jboss-eap-7/eap71:latest"
+name: "jboss-eap-7-tech-preview/eap-cd-openshift"
+description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
+version: "12.0"
+from: "jboss-eap-7/eap-cd:latest"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap71-openshift-container"
+      value: "jboss-eap-7-eap-cd-openshift-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP 7.1"
+      value: "Platform for building and running JavaEE applications on JBoss EAP continuous delivery"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP 7.1"
+      value: "JBoss EAP continuous delivery"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -42,7 +42,7 @@ envs:
       example: "true"
       description: "If set to any non zero length value then the image will prevent shutdown with the TERM signal and will require execution of the shutdown command through jboss-cli."
     - name: SCRIPT_DEBUG
-      description: If set to true, ensurses that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
       example: "true"
     - name: JAVA_MAX_MEM_RATIO
       description: This is used to calculate a default maximal heap memory based on a containers restriction. If used in a Docker container without any memory constraints for the container then this option has no effect. If there is a memory constraint then `-Xmx` is set to a ratio of the container available memory as set here. The default is `50` which means 50% of the available memory is used as an upper boundary. You can skip this mechanism by setting this value to `0` in which case no `-Xmx` option
@@ -101,6 +101,10 @@ modules:
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
                   ref: master
+          - name: jboss-eap-modules
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: master
       install:
           - name: dynamic-resources
           - name: s2i-common
@@ -110,17 +114,18 @@ modules:
           - name: os-java-jolokia
           - name: jolokia
           - name: os-eap7-openshift
-          - name: os-eap71-openshift
           - name: os-eap7-modules
-          - name: os-eap71-modules
+          - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch
+          - name: jboss.eap.cd.openshift.launch
           - name: os-eap-logging
           - name: os-eap-probes
           - name: jboss-maven
+          - name: jboss.eap.cd.openshift.maven
           - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
@@ -144,21 +149,6 @@ packages:
           - python-requests
           - python-enum34
           - PyYAML
-artifacts:
-    - path: javax.json-1.0.4.jar
-      md5: 569870f975deeeb6691fcb9bc02a9555
-    - path: jboss-logmanager-ext-1.0.0.Alpha2-redhat-1.jar
-      md5: 7c743e35463db5f55f415dd666d705c5
-    - path: oauth-20100527.jar
-      md5: 91c7c70579f95b7ddee95b2143a49b41
-    - url: https://maven.repository.redhat.com/ga/org/apache/activemq/activemq-rar/5.11.0.redhat-630329/activemq-rar-5.11.0.redhat-630329.rar
-      md5: 76ed338d86bb3dbba2d4bd48daff7dbb
-    - path: rh-sso-7.1.0-eap7-adapter.zip
-      description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44831&product=core.service.rhsso&version=7.0&downloadType=distributions"
-      sha256: 3d12e310a9b15f79cd46255819a0198acd569921797204c0936772e71dec8d23
-    - path: rh-sso-7.1.2-saml-eap7-adapter.zip
-      description: "Artifact is available on Customer Portal: https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=44801&product=core.service.rhsso&version=7.0&downloadType=distributions"
-      sha256: f48b2b15ccfd17589f5a424c689697b8cfefbe95a553ba589c14eaba4978a823
 run:
       user: 185
       cmd:
@@ -166,4 +156,4 @@ run:
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.1-openshift-rhel-7
+            branch: jb-eap-7.2-cd-openshift-rhel-7
