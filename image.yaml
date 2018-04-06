@@ -125,7 +125,6 @@ modules:
           - name: os-eap-logging
           - name: os-eap-probes
           - name: jboss-maven
-          - name: jboss.eap.cd.openshift.maven
           - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
