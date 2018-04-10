@@ -2,7 +2,55 @@
 
 NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image/tree/eap-cd[JBoss EAP CD container image]
 
-# License
+## Importing Imagestreams and Templates
+
+You should have the 'oc' tools available and be logged in to your OpenShift instance. For more details on how to do this, please consult the OpenShift documentation.
+For example, for OpenShift Online, see: https://docs.openshift.com/online/cli_reference/get_started_cli.html
+[source, bash]
+----
+for resource in eap-cd-image-stream.json \
+  eap-cd-amq-persistent-s2i.json \
+  eap-cd-amq-s2i.json \
+  eap-cd-basic-s2i.json \
+  eap-cd-https-s2i.json \
+  eap-cd-mongodb-persistent-s2i.json \
+  eap-cd-mongodb-s2i.json \
+  eap-cd-mysql-persistent-s2i.json \
+  eap-cd-mysql-s2i.json \
+  eap-cd-postgresql-persistent-s2i.json \
+  eap-cd-postgresql-s2i.json \
+  eap-cd-sso-s2i.json \
+  eap-cd-third-party-db-s2i.json \
+  eap-cd-tx-recovery-s2i.json
+do
+  oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/${resource}
+done
+----
+
+If you have administrative access to the general `openshift` namespace and want the image streams and templates to be accessible by all projects, add -n openshift to the oc replace line of the command. For example:
+
+[source, bash]
+----
+oc replace -n openshift --force -f ...
+----
+
+## Creating Secrets
+
+Some of the included templates require the creation of secrets.
+
+Example:
+[source, bash]
+----
+$ keytool -genkey -keyalg RSA -alias eapdemo-selfsigned -keystore keystore.jks -validity 360 -keysize 2048
+$ oc secrets new eap7-app-secret keystore.jks
+$ oc secrets link eap-service-account eap7-app-secret
+----
+
+Please refer to the EAP CD Documentation for additional details.
+
+https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/12/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#prepare_for_deployment
+
+## License
 
 See link:LICENSE[LICENSE] file.
 
