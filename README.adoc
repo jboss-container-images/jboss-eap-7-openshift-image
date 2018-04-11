@@ -43,7 +43,6 @@ Example:
 ----
 $ keytool -genkey -keyalg RSA -alias eapdemo-selfsigned -keystore keystore.jks -validity 360 -keysize 2048
 $ oc secrets new eap7-app-secret keystore.jks
-$ oc secrets link eap-service-account eap7-app-secret
 ----
 
 Please refer to the EAP CD Documentation for additional details.
