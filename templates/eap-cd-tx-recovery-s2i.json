@@ -5,7 +5,7 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
-            "version": "1.4.10",
+            "version": "1.4.11",
             "openshift.io/display-name": "JBoss EAP CD (tx recovery)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss Enterprise Application Platform continuous delivery application with transaction recovery configured. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
@@ -17,7 +17,7 @@
     },
     "labels": {
         "template": "eap-cd-tx-recovery-s2i",
-        "xpaas": "1.4.10"
+        "xpaas": "1.4.11"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
     "parameters": [
