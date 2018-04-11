@@ -74,7 +74,7 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 A route is a way to expose a service by giving it an externally-reachable hostname such as `www.example.com`. A defined route and the endpoints
 identified by its service can be consumed by a router to provide named connectivity from external clients to your applications. Each route consists
 of a route name, service selector, and (optionally) security configuration. Refer to the
-https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html[Openshift documentation] for more information.
+https://docs.openshift.com/container-platform/latest/architecture/networking/routes.html[Openshift documentation] for more information.
 
 |=============
 | Service    | Security | Hostname
@@ -88,7 +88,7 @@ https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html
 
 A `buildConfig` describes a single build definition and a set of triggers for when a new build should be created.
 A `buildConfig` is a REST object, which can be used in a POST to the API server to create a new instance. Refer to
-the https://docs.openshift.com/enterprise/3.0/dev_guide/builds.html#defining-a-buildconfig[Openshift documentation]
+the https://docs.openshift.com/container-platform/latest/dev_guide/builds/index.html#defining-a-buildconfig[Openshift documentation]
 for more information.
 
 |=============
@@ -101,7 +101,7 @@ for more information.
 === Deployment Configurations
 
 A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration. Deployments are created manually or in response to triggered events.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#creating-a-deployment-configuration[Openshift documentation] for more information.
+Refer to the https://docs.openshift.com/container-platform/latest/dev_guide/deployments/how_deployments_work.html#creating-a-deployment-configuration[Openshift documentation] for more information.
 
 
 ==== Triggers
@@ -223,7 +223,7 @@ for more information.
 
 A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
 by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/enterprise/3.0/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+Refer to the https://docs.openshift.com/container-platform/latest/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
 more information.
 
 |=============
