@@ -24,7 +24,7 @@ envs:
       example: "-Dfoo=bar"
       description: "Server startup options."
     - name: SCRIPT_DEBUG
-      description: If set to true, ensurses that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
       example: "true"
 ports:
     - value: 8443
