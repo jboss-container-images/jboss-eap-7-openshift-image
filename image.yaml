@@ -18,8 +18,6 @@ labels:
     - name: "io.openshift.s2i.scripts-url"
       value: "image:///usr/local/s2i"
 envs:
-    - name: "JBOSS_MODULES_SYSTEM_PKGS"
-      value: "org.jboss.logmanager,jdk.nashorn.api"
     - name: "DEFAULT_ADMIN_USERNAME"
       value: "eapadmin"
     - name: HTTPS_ENABLE_HTTP2
