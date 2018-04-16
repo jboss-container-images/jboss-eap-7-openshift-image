@@ -26,9 +26,6 @@ envs:
     - name: SCRIPT_DEBUG
       description: If set to true, ensurses that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
       example: "true"
-    - name: CUSTOM_INSTALL_DIRECTORIES
-      description: A list of comma-separated directories used for installation and configuration of artifacts for the image during the S2I process.
-      example: "custom,shared"
     - name: "PROBE_DISABLE_BOOT_ERRORS_CHECK"
       example: "true"
       description: Disable the boot errors check in the probes.
