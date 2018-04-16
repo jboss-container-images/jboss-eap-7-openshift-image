@@ -23,9 +23,6 @@ envs:
     - name: "JAVA_OPTS_APPEND"
       example: "-Dfoo=bar"
       description: "Server startup options."
-    - name: "CLI_GRACEFUL_SHUTDOWN"
-      example: "true"
-      description: "If set to any non zero length value then the image will prevent shutdown with the TERM signal and will require execution of the shutdown command through jboss-cli."
     - name: SCRIPT_DEBUG
       description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
       example: "true"
