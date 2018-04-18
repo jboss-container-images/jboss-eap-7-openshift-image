@@ -34,6 +34,32 @@ If you have administrative access to the general `openshift` namespace and want 
 oc replace -n openshift --force -f ...
 ----
 
+To import the image, or update an existing image:
+
+[source, bash]
+----
+oc import-image eap-cd-openshift:12
+----
+
+Optionally include namespace to the import:
+[source, bash]
+----
+oc -n myproject import-image eap-cd-openshift:12
+----
+
+Example:
+
+[source, bash]
+----
+oc -n myproject new-app eap-cd-basic-s2i -p APPLICATION_NAME=eap-cd-basic-app
+----
+
+or, if a namespace was used with `-n` above:
+[source, bash]
+----
+oc -n myproject new-app eap-cd-basic-s2i -p APPLICATION_NAME=eap-cd-basic-app -p IMAGE_STREAM_NAMESPACE=myproject
+----
+
 ## Creating Secrets
 
 Some of the included templates require the creation of secrets.
