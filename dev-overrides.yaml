@@ -1,5 +1,4 @@
 schema_version: 1
-modules:
       repositories:
           - name: cct_module
             git:
