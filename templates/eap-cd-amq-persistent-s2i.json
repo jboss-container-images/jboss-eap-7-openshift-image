@@ -481,7 +481,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:12"
+                            "name": "eap-cd-openshift:13"
                         }
                     }
                 },
