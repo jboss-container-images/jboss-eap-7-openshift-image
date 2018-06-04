@@ -1,13 +1,12 @@
-from: "jboss-eap-7/eap71:cp"
- 
+schema_version: 1
+
 modules:
       repositories:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: sprint-18
+                  ref: master
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.1-openshift-cp-rhel-7
-
+            branch: jb-eap-7.1-openshift-dev-rhel-7
