@@ -96,6 +96,7 @@ packages:
       repositories:
           - jboss-os
       install:
+          - hostname
           - python-requests
           - python-enum34
           - PyYAML
