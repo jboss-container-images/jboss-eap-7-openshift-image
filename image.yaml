@@ -135,7 +135,11 @@ modules:
 packages:
       repositories:
           - jboss-os
+          - jboss-rhscl
       install:
+          - rh-mongodb32-mongo-java-driver
+          - postgresql-jdbc
+          - mysql-connector-java
           - hostname
           - python-requests
           - python-enum34
