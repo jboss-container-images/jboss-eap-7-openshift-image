@@ -26,6 +26,9 @@ envs:
     - name: SCRIPT_DEBUG
       description: If set to true, ensurses that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
       example: "true"
+    - name: "ENABLE_JSON_LOGGING"
+      example: "true"
+      description: Enable JSON-formatted logging
 ports:
     - value: 8443
 modules:
