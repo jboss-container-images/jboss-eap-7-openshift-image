@@ -53,7 +53,7 @@
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
-                            "version": "12",
+                            "version": "13",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
                         "from": {

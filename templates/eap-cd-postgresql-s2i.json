@@ -150,8 +150,8 @@
             "required": false
         },
         {
-            "displayName": "A-MQ cluster password",
-            "description": "A-MQ cluster admin password",
+            "displayName": "AMQ cluster password",
+            "description": "AMQ cluster admin password",
             "name": "MQ_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
