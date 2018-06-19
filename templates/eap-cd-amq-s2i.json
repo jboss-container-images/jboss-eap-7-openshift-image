@@ -233,7 +233,7 @@
             "displayName": "Maven Additional Arguments",
             "description": "Maven additional arguments to use for S2I builds",
             "name": "MAVEN_ARGS_APPEND",
-            "value": "",
+            "value": "-Dcom.redhat.xpaas.repo.jbossorg",
             "required": false
         },
         {
