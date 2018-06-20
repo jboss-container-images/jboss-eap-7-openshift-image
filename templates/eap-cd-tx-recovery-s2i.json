@@ -65,9 +65,9 @@
         },
         {
             "displayName": "JMS Connection Factory JNDI Name",
-            "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:/DefaultConnectionFactory",
+            "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory",
             "name": "MQ_JNDI",
-            "value": "java:/DefaultConnectionFactory",
+            "value": "java:jboss/DefaultJMSConnectionFactory",
             "required": false
         },
         {
