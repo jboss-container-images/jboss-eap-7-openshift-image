@@ -28,7 +28,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | openshift | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld-mdb | False
-|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/DefaultConnectionFactory | java:/DefaultConnectionFactory | False
+|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory | java:jboss/DefaultJMSConnectionFactory | False
 |`MQ_PROTOCOL` | `MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | openwire | False
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | HelloWorldMDBQueue | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | HelloWorldMDBTopic | False
@@ -219,7 +219,7 @@ for more information.
 
 .23+| `${APPLICATION_NAME}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq7=MQ`
-|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:/DefaultConnectionFactory | `${MQ_JNDI}`
+|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory | `${MQ_JNDI}`
 |`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
 |`MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
 |`MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | tcp
