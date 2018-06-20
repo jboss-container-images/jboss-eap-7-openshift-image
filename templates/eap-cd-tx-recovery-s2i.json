@@ -741,7 +741,11 @@
                                     },
                                     {
                                         "name": "AMQ_QUEUES",
-                                        "value": "${MQ_QUEUES},${MQ_TOPICS}"
+                                        "value": "${MQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "AMQ_ADDRESSES",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
                                         "name": "MQ_SERIALIZABLE_PACKAGES",
