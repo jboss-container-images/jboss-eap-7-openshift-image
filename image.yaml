@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7-tech-preview/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
 version: "12.0"
-from: "jboss-eap-7/eap-cd:latest"
+from: "jboss-eap-7/eap-cd:12.0"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-container"
@@ -30,11 +30,11 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  ref: sprint-18
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
+                  ref: eap-cd-12
       install:
           - name: dynamic-resources
           - name: s2i-common
