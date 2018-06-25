@@ -71,7 +71,7 @@
             "required": false
         },
         {
-            "displayName": "Split Data?",
+            "displayName": "Split the data directory?",
             "description": "Split the data directory for each node in a mesh.",
             "name": "AMQ_SPLIT",
             "value": "false",
