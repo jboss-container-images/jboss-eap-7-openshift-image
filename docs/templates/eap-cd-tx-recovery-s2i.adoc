@@ -195,7 +195,7 @@ for more information.
 |http | 8080 | `TCP`
 |ping | 8888 | `TCP`
 .8+| `${APPLICATION_NAME}-amq`
-|jolokia | 8778 | `TCP`
+|jolokia | 8161 | `TCP`
 |amqp | 5672 | `TCP`
 |amqp-ssl | 5671 | `TCP`
 |mqtt | 1883 | `TCP`
@@ -247,10 +247,15 @@ for more information.
 |`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-mesh`
 |`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
 |`AMQ_STORAGE_USAGE_LIMIT` | The AMQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
-.9+| `${APPLICATION_NAME}-migration`
+.14+| `${APPLICATION_NAME}-migration`
 |`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
+|`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq7=MQ`
+|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory | `${MQ_JNDI}`
+|`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
+|`MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
+|`MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | tcp
 |`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
 |`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
 |`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`

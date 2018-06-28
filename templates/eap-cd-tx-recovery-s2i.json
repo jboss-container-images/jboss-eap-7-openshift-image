@@ -677,7 +677,7 @@
                                 "ports": [
                                     {
                                         "name": "jolokia",
-                                        "containerPort": 8778,
+                                        "containerPort": 8161,
                                         "protocol": "TCP"
                                     },
                                     {
