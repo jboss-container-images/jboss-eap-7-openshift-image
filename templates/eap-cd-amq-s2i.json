@@ -784,7 +784,7 @@
                                 },
                                 "ports": [
                                     {
-                                        "name": "jolokia",
+                                        "name": "console-jolokia",
                                         "containerPort": 8161,
                                         "protocol": "TCP"
                                     },
