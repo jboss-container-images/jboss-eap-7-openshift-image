@@ -2,8 +2,8 @@ schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "12.0"
-from: "jboss-eap-7/eap-cd:latest"
+version: "13.0"
+from: "jboss-eap-7/eap-cd:13.0"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-container"
@@ -18,81 +18,11 @@ labels:
     - name: "io.openshift.s2i.scripts-url"
       value: "image:///usr/local/s2i"
 envs:
-    - name: "STI_BUILDER"
-      value: "jee"
-    - name: "JBOSS_MODULES_SYSTEM_PKGS"
-      value: "org.jboss.logmanager,jdk.nashorn.api"
-    - name: "DEFAULT_ADMIN_USERNAME"
-      value: "eapadmin"
     - name: HTTPS_ENABLE_HTTP2
       value: "true"
-    - name: "JAVA_OPTS_APPEND"
-      example: "-Dfoo=bar"
-      description: "Server startup options."
-    - name: "JBOSS_MODULES_SYSTEM_PKGS_APPEND"
-      example: "org.jboss.byteman"
-      description: "Comma-separated list of package names that will be appended to the JBOSS_MODULES_SYSTEM_PKGS environment variable."
-    - name: "MQ_SIMPLE_DEFAULT_PHYSICAL_DESTINATION"
-      example: "false"
-      description: "For backwards compatability, set to true to use 'MyQueue' and 'MyTopic' as physical destination name defaults instead of 'queue/MyQueue' and 'topic/MyTopic'."
-    - name: "DEFAULT_JMS_CONNECTION_FACTORY"
-      example: "java:jboss/DefaultJMSConnectionFactory"
-      description: "Specify the default JNDI binding for the JMS connection factory (jms-connection-factory='java:jboss/DefaultJMSConnectionFactory')."
-    - name: "CLI_GRACEFUL_SHUTDOWN"
-      example: "true"
-      description: "If set to any non zero length value then the image will prevent shutdown with the TERM signal and will require execution of the shutdown command through jboss-cli."
     - name: SCRIPT_DEBUG
       description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
       example: "true"
-    - name: JAVA_MAX_MEM_RATIO
-      description: This is used to calculate a default maximal heap memory based on a containers restriction. If used in a Docker container without any memory constraints for the container then this option has no effect. If there is a memory constraint then `-Xmx` is set to a ratio of the container available memory as set here. The default is `50` which means 50% of the available memory is used as an upper boundary. You can skip this mechanism by setting this value to `0` in which case no `-Xmx` option
-            is added.
-      example: "50"
-    - name: JAVA_INITIAL_MEM_RATIO
-      description: This is used to calculate a default initial heap memory based the maximumal heap memory.  The default is `100` which means 100% of the maximal heap is used for the initial heap size.  You can skip this mechanism by setting this value to `0` in which case no `-Xms` option is added.
-      example: "100"
-    - name: JAVA_MAX_INITIAL_MEM
-      description: The maximum size of the initial heap memory, if the calculated default initial heap is larger then it will be capped at this value.  The default is 4096 MB.
-      example: "4096"
-    - name: JAVA_CORE_LIMIT
-      description: Core limit as described in https://www.kernel.org/doc/Documentation/scheduler/sched-bwc.txt.  Used to configure the number of GC threads and parallelism for ForkJoinPool.  Defaults to container core limit.
-      example: "2"
-    - name: JAVA_DIAGNOSTICS
-      description: Set this to get some diagnostics information to standard output when things are happening. **Disabled by default.**
-      example: "true"
-    - name: GC_MIN_HEAP_FREE_RATIO
-      description: Minimum percentage of heap free after GC to avoid expansion.
-      example: "20"
-    - name: GC_MAX_HEAP_FREE_RATIO
-      description: Maximum percentage of heap free after GC to avoid shrinking.
-      example: "40"
-    - name: GC_TIME_RATIO
-      description: Specifies the ratio of the time spent outside the garbage collection (for example, the time spent for application execution) to the time spent in the garbage collection.
-      example: "4"
-    - name: GC_ADAPTIVE_SIZE_POLICY_WEIGHT
-      description: The weighting given to the current GC time versus previous GC times.
-      example: "90"
-    - name: GC_MAX_METASPACE_SIZE
-      description: The maximum metaspace size.
-      example: "100"
-    - name: CUSTOM_INSTALL_DIRECTORIES
-      description: A list of comma-separated directories used for installation and configuration of artifacts for the image during the S2I process.
-      example: "custom,shared"
-    - name: "CONTAINER_HEAP_PERCENT"
-      example: 0.5
-      description: Deprecated.  See JAVA_MAX_MEM_RATIO.
-    - name: "INITIAL_HEAP_PERCENT"
-      example: 0.5
-      description: Deprecated.  See JAVA_INITIAL_MEM_RATIO.
-    - name: "PROBE_DISABLE_BOOT_ERRORS_CHECK"
-      example: "true"
-      description: Disable the boot errors check in the probes.
-    - name: "ENABLE_ACCESS_LOG"
-      example: "true"
-      description: Enable the Access Log.
-    - name: "ENABLE_JSON_LOGGING"
-      example: "true"
-      description: Enable JSON-formatted logging
 ports:
     - value: 8443
 modules:
@@ -112,17 +42,15 @@ modules:
           - name: os-eap7-openshift
           - name: os-eap-s2i
           - name: os-java-jolokia
-          - name: jolokia
+          - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
-          - name: os-eap7-modules
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
-          - name: os-eap-activemq-rar
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
-          - name: os-eap-logging
+          - name: jboss.eap.cd.logging
           - name: os-eap-probes
           - name: jboss-maven
           - name: os-eap-db-drivers
@@ -139,12 +67,7 @@ modules:
 packages:
       repositories:
           - jboss-os
-          - jboss-rhscl
       install:
-          - rh-mongodb32-mongo-java-driver
-          - postgresql-jdbc
-          - mysql-connector-java
-          - hostname
           - python-requests
           - python-enum34
           - PyYAML
