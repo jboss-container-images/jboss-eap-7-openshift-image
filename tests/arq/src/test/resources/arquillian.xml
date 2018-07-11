@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2016, Red Hat, Inc. and/or its affiliates, and individual
+  contributors by the @authors tag. See the copyright.txt in the
+  distribution for a full listing of individual contributors.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<arquillian xmlns="http://jboss.org/schema/arquillian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jboss.org/schema/arquillian
+          http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+  
+    <!-- Uncomment to have test archives exported to the file system for inspection -->
+    <!--
+    <engine>
+	         <property name="deploymentExportPath">target/arquillian</property>
+    </engine>
+    -->
+    <!-- Force the use of the Servlet 3.0 protocol with all containers, as it is the most mature -->
+    <defaultProtocol type="jmx-as7" />
+    
+    <extension qualifier="ce-cube">
+        <property name="kubernetesNamespacePrefix">cearq-eap71</property>
+    </extension>
+  
+    <!-- Example configuration for arquillian openshift extension -->
+    <extension qualifier="openshift">
+        <!-- Properties describing the location of the OpenShift instance.
+        <property name="originServer">https://your-ose-instance.com:8443</property>
+        <property name="namespace">test-namespace</property>
+        -->
+        <property name="namespace.prefix">test-arq-eap71</property>
+        <!-- The file containing the pod definition. Used to instantiate the JBoss instance. -->
+        <property name="definitionsFile">src/test/resources/testrunner-pod.json</property>
+        <!-- Ports to be proxied locally, <container>:<port> -->
+        <property name="proxiedContainerPorts">testrunner:9999,testrunner:9990,testrunner:8080</property>
+        <!-- Fetch the logs from Openshift and pods, and save them into target/surefire-reports -->
+        <property name="logs.copy">true</property>
+    </extension>
+
+    <!--
+      class mode causes the test pod to be recreated for each test class. this
+      is required to pickup environment variables specific to the test
+      environment, e.g. service host, port, etc.  testrunner relates to the pod
+      name in testrunner-pod.json.
+    -->
+    <container qualifier="testrunner" mode="class" default="true">
+        <!-- Pod running remote tests. -->
+        <configuration>
+            <!-- For use with archillian-chameleon -->
+            <property name="username">admin</property>
+            <property name="password">Admin#70365</property>
+        </configuration>
+    </container>
+
+</arquillian>
