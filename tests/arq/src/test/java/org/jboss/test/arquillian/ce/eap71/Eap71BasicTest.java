@@ -24,6 +24,7 @@
 package org.jboss.test.arquillian.ce.eap71;
 
 import org.arquillian.cube.openshift.api.Template;
+import org.arquillian.cube.openshift.api.TemplateParameter;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.test.arquillian.ce.common.EapBasicTestBase;
 import org.junit.runner.RunWith;
@@ -32,7 +33,10 @@ import org.junit.runner.RunWith;
  * @author Marko Luksa
  */
 @RunWith(Arquillian.class)
-@Template(url = "https://raw.githubusercontent.com/${template.repository:jboss-openshift}/application-templates/${template.branch:master}/eap/eap71-basic-s2i.json")
+@Template(url = "https://raw.githubusercontent.com/${template.repository:jboss-openshift}/application-templates/${template.branch:master}/eap/eap71-basic-s2i.json",
+        parameters = {
+                @TemplateParameter(name = "IMAGE_STREAM_NAMESPACE", value = "${kubernetes.namespace:openshift}")
+        })
 public class Eap71BasicTest extends EapBasicTestBase {
 
 }

@@ -36,6 +36,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 @Template(url = "https://raw.githubusercontent.com/${template.repository:jboss-openshift}/application-templates/${template.branch:master}/eap/eap71-https-s2i.json",
         parameters = {
+                @TemplateParameter(name = "IMAGE_STREAM_NAMESPACE", value = "${kubernetes.namespace:openshift}"),
                 @TemplateParameter(name = "HTTPS_NAME", value = "jboss"),
                 @TemplateParameter(name = "HTTPS_PASSWORD", value = "mykeystorepass")
         })
