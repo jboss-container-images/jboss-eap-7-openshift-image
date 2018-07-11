@@ -4,7 +4,9 @@ import java.net.URL;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.arquillian.cube.openshift.api.OpenShiftDynamicImageStreamResource;
 import org.arquillian.cube.openshift.api.OpenShiftHandle;
+import org.arquillian.cube.openshift.api.OpenShiftResource;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -14,6 +16,8 @@ import org.junit.Test;
  * @author Jonh Wendell
  * @author Marko Luksa
  */
+@OpenShiftResource("${openshift.imageStreams}")
+@OpenShiftDynamicImageStreamResource(name = "${imageStream.eap71.name:jboss-eap71-openshift}", image = "${imageStream.eap71.image:registry.access.redhat.com/jboss-eap-7/eap71-openshift:1.3}", version = "${imageStream.eap71.version:1.3}")
 public abstract class EapPersistentTestBase {
 
     private final static Logger log = Logger.getLogger(EapPersistentTestBase.class.getName());

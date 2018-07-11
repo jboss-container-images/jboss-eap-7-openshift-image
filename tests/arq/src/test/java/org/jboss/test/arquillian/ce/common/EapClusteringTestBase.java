@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.StringUtils;
 import org.arquillian.cube.openshift.api.ConfigurationHandle;
+import org.arquillian.cube.openshift.api.OpenShiftDynamicImageStreamResource;
 import org.arquillian.cube.openshift.api.OpenShiftHandle;
+import org.arquillian.cube.openshift.api.OpenShiftResource;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.ce.httpclient.HttpClient;
 import org.jboss.arquillian.ce.httpclient.HttpClientBuilder;
@@ -31,6 +33,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Jonh Wendell
  */
+@OpenShiftResource("${openshift.imageStreams}")
+@OpenShiftDynamicImageStreamResource(name = "${imageStream.eap71.name:jboss-eap71-openshift}", image = "${imageStream.eap71.image:registry.access.redhat.com/jboss-eap-7/eap71-openshift:1.3}", version = "${imageStream.eap71.version:1.3}")
 public class EapClusteringTestBase {
     protected final Logger log = Logger.getLogger(getClass().getName());
     private final HttpClientExecuteOptions execOptions = new HttpClientExecuteOptions.Builder().tries(3)

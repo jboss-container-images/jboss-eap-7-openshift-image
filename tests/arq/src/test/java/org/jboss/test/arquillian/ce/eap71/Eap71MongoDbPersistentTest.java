@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 @Template(url = "https://raw.githubusercontent.com/${template.repository:jboss-openshift}/application-templates/${template.branch:master}/eap/eap71-mongodb-persistent-s2i.json", parameters = {
+        @TemplateParameter(name = "IMAGE_STREAM_NAMESPACE", value = "${kubernetes.namespace:openshift}"),
         @TemplateParameter(name = "HTTPS_NAME", value = "jboss"),
         @TemplateParameter(name = "HTTPS_PASSWORD", value = "mykeystorepass")})
 @OpenShiftResource("https://raw.githubusercontent.com/${template.repository:jboss-openshift}/application-templates/${template.branch:master}/secrets/eap7-app-secret.json")
@@ -19,6 +20,6 @@ public class Eap71MongoDbPersistentTest extends EapPersistentTestBase {
 
     @Override
     protected String[] getRCNames() {
-        return new String[] {"eap-app-mongodb", "eap-app"};
+        return new String[]{"eap-app-mongodb", "eap-app"};
     }
 }

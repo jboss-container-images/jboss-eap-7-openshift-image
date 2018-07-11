@@ -3,6 +3,8 @@ package org.jboss.test.arquillian.ce.common;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import org.arquillian.cube.openshift.api.OpenShiftDynamicImageStreamResource;
+import org.arquillian.cube.openshift.api.OpenShiftResource;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.ce.httpclient.HttpClient;
 import org.jboss.arquillian.ce.httpclient.HttpClientBuilder;
@@ -22,6 +24,8 @@ import static org.junit.Assert.assertEquals;
  * @author Jonh Wendell
  * @author Marko Luksa
  */
+@OpenShiftResource("${openshift.imageStreams}")
+@OpenShiftDynamicImageStreamResource(name = "${imageStream.eap71.name:jboss-eap71-openshift}", image = "${imageStream.eap71.image:registry.access.redhat.com/jboss-eap-7/eap71-openshift:1.3}", version = "${imageStream.eap71.version:1.3}")
 public class EapBasicTestBase {
 
     private Logger log = Logger.getLogger(getClass().getName());
@@ -55,7 +59,7 @@ public class EapBasicTestBase {
     public void testInitialState() throws Exception {
         log.info("Trying URL " + getUrl());
         HttpClient client = HttpClientBuilder.untrustedConnectionClient();
-        HttpRequest request = HttpClientBuilder.doGET(getUrl() + "/rest/members");
+        HttpRequest request = HttpClientBuilder.doGET(getUrl() + "kitchensink/rest/members");
         HttpResponse response = client.execute(request, execOptions);
 
         JSONParser jsonParser = new JSONParser();
@@ -81,7 +85,7 @@ public class EapBasicTestBase {
         p.put("phoneNumber", phoneNumber);
 
         HttpClient client = HttpClientBuilder.untrustedConnectionClient();
-        HttpRequest request = HttpClientBuilder.doPOST(getUrl() + "/rest/members");
+        HttpRequest request = HttpClientBuilder.doPOST(getUrl() + "kitchensink/rest/members");
         request.setHeader("Content-Type", "application/json");
         request.setEntity(p.toString());
         HttpResponse response = client.execute(request, execOptions);
@@ -94,7 +98,7 @@ public class EapBasicTestBase {
 
     private JSONObject getPerson(int id) throws Exception {
         HttpClient client = HttpClientBuilder.untrustedConnectionClient();
-        HttpRequest request = HttpClientBuilder.doGET(getUrl() + "/rest/members/" + id);
+        HttpRequest request = HttpClientBuilder.doGET(getUrl() + "kitchensink/rest/members/" + id);
         HttpResponse response = client.execute(request, execOptions);
 
         JSONParser jsonParser = new JSONParser();
