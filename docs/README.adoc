@@ -27,6 +27,7 @@ toc::[levels=1]
 * link:./templates/eap72-postgresql-persistent-s2i.adoc[eap72-postgresql-persistent-s2i]
 * link:./templates/eap72-postgresql-s2i.adoc[eap72-postgresql-s2i]
 * link:./templates/eap72-sso-s2i.adoc[eap72-sso-s2i]
+* link:./templates/eap72-starter-s2i.adoc[eap72-starter-s2i]
 * link:./templates/eap72-third-party-db-s2i.adoc[eap72-third-party-db-s2i]
 * link:./templates/eap72-tx-recovery-s2i.adoc[eap72-tx-recovery-s2i]
 
