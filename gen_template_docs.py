@@ -224,7 +224,10 @@ def createObjectTable(data, tableKind):
          continue
       elif obj["kind"] ==  'Route' and tableKind == 'Route':
          if(obj["spec"].get("tls")):
-            columns = [obj["id"], ("TLS "+ obj["spec"]["tls"]["termination"]), obj["spec"]["host"]]
+            tls = obj["spec"].get("tls")
+            columns = [obj["id"], ("TLS "+ tls["termination"])]
+            if "host" in obj["spec"]:
+              columns.append(obj["spec"]["host"])
          else:
             pass
             #columns = [obj["id"], "none", obj["spec"]["host"]]
