@@ -7,8 +7,8 @@
 #       template asciidoctor files, and stores them in the a directory(Specified by
 #       TEMPLATE_DOCS variable).
 # 
-# Notes: NEEDS TO BE CLEANED UP
-
+# dependencies: pip install ptemplate
+#
 import json
 import yaml
 import os
