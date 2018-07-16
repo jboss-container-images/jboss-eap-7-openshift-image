@@ -6,20 +6,20 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
             "version": "1.5.0",
-            "openshift.io/display-name": "JBoss EAP CD + Single Sign-On (with https)",
+            "openshift.io/display-name": "JBoss EAP CD (with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example JBoss Enterprise Application Platform continuous delivery application Single Sign-On application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and integrated with Red Hat Single Sign-On.",
+            "description": "An example JBoss Enterprise Application Platform continuous delivery application configured with secure communication using HTTPS. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery application, including a build configuration, application deployment configuration and secure communication using https.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-sso-s2i"
+        "name": "eap72-https-s2i"
     },
     "labels": {
-        "template": "eap-cd-sso-s2i",
+        "template": "eap72-https-s2i",
         "xpaas": "1.5.0"
     },
-    "message": "A new JBoss EAP CD based application with SSL and SSO support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new JBoss EAP CD based application with SSL support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -30,30 +30,30 @@
         },
         {
             "displayName": "Custom https Route Hostname",
-            "description": "Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server.",
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTPS",
             "value": "",
-            "required": true
+            "required": false
         },
         {
             "displayName": "Git Repository URL",
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/redhat-developer/redhat-sso-quickstarts",
+            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
             "required": true
         },
         {
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.0.x-ose",
+            "value": "openshift",
             "required": false
         },
         {
             "displayName": "Context Directory",
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "",
+            "value": "kitchensink",
             "required": false
         },
         {
@@ -69,14 +69,6 @@
             "name": "MQ_TOPICS",
             "value": "",
             "required": false
-        },
-        {
-            "displayName": "AMQ cluster password",
-            "description": "AMQ cluster admin password",
-            "name": "MQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
         },
         {
             "displayName": "Server Keystore Secret Name",
@@ -101,17 +93,25 @@
         },
         {
             "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate (e.g. jboss)",
+            "description": "The name associated with the server certificate",
             "name": "HTTPS_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate (e.g. mykeystorepass)",
+            "description": "The password for the keystore and certificate",
             "name": "HTTPS_PASSWORD",
             "value": "",
             "required": false
+        },
+        {
+            "displayName": "AMQ cluster password",
+            "description": "AMQ cluster admin password",
+            "name": "MQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         },
         {
             "displayName": "Github Webhook Secret",
@@ -152,14 +152,14 @@
         },
         {
             "displayName": "JGroups Certificate Name",
-            "description": "The name associated with the server certificate (e.g. secret-key)",
+            "description": "The name associated with the server certificate",
             "name": "JGROUPS_ENCRYPT_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "JGroups Keystore Password",
-            "description": "The password for the keystore and certificate (e.g. password)",
+            "description": "The password for the keystore and certificate",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
@@ -180,140 +180,6 @@
             "required": false
         },
         {
-            "displayName": "URL for SSO",
-            "description": "The URL for the SSO server (e.g. https://secure-sso-myproject.example.com/auth).  This is the URL through which the user will be redirected when a login or token is required by the application.",
-            "name": "SSO_URL",
-            "value": "",
-            "required": true
-        },
-        {
-            "displayName": "URL for SSO (internal service)",
-            "description": "The URL for the internal SSO service, where secure-sso (the default) is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL.",
-            "name": "SSO_SERVICE_URL",
-            "value": "https://secure-sso:8443/auth",
-            "required": false
-        },
-        {
-            "displayName": "SSO Realm",
-            "description": "The SSO realm to which the application client(s) should be associated (e.g. demo).",
-            "name": "SSO_REALM",
-            "value": "",
-            "required": true
-        },
-        {
-            "displayName": "SSO Username",
-            "description": "The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates.",
-            "name": "SSO_USERNAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Password",
-            "description": "The password for the SSO service user.",
-            "name": "SSO_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Public Key",
-            "description": "SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability",
-            "name": "SSO_PUBLIC_KEY",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Bearer Only?",
-            "description": "SSO Client Access Type",
-            "name": "SSO_BEARER_ONLY",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Artifact Directories",
-            "description": "List of directories from which archives will be copied into the deployment folder.  If unspecified, all archives in /target will be copied.",
-            "name": "ARTIFACT_DIR",
-            "value": "app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Keystore Secret",
-            "description": "The name of the secret containing the keystore file",
-            "name": "SSO_SAML_KEYSTORE_SECRET",
-            "value": "eap7-app-secret",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Keystore",
-            "description": "The name of the keystore file within the secret",
-            "name": "SSO_SAML_KEYSTORE",
-            "value": "keystore.jks",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "SSO_SAML_CERTIFICATE_NAME",
-            "value": "jboss",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "SSO_SAML_KEYSTORE_PASSWORD",
-            "value": "mykeystorepass",
-            "required": false
-        },
-        {
-            "displayName": "SSO Client Secret",
-            "description": "The SSO Client Secret for Confidential Access",
-            "name": "SSO_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "Enable CORS for SSO?",
-            "description": "Enable CORS for SSO applications",
-            "name": "SSO_ENABLE_CORS",
-            "value": "false",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Logout Page",
-            "description": "SSO logout page for SAML applications",
-            "name": "SSO_SAML_LOGOUT_PAGE",
-            "value": "/",
-            "required": false
-        },
-        {
-            "displayName": "Disable SSL Validation in EAP->SSO communication",
-            "description": "If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl)",
-            "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
-            "value": "true",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store",
-            "description": "The name of the truststore file within the secret (e.g. truststore.jks)",
-            "name": "SSO_TRUSTSTORE",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store Password",
-            "description": "The password for the truststore and certificate (e.g. mykeystorepass)",
-            "name": "SSO_TRUSTSTORE_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store Secret",
-            "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
-            "name": "SSO_TRUSTSTORE_SECRET",
-            "value": "eap7-app-secret",
-            "required": false
-        },
-        {
             "displayName": "Maven mirror URL",
             "description": "Maven mirror to use for S2I builds",
             "name": "MAVEN_MIRROR_URL",
@@ -324,6 +190,12 @@
             "displayName": "Maven Additional Arguments",
             "description": "Maven additional arguments to use for S2I builds",
             "name": "MAVEN_ARGS_APPEND",
+            "value": "-Dcom.redhat.xpaas.repo.jbossorg",
+            "required": false
+        },
+        {
+            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
             "value": "",
             "required": false
         },
@@ -482,17 +354,7 @@
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
-                        "forcePull": true,
-                        "from": {
-                            "kind": "ImageStreamTag",
-                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:13"
-                        },
                         "env": [
-                            {
-                                "name": "ARTIFACT_DIR",
-                                "value": "${ARTIFACT_DIR}"
-                            },
                             {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
@@ -500,8 +362,18 @@
                             {
                                 "name": "MAVEN_ARGS_APPEND",
                                 "value": "${MAVEN_ARGS_APPEND}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
                             }
-                        ]
+                        ],
+                        "forcePull": true,
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                            "name": "eap-cd-openshift:13"
+                        }
                     }
                 },
                 "output": {
@@ -590,11 +462,6 @@
                                 },
                                 "volumeMounts": [
                                     {
-                                        "name": "sso-saml-keystore-volume",
-                                        "mountPath": "/etc/sso-saml-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
                                         "name": "eap-keystore-volume",
                                         "mountPath": "/etc/eap-secret-volume",
                                         "readOnly": true
@@ -602,11 +469,6 @@
                                     {
                                         "name": "eap-jgroups-keystore-volume",
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
-                                        "name": "sso-truststore-volume",
-                                        "mountPath": "/etc/sso-secret-volume",
                                         "readOnly": true
                                     }
                                 ],
@@ -663,14 +525,6 @@
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
                                         "value": "8888"
-                                    },
-                                    {
-                                        "name": "HOSTNAME_HTTP",
-                                        "value": "${HOSTNAME_HTTP}"
-                                    },
-                                    {
-                                        "name": "HOSTNAME_HTTPS",
-                                        "value": "${HOSTNAME_HTTPS}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -731,93 +585,11 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
-                                    },
-                                    {
-                                        "name": "SSO_URL",
-                                        "value": "${SSO_URL}"
-                                    },
-                                    {
-                                        "name": "SSO_SERVICE_URL",
-                                        "value": "${SSO_SERVICE_URL}"
-                                    },
-                                    {
-                                        "name": "SSO_REALM",
-                                        "value": "${SSO_REALM}"
-                                    },
-                                    {
-                                        "name": "SSO_USERNAME",
-                                        "value": "${SSO_USERNAME}"
-                                    },
-                                    {
-                                        "name": "SSO_PASSWORD",
-                                        "value": "${SSO_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "SSO_PUBLIC_KEY",
-                                        "value": "${SSO_PUBLIC_KEY}"
-                                    },
-                                    {
-                                        "name": "SSO_BEARER_ONLY",
-                                        "value": "${SSO_BEARER_ONLY}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE_SECRET",
-                                        "value": "${SSO_SAML_KEYSTORE_SECRET}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE",
-                                        "value": "${SSO_SAML_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE_DIR",
-                                        "value": "/etc/sso-saml-secret-volume"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_CERTIFICATE_NAME",
-                                        "value": "${SSO_SAML_CERTIFICATE_NAME}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE_PASSWORD",
-                                        "value": "${SSO_SAML_KEYSTORE_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "SSO_SECRET",
-                                        "value": "${SSO_SECRET}"
-                                    },
-                                    {
-                                        "name": "SSO_ENABLE_CORS",
-                                        "value": "${SSO_ENABLE_CORS}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_LOGOUT_PAGE",
-                                        "value": "${SSO_SAML_LOGOUT_PAGE}"
-                                    },
-                                    {
-                                        "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
-                                        "value": "${SSO_DISABLE_SSL_CERTIFICATE_VALIDATION}"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE",
-                                        "value": "${SSO_TRUSTSTORE}"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE_DIR",
-                                        "value": "/etc/sso-secret-volume"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE_PASSWORD",
-                                        "value": "${SSO_TRUSTSTORE_PASSWORD}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
-                            {
-                                "name": "sso-saml-keystore-volume",
-                                "secret": {
-                                    "secretName": "${SSO_SAML_KEYSTORE_SECRET}"
-                                }
-                            },
                             {
                                 "name": "eap-keystore-volume",
                                 "secret": {
@@ -828,12 +600,6 @@
                                 "name": "eap-jgroups-keystore-volume",
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
-                                }
-                            },
-                            {
-                                "name": "sso-truststore-volume",
-                                "secret": {
-                                    "secretName": "${SSO_TRUSTSTORE_SECRET}"
                                 }
                             }
                         ]

@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap-cd-postgresql-persistent-s2i
+= eap72-mysql-persistent-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example JBoss Enterprise Application Platform continuous delivery application with a persistent PostgreSQL database. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc
+An example JBoss Enterprise Application Platform continuous delivery application with a MySQL database. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc.
 
 toc::[]
 
@@ -28,7 +28,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
-|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | java:jboss/datasources/TodoListDS | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | java:jboss/datasources/TodoListDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
 |`VOLUME_CAPACITY` | -- | Size of persistent storage for database volume. | 1Gi | True
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}` | False
@@ -41,8 +41,11 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
-|`POSTGRESQL_MAX_CONNECTIONS` | `POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}` | False
-|`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | `MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}` | False
+|`MYSQL_MAX_CONNECTIONS` | `MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}` | False
+|`MYSQL_FT_MIN_WORD_LEN` | `MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}` | False
+|`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
+|`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
 |`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
 |`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
 |`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
@@ -58,7 +61,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
-|`POSTGRESQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "postgresql" image stream.  Typically, this aligns with the major.minor version of PostgreSQL. | 9.5 | True
+|`MYSQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "mysql" image stream.  Typically, this aligns with the major.minor version of MySQL. | 5.7 | True
 |`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
@@ -84,8 +87,8 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `secure-${APPLICATION_NAME}`
 |8443 | --
 .1+| The web server's https port.
-.1+| `${APPLICATION_NAME}-postgresql`
-|5432 | --
+.1+| `${APPLICATION_NAME}-mysql`
+|3306 | --
 .1+| The database server's port.
 .1+| `${APPLICATION_NAME}-ping`
 |8888 | ping
@@ -139,7 +142,7 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
-|`${APPLICATION_NAME}-postgresql` | ImageChange
+|`${APPLICATION_NAME}-mysql` | ImageChange
 |============
 
 
@@ -155,7 +158,7 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
-|`${APPLICATION_NAME}-postgresql` | 1
+|`${APPLICATION_NAME}-mysql` | 1
 |============
 
 
@@ -170,7 +173,7 @@ for more information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-postgresql` | postgresql
+|`${APPLICATION_NAME}-mysql` | mysql
 |============
 
 
@@ -183,9 +186,9 @@ for more information.
 /bin/bash -c /opt/eap/bin/readinessProbe.sh
 ----
 
-.${APPLICATION_NAME}-postgresql
+.${APPLICATION_NAME}-mysql
 ----
-/bin/sh -i -c psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'
+/bin/sh -i -c MYSQL_PWD="$MYSQL_PASSWORD" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'
 ----
 
 
@@ -201,8 +204,8 @@ for more information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
-.1+| `${APPLICATION_NAME}-postgresql`
-|-- | 5432 | `TCP`
+.1+| `${APPLICATION_NAME}-mysql`
+|-- | 3306 | `TCP`
 |=============
 
 
@@ -213,12 +216,12 @@ for more information.
 |Deployment |Variable name |Description |Example value
 
 .29+| `${APPLICATION_NAME}`
-|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
-|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | `${DB_JNDI}`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
 |`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
 |`DB_DATABASE` | Database name | `${DB_DATABASE}`
-|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
 |`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
 |`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
 |`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
@@ -240,15 +243,17 @@ for more information.
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
-|`DEFAULT_JOB_REPOSITORY` | -- | `${APPLICATION_NAME}-postgresql`
-|`TIMER_SERVICE_DATA_STORE` | -- | `${APPLICATION_NAME}-postgresql`
-.6+| `${APPLICATION_NAME}-postgresql`
-|`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
-|`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
-|`POSTGRESQL_DATABASE` | -- | `${DB_DATABASE}`
-|`POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}`
-|`POSTGRESQL_MAX_PREPARED_TRANSACTIONS` | -- | `${POSTGRESQL_MAX_CONNECTIONS}`
-|`POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}`
+|`DEFAULT_JOB_REPOSITORY` | -- | `${APPLICATION_NAME}-mysql`
+|`TIMER_SERVICE_DATA_STORE` | -- | `${APPLICATION_NAME}-mysql`
+.8+| `${APPLICATION_NAME}-mysql`
+|`MYSQL_USER` | -- | `${DB_USERNAME}`
+|`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`MYSQL_DATABASE` | -- | `${DB_DATABASE}`
+|`MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}`
+|`MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}`
+|`MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}`
+|`MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}`
+|`MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}`
 |=======================================================================
 
 
@@ -259,7 +264,7 @@ for more information.
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
 |`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-postgresql` | `${APPLICATION_NAME}-postgresql-pvol` | `/var/lib/pgsql/data` | postgresql | false
+|`${APPLICATION_NAME}-mysql` | `${APPLICATION_NAME}-mysql-pvol` | `/var/lib/mysql/data` | mysql | false
 |=============
 
 
@@ -276,7 +281,7 @@ more information.
 |=============
 |Name | Access Mode
 
-|`${APPLICATION_NAME}-postgresql-claim` | ReadWriteOnce
+|`${APPLICATION_NAME}-mysql-claim` | ReadWriteOnce
 |=============
 
 

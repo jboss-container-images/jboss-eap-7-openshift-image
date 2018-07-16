@@ -9,19 +9,19 @@ For example, for OpenShift Online, see: https://docs.openshift.com/online/cli_re
 [source, bash]
 ----
 for resource in eap-cd-image-stream.json \
-  eap-cd-amq-persistent-s2i.json \
-  eap-cd-amq-s2i.json \
-  eap-cd-basic-s2i.json \
-  eap-cd-https-s2i.json \
-  eap-cd-mongodb-persistent-s2i.json \
-  eap-cd-mongodb-s2i.json \
-  eap-cd-mysql-persistent-s2i.json \
-  eap-cd-mysql-s2i.json \
-  eap-cd-postgresql-persistent-s2i.json \
-  eap-cd-postgresql-s2i.json \
-  eap-cd-sso-s2i.json \
-  eap-cd-third-party-db-s2i.json \
-  eap-cd-tx-recovery-s2i.json
+  eap72-amq-persistent-s2i.json \
+  eap72-amq-s2i.json \
+  eap72-basic-s2i.json \
+  eap72-https-s2i.json \
+  eap72-mongodb-persistent-s2i.json \
+  eap72-mongodb-s2i.json \
+  eap72-mysql-persistent-s2i.json \
+  eap72-mysql-s2i.json \
+  eap72-postgresql-persistent-s2i.json \
+  eap72-postgresql-s2i.json \
+  eap72-sso-s2i.json \
+  eap72-third-party-db-s2i.json \
+  eap72-tx-recovery-s2i.json
 do
   oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/${resource}
 done
@@ -55,13 +55,13 @@ Example:
 
 [source, bash]
 ----
-oc -n myproject new-app eap-cd-basic-s2i -p APPLICATION_NAME=eap-cd-basic-app
+oc -n myproject new-app eap72-basic-s2i -p APPLICATION_NAME=eap72-basic-app
 ----
 
 or, if a namespace was used with `-n` above:
 [source, bash]
 ----
-oc -n myproject new-app eap-cd-basic-s2i -p APPLICATION_NAME=eap-cd-basic-app -p IMAGE_STREAM_NAMESPACE=myproject
+oc -n myproject new-app eap72-basic-s2i -p APPLICATION_NAME=eap72-basic-app -p IMAGE_STREAM_NAMESPACE=myproject
 ----
 
 For more information on application creation and deployment see: https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/13/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#deploy_eap_s2i

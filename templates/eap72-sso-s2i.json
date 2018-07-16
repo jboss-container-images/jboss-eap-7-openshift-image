@@ -6,20 +6,20 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
             "version": "1.5.0",
-            "openshift.io/display-name": "JBoss EAP CD + MongoDB (with https)",
+            "openshift.io/display-name": "JBoss EAP CD + Single Sign-On (with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example JBoss Enterprise Application Platform continuous delivery application with a MongoDB database. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop JBoss Enterprise Application Server continuous delivery based application, including a build configuration, application deployment configuration, database deployment configuration for MongoDB using persistence and secure communication using https.",
+            "description": "An example JBoss Enterprise Application Platform continuous delivery application Single Sign-On application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and integrated with Red Hat Single Sign-On.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-mongodb-persistent-s2i"
+        "name": "eap72-sso-s2i"
     },
     "labels": {
-        "template": "eap-cd-mongodb-persistent-s2i",
+        "template": "eap72-sso-s2i",
         "xpaas": "1.5.0"
     },
-    "message": "A new JBoss EAP CD and MongoDB persistent based application with SSL support has been created in your project. The username/password for accessing the MongoDB database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD} (Admin password is \"${DB_ADMIN_PASSWORD}\"). Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new JBoss EAP CD based application with SSL and SSO support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -30,52 +30,31 @@
         },
         {
             "displayName": "Custom https Route Hostname",
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
+            "description": "Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server.",
             "name": "HOSTNAME_HTTPS",
             "value": "",
-            "required": false
+            "required": true
         },
         {
             "displayName": "Git Repository URL",
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "value": "https://github.com/redhat-developer/redhat-sso-quickstarts",
             "required": true
         },
         {
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "1.3",
+            "value": "7.0.x-ose",
             "required": false
         },
         {
             "displayName": "Context Directory",
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "todolist/todolist-mongodb",
-            "required": false
-        },
-        {
-            "displayName": "Database JNDI Name",
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb",
-            "name": "DB_JNDI",
             "value": "",
             "required": false
-        },
-        {
-            "displayName": "Database Name",
-            "description": "Database name",
-            "name": "DB_DATABASE",
-            "value": "root",
-            "required": true
-        },
-        {
-            "displayName": "Database Volume Capacity",
-            "description": "Size of persistent storage for database volume.",
-            "name": "VOLUME_CAPACITY",
-            "value": "1Gi",
-            "required": true
         },
         {
             "displayName": "Queues",
@@ -90,6 +69,14 @@
             "name": "MQ_TOPICS",
             "value": "",
             "required": false
+        },
+        {
+            "displayName": "AMQ cluster password",
+            "description": "AMQ cluster admin password",
+            "name": "MQ_CLUSTER_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         },
         {
             "displayName": "Server Keystore Secret Name",
@@ -114,85 +101,17 @@
         },
         {
             "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate",
+            "description": "The name associated with the server certificate (e.g. jboss)",
             "name": "HTTPS_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate",
+            "description": "The password for the keystore and certificate (e.g. mykeystorepass)",
             "name": "HTTPS_PASSWORD",
             "value": "",
             "required": false
-        },
-        {
-            "displayName": "Datasource Minimum Pool Size",
-            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "name": "DB_MIN_POOL_SIZE",
-            "required": false
-        },
-        {
-            "displayName": "Datasource Maximum Pool Size",
-            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "name": "DB_MAX_POOL_SIZE",
-            "required": false
-        },
-        {
-            "displayName": "Datasource Transaction Isolation",
-            "description": "Sets transaction-isolation for the configured datasource.",
-            "name": "DB_TX_ISOLATION",
-            "required": false
-        },
-        {
-            "displayName": "MongoDB No Preallocation",
-            "description": "Disable data file preallocation.",
-            "name": "MONGODB_NOPREALLOC",
-            "required": false
-        },
-        {
-            "displayName": "MongoDB Small Files",
-            "description": "Set MongoDB to use a smaller default data file size.",
-            "name": "MONGODB_SMALLFILES",
-            "required": false
-        },
-        {
-            "displayName": "MongoDB Quiet",
-            "description": "Runs MongoDB in a quiet mode that attempts to limit the amount of output.",
-            "name": "MONGODB_QUIET",
-            "required": false
-        },
-        {
-            "displayName": "AMQ cluster password",
-            "description": "AMQ cluster admin password",
-            "name": "MQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "Database Username",
-            "description": "Database user name",
-            "name": "DB_USERNAME",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "Database Password",
-            "description": "Database user password",
-            "name": "DB_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "Database admin password",
-            "description": "Database admin password",
-            "name": "DB_ADMIN_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
         },
         {
             "displayName": "Github Webhook Secret",
@@ -233,14 +152,14 @@
         },
         {
             "displayName": "JGroups Certificate Name",
-            "description": "The name associated with the server certificate",
+            "description": "The name associated with the server certificate (e.g. secret-key)",
             "name": "JGROUPS_ENCRYPT_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "JGroups Keystore Password",
-            "description": "The password for the keystore and certificate",
+            "description": "The password for the keystore and certificate (e.g. password)",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
@@ -261,6 +180,140 @@
             "required": false
         },
         {
+            "displayName": "URL for SSO",
+            "description": "The URL for the SSO server (e.g. https://secure-sso-myproject.example.com/auth).  This is the URL through which the user will be redirected when a login or token is required by the application.",
+            "name": "SSO_URL",
+            "value": "",
+            "required": true
+        },
+        {
+            "displayName": "URL for SSO (internal service)",
+            "description": "The URL for the internal SSO service, where secure-sso (the default) is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL.",
+            "name": "SSO_SERVICE_URL",
+            "value": "https://secure-sso:8443/auth",
+            "required": false
+        },
+        {
+            "displayName": "SSO Realm",
+            "description": "The SSO realm to which the application client(s) should be associated (e.g. demo).",
+            "name": "SSO_REALM",
+            "value": "",
+            "required": true
+        },
+        {
+            "displayName": "SSO Username",
+            "description": "The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates.",
+            "name": "SSO_USERNAME",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "SSO Password",
+            "description": "The password for the SSO service user.",
+            "name": "SSO_PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "SSO Public Key",
+            "description": "SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability",
+            "name": "SSO_PUBLIC_KEY",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "SSO Bearer Only?",
+            "description": "SSO Client Access Type",
+            "name": "SSO_BEARER_ONLY",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "Artifact Directories",
+            "description": "List of directories from which archives will be copied into the deployment folder.  If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
+            "value": "app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target",
+            "required": false
+        },
+        {
+            "displayName": "SSO SAML Keystore Secret",
+            "description": "The name of the secret containing the keystore file",
+            "name": "SSO_SAML_KEYSTORE_SECRET",
+            "value": "eap7-app-secret",
+            "required": false
+        },
+        {
+            "displayName": "SSO SAML Keystore",
+            "description": "The name of the keystore file within the secret",
+            "name": "SSO_SAML_KEYSTORE",
+            "value": "keystore.jks",
+            "required": false
+        },
+        {
+            "displayName": "SSO SAML Certificate Name",
+            "description": "The name associated with the server certificate",
+            "name": "SSO_SAML_CERTIFICATE_NAME",
+            "value": "jboss",
+            "required": false
+        },
+        {
+            "displayName": "SSO SAML Keystore Password",
+            "description": "The password for the keystore and certificate",
+            "name": "SSO_SAML_KEYSTORE_PASSWORD",
+            "value": "mykeystorepass",
+            "required": false
+        },
+        {
+            "displayName": "SSO Client Secret",
+            "description": "The SSO Client Secret for Confidential Access",
+            "name": "SSO_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
+        },
+        {
+            "displayName": "Enable CORS for SSO?",
+            "description": "Enable CORS for SSO applications",
+            "name": "SSO_ENABLE_CORS",
+            "value": "false",
+            "required": false
+        },
+        {
+            "displayName": "SSO SAML Logout Page",
+            "description": "SSO logout page for SAML applications",
+            "name": "SSO_SAML_LOGOUT_PAGE",
+            "value": "/",
+            "required": false
+        },
+        {
+            "displayName": "Disable SSL Validation in EAP->SSO communication",
+            "description": "If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl)",
+            "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
+            "value": "true",
+            "required": false
+        },
+        {
+            "displayName": "SSO Trust Store",
+            "description": "The name of the truststore file within the secret (e.g. truststore.jks)",
+            "name": "SSO_TRUSTSTORE",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "SSO Trust Store Password",
+            "description": "The password for the truststore and certificate (e.g. mykeystorepass)",
+            "name": "SSO_TRUSTSTORE_PASSWORD",
+            "value": "",
+            "required": false
+        },
+        {
+            "displayName": "SSO Trust Store Secret",
+            "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
+            "name": "SSO_TRUSTSTORE_SECRET",
+            "value": "eap7-app-secret",
+            "required": false
+        },
+        {
             "displayName": "Maven mirror URL",
             "description": "Maven mirror to use for S2I builds",
             "name": "MAVEN_MIRROR_URL",
@@ -273,19 +326,6 @@
             "name": "MAVEN_ARGS_APPEND",
             "value": "",
             "required": false
-        },
-        {
-            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
-            "name": "ARTIFACT_DIR",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "MongoDB Image Stream Tag",
-            "description": "The tag to use for the \"mongodb\" image stream.  Typically, this aligns with the major.minor version of MongoDB.",
-            "name": "MONGODB_IMAGE_STREAM_TAG",
-            "value": "3.2",
-            "required": true
         },
         {
             "description": "Container memory limit",
@@ -315,8 +355,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mongodb\", \"kind\": \"Service\"}]"
+                    "description": "The web server's http port."
                 }
             }
         },
@@ -340,32 +379,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mongodb\", \"kind\": \"Service\"}]"
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 27017,
-                        "targetPort": 27017
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mongodb"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-mongodb",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The database server's port."
+                    "description": "The web server's https port."
                 }
             }
         },
@@ -468,7 +482,17 @@
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
+                        "forcePull": true,
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                            "name": "eap-cd-openshift:13"
+                        },
                         "env": [
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
+                            },
                             {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
@@ -476,18 +500,8 @@
                             {
                                 "name": "MAVEN_ARGS_APPEND",
                                 "value": "${MAVEN_ARGS_APPEND}"
-                            },
-                            {
-                                "name": "ARTIFACT_DIR",
-                                "value": "${ARTIFACT_DIR}"
                             }
-                        ],
-                        "forcePull": true,
-                        "from": {
-                            "kind": "ImageStreamTag",
-                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:13"
-                        }
+                        ]
                     }
                 },
                 "output": {
@@ -576,6 +590,11 @@
                                 },
                                 "volumeMounts": [
                                     {
+                                        "name": "sso-saml-keystore-volume",
+                                        "mountPath": "/etc/sso-saml-secret-volume",
+                                        "readOnly": true
+                                    },
+                                    {
                                         "name": "eap-keystore-volume",
                                         "mountPath": "/etc/eap-secret-volume",
                                         "readOnly": true
@@ -583,6 +602,11 @@
                                     {
                                         "name": "eap-jgroups-keystore-volume",
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "name": "sso-truststore-volume",
+                                        "mountPath": "/etc/sso-secret-volume",
                                         "readOnly": true
                                     }
                                 ],
@@ -629,42 +653,6 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mongodb=DB"
-                                    },
-                                    {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
-                                    },
-                                    {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "DB_ADMIN_PASSWORD",
-                                        "value": "${DB_ADMIN_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
-                                    },
-                                    {
                                         "name": "JGROUPS_PING_PROTOCOL",
                                         "value": "openshift.DNS_PING"
                                     },
@@ -675,6 +663,14 @@
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
                                         "value": "8888"
+                                    },
+                                    {
+                                        "name": "HOSTNAME_HTTP",
+                                        "value": "${HOSTNAME_HTTP}"
+                                    },
+                                    {
+                                        "name": "HOSTNAME_HTTPS",
+                                        "value": "${HOSTNAME_HTTPS}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -735,11 +731,93 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "SSO_URL",
+                                        "value": "${SSO_URL}"
+                                    },
+                                    {
+                                        "name": "SSO_SERVICE_URL",
+                                        "value": "${SSO_SERVICE_URL}"
+                                    },
+                                    {
+                                        "name": "SSO_REALM",
+                                        "value": "${SSO_REALM}"
+                                    },
+                                    {
+                                        "name": "SSO_USERNAME",
+                                        "value": "${SSO_USERNAME}"
+                                    },
+                                    {
+                                        "name": "SSO_PASSWORD",
+                                        "value": "${SSO_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SSO_PUBLIC_KEY",
+                                        "value": "${SSO_PUBLIC_KEY}"
+                                    },
+                                    {
+                                        "name": "SSO_BEARER_ONLY",
+                                        "value": "${SSO_BEARER_ONLY}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_KEYSTORE_SECRET",
+                                        "value": "${SSO_SAML_KEYSTORE_SECRET}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_KEYSTORE",
+                                        "value": "${SSO_SAML_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_KEYSTORE_DIR",
+                                        "value": "/etc/sso-saml-secret-volume"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_CERTIFICATE_NAME",
+                                        "value": "${SSO_SAML_CERTIFICATE_NAME}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_KEYSTORE_PASSWORD",
+                                        "value": "${SSO_SAML_KEYSTORE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SSO_SECRET",
+                                        "value": "${SSO_SECRET}"
+                                    },
+                                    {
+                                        "name": "SSO_ENABLE_CORS",
+                                        "value": "${SSO_ENABLE_CORS}"
+                                    },
+                                    {
+                                        "name": "SSO_SAML_LOGOUT_PAGE",
+                                        "value": "${SSO_SAML_LOGOUT_PAGE}"
+                                    },
+                                    {
+                                        "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
+                                        "value": "${SSO_DISABLE_SSL_CERTIFICATE_VALIDATION}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE",
+                                        "value": "${SSO_TRUSTSTORE}"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE_DIR",
+                                        "value": "/etc/sso-secret-volume"
+                                    },
+                                    {
+                                        "name": "SSO_TRUSTSTORE_PASSWORD",
+                                        "value": "${SSO_TRUSTSTORE_PASSWORD}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
+                            {
+                                "name": "sso-saml-keystore-volume",
+                                "secret": {
+                                    "secretName": "${SSO_SAML_KEYSTORE_SECRET}"
+                                }
+                            },
                             {
                                 "name": "eap-keystore-volume",
                                 "secret": {
@@ -751,149 +829,14 @@
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
                                 }
-                            }
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-mongodb",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                }
-            },
-            "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-mongodb"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "mongodb:${MONGODB_IMAGE_STREAM_TAG}"
-                            }
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mongodb"
-                },
-                "template": {
-                    "metadata": {
-                        "name": "${APPLICATION_NAME}-mongodb",
-                        "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-mongodb",
-                            "application": "${APPLICATION_NAME}"
-                        }
-                    },
-                    "spec": {
-                        "terminationGracePeriodSeconds": 60,
-                        "containers": [
+                            },
                             {
-                                "name": "${APPLICATION_NAME}-mongodb",
-                                "image": "mongodb",
-                                "imagePullPolicy": "Always",
-                                "ports": [
-                                    {
-                                        "containerPort": 27017,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "readinessProbe": {
-                                    "timeoutSeconds": 1,
-                                    "initialDelaySeconds": 3,
-                                    "exec": {
-                                        "command": [ "/bin/sh", "-i", "-c", "mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""]
-                                    }
-                                },
-                                "livenessProbe": {
-                                    "timeoutSeconds": 1,
-                                    "initialDelaySeconds": 30,
-                                    "tcpSocket": {
-                                        "port": 27017
-                                    }
-                                },
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/lib/mongodb/data",
-                                        "name": "${APPLICATION_NAME}-mongodb-pvol"
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "name": "MONGODB_USER",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "MONGODB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "MONGODB_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "${DB_ADMIN_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "MONGODB_NOPREALLOC",
-                                        "value": "${MONGODB_NOPREALLOC}"
-                                    },
-                                    {
-                                        "name": "MONGODB_SMALLFILES",
-                                        "value": "${MONGODB_SMALLFILES}"
-                                    },
-                                    {
-                                        "name": "MONGODB_QUIET",
-                                        "value": "${MONGODB_QUIET}"
-                                    }
-                                ]
-                            }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "${APPLICATION_NAME}-mongodb-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-mongodb-claim"
+                                "name": "sso-truststore-volume",
+                                "secret": {
+                                    "secretName": "${SSO_TRUSTSTORE_SECRET}"
                                 }
                             }
                         ]
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "name": "${APPLICATION_NAME}-mongodb-claim",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                }
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }

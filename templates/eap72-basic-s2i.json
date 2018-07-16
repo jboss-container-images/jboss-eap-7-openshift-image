@@ -13,10 +13,10 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-basic-s2i"
+        "name": "eap72-basic-s2i"
     },
     "labels": {
-        "template": "eap-cd-basic-s2i",
+        "template": "eap72-basic-s2i",
         "xpaas": "1.5.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",

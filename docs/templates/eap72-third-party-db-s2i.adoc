@@ -4,7 +4,7 @@
     generator or the input template (./*.in)
 ////
 
-= eap-cd-third-party-db-s2i
+= eap72-third-party-db-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
