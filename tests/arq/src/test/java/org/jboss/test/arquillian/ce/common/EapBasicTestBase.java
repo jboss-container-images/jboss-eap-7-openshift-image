@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
  * @author Marko Luksa
  */
 @OpenShiftResource("${openshift.imageStreams}")
-@OpenShiftDynamicImageStreamResource(name = "${imageStream.eap71.name:jboss-eap71-openshift}", image = "${imageStream.eap71.image:registry.access.redhat.com/jboss-eap-7/eap71-openshift:1.3}", version = "${imageStream.eap71.version:1.3}")
+@OpenShiftDynamicImageStreamResource(name = "${image.stream.name}", image = "${image.stream.image}", version = "${image.stream.version}")
 public class EapBasicTestBase {
 
     private Logger log = Logger.getLogger(getClass().getName());
