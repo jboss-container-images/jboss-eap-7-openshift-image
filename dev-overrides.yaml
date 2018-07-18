@@ -4,8 +4,8 @@ modules:
       repositories:
           - name: cct_module
             git:
-                  url: https://github.com/luck3y/cct_module.git
-                  ref: eap72-dev
+                  url: https://github.com/jboss-openshift/cct_module.git
+                  ref: master
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
