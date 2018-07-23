@@ -203,7 +203,7 @@ for more information.
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
 .8+| `${APPLICATION_NAME}-amq`
-|jolokia | 8161 | `TCP`
+|console-jolokia | 8161 | `TCP`
 |amqp | 5672 | `TCP`
 |amqp-ssl | 5671 | `TCP`
 |mqtt | 1883 | `TCP`
