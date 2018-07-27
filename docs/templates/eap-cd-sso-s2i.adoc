@@ -28,9 +28,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/redhat-developer/redhat-sso-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 7.0.x-ose | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld | False
-|`MQ_QUEUES` | `MQ_QUEUES` | Queue names | `${MQ_QUEUES}` | False
-|`MQ_TOPICS` | `MQ_TOPICS` | Topic names | `${MQ_TOPICS}` | False
-|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | A-MQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
+|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}` | False
+|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}` | False
+|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
@@ -124,7 +124,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:12 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-openshift:13 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -217,9 +217,9 @@ for more information.
 |`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
 |`HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}`
-|`MQ_CLUSTER_PASSWORD` | A-MQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
-|`MQ_QUEUES` | Queue names | `${MQ_QUEUES}`
-|`MQ_TOPICS` | Topic names | `${MQ_TOPICS}`
+|`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
+|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
+|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
 |`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
 |`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
