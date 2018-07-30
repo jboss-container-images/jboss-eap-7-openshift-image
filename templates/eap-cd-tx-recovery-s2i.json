@@ -577,10 +577,6 @@
                                         "value": "${MQ_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "MQ_SERIALIZABLE_PACKAGES",
-                                        "value": "${MQ_SERIALIZABLE_PACKAGES}"
-                                    },
-                                    {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
