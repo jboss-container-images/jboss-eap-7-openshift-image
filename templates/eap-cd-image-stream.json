@@ -28,7 +28,7 @@
                     {
                         "name": "latest",
                         "annotations": {
-                            "description": "JBoss EAP continuous delivery Tech Preview S2I Image",
+                            "description": "The latest available build of JBoss EAP continuous delivery Tech Preview.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -46,7 +46,7 @@
                     {
                         "name": "13",
                         "annotations": {
-                            "description": "The latest available build of JBoss EAP continuous delivery Tech Preview.",
+                            "description": "JBoss EAP continuous delivery Tech Preview version 13.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -65,7 +65,7 @@
                     {
                         "name": "12",
                         "annotations": {
-                            "description": "The latest available build of JBoss EAP continuous delivery Tech Preview.",
+                            "description": "JBoss EAP continuous delivery Tech Preview version 12.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
