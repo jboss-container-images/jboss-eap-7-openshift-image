@@ -230,6 +230,30 @@
     ],
     "objects": [
         {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-sa"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "RoleBinding",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-role-binding"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "${APPLICATION_NAME}-sa"
+                }
+            ],
+            "roleRef": {
+                "kind": "Role",
+                "name": "view"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -474,6 +498,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "${APPLICATION_NAME}-sa",
                         "terminationGracePeriodSeconds": 75,
                         "containers": [
                             {
@@ -834,6 +859,7 @@
                         }
                     },
                     "spec": {
+                        "serviceAccountName": "${APPLICATION_NAME}-sa",
                         "terminationGracePeriodSeconds": 75,
                         "containers": [
                             {
