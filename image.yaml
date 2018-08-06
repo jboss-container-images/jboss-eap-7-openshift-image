@@ -31,6 +31,10 @@ modules:
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
                   ref: master
+          - name: jboss-eap-modules
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: master
       install:
           - name: dynamic-resources
           - name: s2i-common
@@ -48,7 +52,7 @@ modules:
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch
-          - name: os-eap-logging
+          - name: jboss.eap.logging.ext
           - name: os-eap-probes
           - name: jboss-maven
           - name: os-eap-db-drivers
