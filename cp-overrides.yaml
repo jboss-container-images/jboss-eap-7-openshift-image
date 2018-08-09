@@ -12,4 +12,4 @@ modules:
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.2-cd-openshift-cp-rhel-7
+            branch: jb-eap-7.2-openshift-cp-rhel-7

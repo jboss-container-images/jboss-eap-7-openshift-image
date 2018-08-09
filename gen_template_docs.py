@@ -23,7 +23,7 @@ TEMPLATE_DOCS = "docs/"
 template_dirs = [ 'templates' ]
 amq_ssl_desc = None
 
-LINKS =  {"eap-cd-openshift:13": "../{outfilesuffix}[``]" }
+LINKS =  {"jboss-eap72-openshift:1.0": "../{outfilesuffix}[``]" }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
                    "SOURCE_REPOSITORY_URL": "https://github.com/jboss-openshift/openshift-examples.git", \
@@ -224,7 +224,10 @@ def createObjectTable(data, tableKind):
          continue
       elif obj["kind"] ==  'Route' and tableKind == 'Route':
          if(obj["spec"].get("tls")):
-            columns = [obj["id"], ("TLS "+ obj["spec"]["tls"]["termination"]), obj["spec"]["host"]]
+            tls = obj["spec"].get("tls")
+            columns = [obj["id"], ("TLS "+ tls["termination"])]
+            if "host" in obj["spec"]:
+              columns.append(obj["spec"]["host"])
          else:
             pass
             #columns = [obj["id"], "none", obj["spec"]["host"]]

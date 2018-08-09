@@ -1,16 +1,16 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift"
-description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "13.0"
-from: "jboss-eap-7/eap-cd:13.0"
+name: "jboss-eap-7/eap72-openshift"
+description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenShift container image"
+version: "1.0"
+from: "jboss-eap-7-tech-preview/eap72:7.2.0"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap-cd-openshift-container"
+      value: "jboss-eap-7-eap72-openshift-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP continuous delivery"
+      value: "Platform for building and running JavaEE applications on JBoss EAP 7.2"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP continuous delivery"
+      value: "JBoss EAP 7.2"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -46,6 +46,7 @@ modules:
           - name: os-eap7-openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
+          - name: os-eap-activemq-rar
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch
@@ -78,4 +79,4 @@ run:
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.2-cd-openshift-rhel-7
+            branch: jb-eap-7.2-openshift-rhel-7

@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap-cd-basic-s2i
+= eap72-starter-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc
+An example JBoss EAP 7 application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc
 
 toc::[]
 
@@ -27,13 +27,9 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | openshift | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
-|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}` | False
-|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}` | False
-|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
-|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -Dcom.redhat.xpaas.repo.jbossorg | False
@@ -60,9 +56,6 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `${APPLICATION_NAME}`
 |8080 | --
 .1+| The web server's http port.
-.1+| `${APPLICATION_NAME}-ping`
-|8888 | ping
-.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -77,7 +70,7 @@ https://docs.openshift.com/container-platform/latest/architecture/networking/rou
 |=============
 | Service    | Security | Hostname
 
-|
+|`${APPLICATION_NAME}-https` | TLS edge
 |=============
 
 
@@ -92,7 +85,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:13 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|jboss-eap72-openshift:1.0 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -160,10 +153,9 @@ for more information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.3+| `${APPLICATION_NAME}`
+.2+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
-|ping | 8888 | `TCP`
 |=============
 
 
@@ -173,14 +165,7 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.8+| `${APPLICATION_NAME}`
-|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
-|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
-|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
-|`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
-|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
-|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`
-|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+.1+| `${APPLICATION_NAME}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |=======================================================================
 
