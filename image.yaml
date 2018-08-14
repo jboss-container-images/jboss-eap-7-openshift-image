@@ -53,6 +53,7 @@ modules:
           - name: os-eap-launch
           - name: os-eap7-launch
           - name: jboss.eap.logging.ext
+          - name: jboss.eap.cd.jgroups
           - name: os-eap-probes
           - name: jboss-maven
           - name: os-eap-db-drivers
