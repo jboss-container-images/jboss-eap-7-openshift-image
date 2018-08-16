@@ -39,7 +39,6 @@ modules:
           - name: dynamic-resources
           - name: s2i-common
           - name: java-alternatives
-          - name: os-eap7-openshift
           - name: os-eap-s2i
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
