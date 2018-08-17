@@ -6,7 +6,7 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
             "version": "1.0.0",
-            "openshift.io/display-name": "JBoss EAP 7.2 (with https)",
+            "openshift.io/display-name": "JBoss EAP 7.2 (with https) [Tech Preview]",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example Red Hat JBoss EAP 7 application configured with secure communication using HTTPS. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
             "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 application, including a build configuration, application deployment configuration and secure communication using https.",
