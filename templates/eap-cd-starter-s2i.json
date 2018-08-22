@@ -17,7 +17,7 @@
     },
     "labels": {
         "template": "eap-cd-starter-s2i",
-        "xpaas": "1.5.0"
+        "xpaas": "14.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
     "parameters": [
@@ -203,7 +203,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:13"
+                            "name": "eap-cd-openshift:14"
                         }
                     }
                 },
