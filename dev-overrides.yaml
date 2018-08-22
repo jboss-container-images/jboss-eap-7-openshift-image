@@ -1,17 +1,20 @@
 schema_version: 1
 
+#version: "14.0"
+#from: "jboss-eap-7/eap-cd:14.0"
+
 modules:
       repositories:
           - name: cct_module
             git:
-                  url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  url: https://github.com/luck3y/cct_module.git
+                  ref: CLOUD-1502
           - name: jboss-eap-modules
             git:
-                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
+                  url: https://github.com/luck3y/jboss-eap-modules.git
+                  ref: CLOUD-2758
+
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.2-cd-dev-openshift-rhel-7
-
+            branch: jb-eap-7.1-openshift-dev-rhel-7
