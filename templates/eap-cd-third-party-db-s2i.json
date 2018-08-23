@@ -5,7 +5,7 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
-            "version": "1.5.0",
+            "version": "14.0",
             "openshift.io/display-name": "JBoss EAP CD (with https, DB drivers)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc.",
