@@ -111,7 +111,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:13 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-openshift:14 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -154,6 +154,19 @@ for more information.
 
 ==== Pod Template
 
+
+===== Service Accounts
+
+Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
+https://docs.openshift.com/enterprise/latest/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
+information.
+
+|============
+|Deployment | Service Account
+
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}-sa`
+|`${APPLICATION_NAME}-migration` | `${APPLICATION_NAME}-sa`
+|============
 
 
 
@@ -216,7 +229,7 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.17+| `${APPLICATION_NAME}`
+.16+| `${APPLICATION_NAME}`
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq7=MQ`
 |`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory | `${MQ_JNDI}`
 |`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
@@ -229,7 +242,6 @@ for more information.
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
-|`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`SPLIT_DATA` | Split the data directory for each node in a cluster. | `${SPLIT_DATA}`
