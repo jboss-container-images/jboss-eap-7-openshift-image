@@ -52,6 +52,7 @@ modules:
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
           - name: jboss.eap.cd.logging
+          - name: jboss.eap.config.mp-config
           - name: os-eap-probes
           - name: jboss-maven
           - name: os-eap-db-drivers
