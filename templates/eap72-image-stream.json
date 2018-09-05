@@ -38,9 +38,12 @@
                             "version": "latest",
                             "openshift.io/display-name": "Red Hat JBoss EAP 7.2"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap72-openshift:latest"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap72-openshift:latest"
                         }
                     },
                     {
@@ -56,9 +59,12 @@
                             "version": "1.0",
                             "openshift.io/display-name": "Red Hat JBoss EAP 7.2"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap72-openshift:1.0"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap72-openshift:1.0"
                         }
                     }
                 ]
