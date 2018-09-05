@@ -87,7 +87,6 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "14.0"
-
                         }
                     },
                     {
@@ -150,6 +149,9 @@
                         "referencePolicy": {
                             "type": "Local"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "DockerImage",
                             "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-openshift:12.0"
@@ -188,6 +190,9 @@
                             "sampleRef": "openshift",
                             "version": "14.0",
                             "openshift.io/display-name": "JBoss EAP continuous delivery 14 (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
                         },
                         "referencePolicy": {
                             "type": "Local"
