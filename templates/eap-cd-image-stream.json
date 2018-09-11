@@ -59,6 +59,9 @@
                             "version": "13",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "13.0"
@@ -77,6 +80,9 @@
                             "sampleRef": "openshift",
                             "version": "12",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
                         },
                         "from": {
                             "kind": "ImageStreamTag",
