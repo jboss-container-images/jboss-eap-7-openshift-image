@@ -59,12 +59,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-ce-httpclient</artifactId>
-            <version>${version.ce-arq}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.arquillian.cube</groupId>
             <artifactId>arquillian-cube-openshift</artifactId>
             <version>${version.arquillian.cube}</version>
@@ -97,6 +91,12 @@
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.1.1</version>
         </dependency>
 
     </dependencies>
