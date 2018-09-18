@@ -43,6 +43,7 @@ modules:
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
+          - name: jboss.eap.cd14.openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-java-run
@@ -50,6 +51,7 @@ modules:
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
           - name: jboss.eap.cd.logging
+          - name: jboss.eap.config.mp-config
           - name: os-eap-probes
           - name: jboss-maven
           - name: os-eap-db-drivers
