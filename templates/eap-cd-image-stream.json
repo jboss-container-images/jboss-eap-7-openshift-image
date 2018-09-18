@@ -59,6 +59,9 @@
                             "version": "14",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "14.0"
@@ -78,6 +81,9 @@
                             "version": "13",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "13.0"
@@ -96,6 +102,9 @@
                             "sampleRef": "openshift",
                             "version": "12",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
                         },
                         "from": {
                             "kind": "ImageStreamTag",
@@ -157,6 +166,9 @@
                             "sampleRef": "openshift",
                             "version": "14.0",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
                         },
                         "from": {
                             "kind": "DockerImage",
