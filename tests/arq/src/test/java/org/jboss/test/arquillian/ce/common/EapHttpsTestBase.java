@@ -12,8 +12,4 @@ public class EapHttpsTestBase extends EapBasicTestBase {
 
     @RouteURL("secure-eap-app")
     private URL url;
-
-    protected URL getUrl() {
-        return url;
-    }
 }
