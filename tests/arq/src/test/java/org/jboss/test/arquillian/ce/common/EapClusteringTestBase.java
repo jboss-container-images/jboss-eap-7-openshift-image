@@ -1,24 +1,13 @@
 package org.jboss.test.arquillian.ce.common;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.logging.Logger;
-
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.arquillian.cube.openshift.api.ConfigurationHandle;
 import org.arquillian.cube.openshift.api.OpenShiftDynamicImageStreamResource;
 import org.arquillian.cube.openshift.api.OpenShiftHandle;
 import org.arquillian.cube.openshift.api.OpenShiftResource;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
-import org.jboss.arquillian.ce.httpclient.HttpClient;
-import org.jboss.arquillian.ce.httpclient.HttpClientBuilder;
-import org.jboss.arquillian.ce.httpclient.HttpClientExecuteOptions;
-import org.jboss.arquillian.ce.httpclient.HttpRequest;
-import org.jboss.arquillian.ce.httpclient.HttpResponse;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -26,9 +15,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.net.URL;
+import java.util.*;
+import java.util.logging.Logger;
+
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.*;
 
 /**
  * @author Jonh Wendell
@@ -37,8 +30,6 @@ import static org.junit.Assert.assertTrue;
 @OpenShiftDynamicImageStreamResource(name = "${image.stream.name}", image = "${image.stream.image}", version = "${image.stream.version}")
 public class EapClusteringTestBase {
     protected final Logger log = Logger.getLogger(getClass().getName());
-    private final HttpClientExecuteOptions execOptions = new HttpClientExecuteOptions.Builder().tries(3)
-            .desiredStatusCode(200).delay(10).build();
 
     @ArquillianResource
     OpenShiftHandle adapter;
@@ -48,20 +39,21 @@ public class EapClusteringTestBase {
 
     private String token;
     private List<String> pods;
-    private HttpClient client;
+
+    public EapClusteringTestBase() {
+        RestAssured.useRelaxedHTTPSValidation();
+    }
 
     @Before
     public void setup() throws Exception {
         token = config.getToken();
         assertFalse("Auth token must be provided", token == null || token.isEmpty());
-
-        client = HttpClientBuilder.untrustedConnectionClient();
     }
 
     /**
      * This test starts two pods; insert a value into the first pod's session.
      * Then it retrieves this value from the second pod.
-     *
+     * <p>
      * After that it starts a third pod and try to get the value from it, to see
      * if session replication is working at pod's startup as well.
      *
@@ -76,15 +68,14 @@ public class EapClusteringTestBase {
 
         final String valueToCheck = UUID.randomUUID().toString();
 
-        // Insert a session value into the first pod
-        String servletUrl = buildURL(pods.get(0));
-        HttpRequest request = HttpClientBuilder.doPOST(servletUrl);
-        request.setHeader("Authorization", "Bearer " + token);
         Map<String, String> params = new HashMap<>();
         params.put("key", valueToCheck);
-        request.setEntity(params);
-        HttpResponse response = client.execute(request, execOptions);
-        assertEquals("OK", response.getResponseBodyAsString());
+
+        // Insert a session value into the first pod
+        String servletUrl = buildURL(pods.get(0));
+        Response response = given().header("Authorization", "Bearer " + token).post(servletUrl, params);
+
+        assertEquals("OK", response.print());
 
         String cookie = response.getHeader("Set-Cookie");
 
@@ -124,10 +115,10 @@ public class EapClusteringTestBase {
 
     private String retrieveKey(int podIndex, String cookie) throws Exception {
         String servletUrl = buildURL(pods.get(podIndex));
-        HttpRequest request = HttpClientBuilder.doGET(servletUrl);
-        request.setHeader("Authorization", "Bearer " + token);
-        request.setHeader("Cookie", cookie);
-        return client.execute(request, execOptions).getResponseBodyAsString();
+
+        Response response = given().header("Authorization", "Bearer " + token).header("Cookie", cookie).get(servletUrl);
+
+        return response.print();
     }
 
     private List<String> getPods() throws Exception {
@@ -152,11 +143,11 @@ public class EapClusteringTestBase {
     /**
      * This test starts with a high number of pods. We do lots of HTTP requests
      * sequentially, with a delay of 1 second between them.
-     *
+     * <p>
      * In paralel, after every N requests we scale down the cluster by 1 pod.
      * This happens in another thread and continues until we reach only one pod
      * in activity.
-     *
+     * <p>
      * The HTTP requests must continue to work correctly, as the openshift
      * router should redirect them to any working pod.
      *
@@ -178,14 +169,12 @@ public class EapClusteringTestBase {
         int replicas = REPLICAS;
         adapter.scaleDeployment("eap-app", replicas);
 
-        HttpRequest request = HttpClientBuilder.doGET(url.toString() + "/cluster1/Hi");
-
         // Do the requests
         for (int i = 1; i <= REQUESTS; i++) {
-            HttpResponse response = client.execute(request, execOptions);
-            assertEquals(200, response.getResponseCode());
+            Response response = get(url.toString() + "/cluster1/Hi");
+            assertEquals(200, response.getStatusCode());
 
-            String body = response.getResponseBodyAsString();
+            String body = response.print();
             log.info(String.format("Try %d -  GOT: %s", i, body));
             assertTrue(body.startsWith("Served from node: "));
 
@@ -199,18 +188,19 @@ public class EapClusteringTestBase {
     }
 
     protected int doDelayRequest(String url, int seconds) throws Exception {
-        HttpRequest request = HttpClientBuilder.doGET(url + "/cluster1/Hi");
-        HttpResponse response = client.execute(request, execOptions);
-        String body = response.getResponseBodyAsString();
+        Response response = get(url.toString() + "/cluster1/Hi");
+
+        String body = response.print();
         assertTrue("Got an invalid response: " + body, body.startsWith("Served from node: "));
         log.info(String.format("HI - BODY = %s", body));
 
         String podName = getHostName(body);
-        request = HttpClientBuilder.doGET(String.format("%s/cluster1/Delay?d=%d", url, seconds));
+
+
         (new DeletePod(podName)).start();
         log.info(String.format("About to request DELAY with %d seconds", seconds));
-        response = client.execute(request, execOptions);
-        body = response.getResponseBodyAsString();
+        response = get(String.format("%s/cluster1/Delay?d=%d", url, seconds));
+        body = response.print();
         int stars = StringUtils.countMatches(body, "*");
         log.info(String.format("DELAY - BODY = %s", body));
         return stars;

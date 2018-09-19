@@ -1,16 +1,14 @@
 package org.jboss.test.arquillian.ce.common;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.arquillian.cube.openshift.api.OpenShiftDynamicImageStreamResource;
 import org.arquillian.cube.openshift.api.OpenShiftResource;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
-import org.jboss.arquillian.ce.httpclient.HttpClient;
-import org.jboss.arquillian.ce.httpclient.HttpClientBuilder;
-import org.jboss.arquillian.ce.httpclient.HttpClientExecuteOptions;
-import org.jboss.arquillian.ce.httpclient.HttpRequest;
-import org.jboss.arquillian.ce.httpclient.HttpResponse;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.InSequence;
 import org.json.simple.JSONArray;
@@ -18,6 +16,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.junit.Test;
 
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static org.awaitility.Awaitility.with;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -29,13 +30,23 @@ import static org.junit.Assert.assertEquals;
 public class EapBasicTestBase {
 
     private Logger log = Logger.getLogger(getClass().getName());
-    private final HttpClientExecuteOptions execOptions = new HttpClientExecuteOptions.Builder().tries(3)
-            .desiredStatusCode(200).delay(10).build();
 
     @RouteURL("eap-app")
     private URL url;
 
+    public EapBasicTestBase() {
+        RestAssured.useRelaxedHTTPSValidation();
+    }
+
     protected URL getUrl() {
+        with().atMost(5, TimeUnit.MINUTES).pollInterval(5, TimeUnit.SECONDS).until(() -> {
+            try {
+                return get(url).getStatusCode() == 200;
+            } catch (Exception e) {
+                return false;
+            }
+        });
+
         return url;
     }
 
@@ -58,18 +69,18 @@ public class EapBasicTestBase {
     @InSequence(1)
     public void testInitialState() throws Exception {
         log.info("Trying URL " + getUrl());
-        HttpClient client = HttpClientBuilder.untrustedConnectionClient();
-        HttpRequest request = HttpClientBuilder.doGET(getUrl() + "kitchensink/rest/members");
-        HttpResponse response = client.execute(request, execOptions);
+
+        Response response = get(getUrl() + "kitchensink/rest/members");
 
         JSONParser jsonParser = new JSONParser();
-        JSONArray array = (JSONArray) jsonParser.parse(response.getResponseBodyAsString());
+        JSONArray array = (JSONArray) jsonParser.parse(response.print());
         assertEquals(array.size(), 1);
 
         JSONObject remotePerson = getPerson(0);
         Person localPerson = new Person(0, "John Smith", "john.smith@mailinator.com", "2125551212");
         assertPeopleAreSame(remotePerson, localPerson);
     }
+
 
     @SuppressWarnings("unchecked")
     @Test
@@ -84,12 +95,9 @@ public class EapBasicTestBase {
         p.put("email", email);
         p.put("phoneNumber", phoneNumber);
 
-        HttpClient client = HttpClientBuilder.untrustedConnectionClient();
-        HttpRequest request = HttpClientBuilder.doPOST(getUrl() + "kitchensink/rest/members");
-        request.setHeader("Content-Type", "application/json");
-        request.setEntity(p.toString());
-        HttpResponse response = client.execute(request, execOptions);
-        assertEquals(200, response.getResponseCode());
+        Response response = given().header("Content-Type", "application/json").body(p.toJSONString()).post(getUrl() + "kitchensink/rest/members");
+
+        assertEquals(200, response.getStatusCode());
 
         JSONObject remotePerson = getPerson(1);
         Person localPerson = new Person(1, name, email, phoneNumber);
@@ -97,16 +105,14 @@ public class EapBasicTestBase {
     }
 
     private JSONObject getPerson(int id) throws Exception {
-        HttpClient client = HttpClientBuilder.untrustedConnectionClient();
-        HttpRequest request = HttpClientBuilder.doGET(getUrl() + "kitchensink/rest/members/" + id);
-        HttpResponse response = client.execute(request, execOptions);
+        Response response = get(getUrl() + "kitchensink/rest/members/" + id);
 
         JSONParser jsonParser = new JSONParser();
-        return (JSONObject) jsonParser.parse(response.getResponseBodyAsString());
+        return (JSONObject) jsonParser.parse(response.print());
     }
 
     private void assertPeopleAreSame(JSONObject person1, Person person2) {
-        assertEquals(person2.id, (long)person1.get("id"));
+        assertEquals(person2.id, (long) person1.get("id"));
         assertEquals(person2.name, person1.get("name"));
         assertEquals(person2.email, person1.get("email"));
         assertEquals(person2.phoneNumber, person1.get("phoneNumber"));
