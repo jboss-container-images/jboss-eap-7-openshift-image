@@ -10,4 +10,3 @@ osbs:
       repository:
             name: containers/jboss-eap-7
             branch: jb-eap-7.1-openshift-cp-rhel-7
-
