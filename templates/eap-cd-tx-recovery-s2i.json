@@ -4,7 +4,7 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-eap",
-            "tags": "eap,javaee,java,jboss",
+            "tags": "eap,javaee,java,jboss,hidden",
             "version": "14.0",
             "openshift.io/display-name": "JBoss EAP CD 14 + AMQ 7 (tx recovery)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
