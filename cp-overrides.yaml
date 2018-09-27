@@ -1,5 +1,5 @@
-schema_version: 1
-
+from: "jboss-eap-7/eap71:cp"
+ 
 modules:
       repositories:
           - name: cct_module
