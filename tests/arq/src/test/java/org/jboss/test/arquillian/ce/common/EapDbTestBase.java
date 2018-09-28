@@ -1,7 +1,6 @@
 package org.jboss.test.arquillian.ce.common;
 
 import java.net.URL;
-
 import org.arquillian.cube.openshift.api.OpenShiftDynamicImageStreamResource;
 import org.arquillian.cube.openshift.api.OpenShiftResource;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
