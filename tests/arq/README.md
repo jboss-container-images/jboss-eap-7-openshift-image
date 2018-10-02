@@ -28,8 +28,7 @@ $ oc login -u developer
 ```
 $ mvn test -Dimage=some-docker-registry/somenamespace/eap-cd-openshift:14.0 -DforkCount=1
 ```
-You can use a forkCount greater than 1 if you have sufficient resources. Using higher values with `oc cluster` up on a workstation
-may cause concurrent load issues and timeouts.
+You can use a forkCount greater than 1 if you have sufficient resources. Using higher values with `oc cluster up` on a workstation may cause concurrent load issues and timeouts.
 
 For debugging and additional testing, use `-Dnamespace.cleanup.enabled=false -Dnamespace.destroy.enabled=false` to disable the testing namespace automatic cleanup and removal. Example:
 
