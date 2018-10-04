@@ -57,7 +57,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "14",
-                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery 14 (Tech Preview)"
                         },
                         "referencePolicy": {
                             "type": "Local"
@@ -79,7 +79,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "13",
-                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery 13 (Tech Preview)"
                         },
                         "referencePolicy": {
                             "type": "Local"
@@ -101,7 +101,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "12",
-                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery 12 (Tech Preview)"
                         },
                         "referencePolicy": {
                             "type": "Local"
@@ -115,7 +115,7 @@
                     {
                         "name": "12.0",
                         "annotations": {
-                            "description": "JBoss EAP continuous delivery Tech Preview S2I Image",
+                            "description": "JBoss EAP continuous delivery 12 Tech Preview S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -123,7 +123,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "12.0",
-                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery 12 (Tech Preview)"
                         },
                         "referencePolicy": {
                             "type": "Local"
@@ -136,7 +136,7 @@
                     {
                         "name": "13.0",
                         "annotations": {
-                            "description": "JBoss EAP continuous delivery Tech Preview S2I Image",
+                            "description": "JBoss EAP continuous delivery 13 Tech Preview S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -144,7 +144,7 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "13.0",
-                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery 13 (Tech Preview)"
                         },
                         "referencePolicy": {
                             "type": "Local"
@@ -157,7 +157,7 @@
                     {
                         "name": "14.0",
                         "annotations": {
-                            "description": "JBoss EAP continuous delivery Tech Preview S2I Image",
+                            "description": "JBoss EAP continuous delivery 14 Tech Preview S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:8,java:8",
@@ -165,14 +165,14 @@
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
                             "version": "14.0",
-                            "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
+                            "openshift.io/display-name": "JBoss EAP continuous delivery 14 (Tech Preview)"
                         },
                         "referencePolicy": {
                             "type": "Local"
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap-cd-openshift:14.0"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-openshift:14.0"
                         }
                     }
                 ]
