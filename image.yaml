@@ -46,6 +46,7 @@ modules:
           - name: jboss.eap.cd14.openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
+          - name: os-eap-activemq-rar
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch
