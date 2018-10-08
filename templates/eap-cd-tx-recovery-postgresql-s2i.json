@@ -6,7 +6,7 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
             "version": "14.0",
-            "openshift.io/display-name": "JBoss EAP CD (tx recovery) + PostgreSQL (Ephemeral with passthrough TLS)",
+            "openshift.io/display-name": "JBoss EAP CD 14 (tx recovery) + PostgreSQL (Ephemeral with passthrough TLS)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss Enterprise Application Platform continuous delivery application with an PostgreSQL database configured with secure communication using passthrough TLS and ephemeral storage with transaction recovery enabled. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration, database deployment configuration for PostgreSQL using ephemeral (temporary) storage and secure communication using passthrough TLS. The difference from the simple PosgreSQL template is that the transaction recovery is switched on here. The recovery marker data is saved to the PostgreSQL database.",
