@@ -138,7 +138,7 @@
         },
         {
             "displayName": "JGroups Encryption Protocol",
-            "description": "Protocol to use for JGroups (SYM_ENCRYPT, ASYM_ENCRYPT)"
+            "description": "Protocol to use for JGroups (SYM_ENCRYPT, ASYM_ENCRYPT)",
             "name": "JGROUPS_ENCRYPT_PROTOCOL",
             "value": "SYM_ENCRYPT",
             "required": true
