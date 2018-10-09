@@ -3,7 +3,6 @@ package org.jboss.test.arquillian.ce.common;
 import java.net.URL;
 import java.util.UUID;
 import java.util.logging.Logger;
-
 import org.arquillian.cube.openshift.api.OpenShiftDynamicImageStreamResource;
 import org.arquillian.cube.openshift.api.OpenShiftHandle;
 import org.arquillian.cube.openshift.api.OpenShiftResource;
@@ -21,22 +20,18 @@ import org.junit.Test;
 public abstract class EapPersistentTestBase {
 
     private final static Logger log = Logger.getLogger(EapPersistentTestBase.class.getName());
-
-    protected abstract String[] getRCNames();
-
-    @RouteURL("eap-app")
-    private URL url;
-
-    @RouteURL("secure-eap-app")
-    private URL secureUrl;
-
-    @ArquillianResource
-    OpenShiftHandle adapter;
-
     private final static String summary1 = UUID.randomUUID().toString();
     private final static String summary2 = UUID.randomUUID().toString();
     private final static String description1 = UUID.randomUUID().toString();
     private final static String description2 = UUID.randomUUID().toString();
+    @ArquillianResource
+    OpenShiftHandle adapter;
+    @RouteURL("eap-app")
+    private URL url;
+    @RouteURL("secure-eap-app")
+    private URL secureUrl;
+
+    protected abstract String[] getRCNames();
 
     @Test
     @RunAsClient

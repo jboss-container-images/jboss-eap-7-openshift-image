@@ -26,12 +26,15 @@ package org.jboss.test.arquillian.ce.common;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import org.jboss.arquillian.ce.httpclient.HttpClientBuilder;
-import org.jboss.arquillian.ce.httpclient.HttpClientExecuteOptions;
-import org.jboss.arquillian.ce.httpclient.HttpRequest;
-import org.jboss.arquillian.ce.httpclient.HttpResponse;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.Assert;
+
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static org.awaitility.Awaitility.await;
 
 /**
  * @author Jonh Wendell
@@ -40,9 +43,8 @@ public class TodoList {
     /**
      * Inserts an item in the todo example service. This method is a helper for
      * the full verson, and inserts a random summary and description.
-     * 
-     * @param url
-     *            The url for the service
+     *
+     * @param url The url for the service
      * @throws Exception
      */
     public static void insertItem(String url) throws Exception {
@@ -53,54 +55,88 @@ public class TodoList {
 
     /**
      * Inserts an item in the todo example service.
-     * 
-     * @param url
-     *            The url for the service
-     * @param summary
-     *            The summary to be inserted in the todo list
-     * @param description
-     *            The description of the item
+     *
+     * @param url         The url for the service
+     * @param summary     The summary to be inserted in the todo list
+     * @param description The description of the item
      * @throws Exception
      */
     public static void insertItem(String url, String summary, String description) throws Exception {
-        HttpRequest request = HttpClientBuilder.doPOST(url);
+        RestAssured.useRelaxedHTTPSValidation();
 
         Map<String, String> params = new HashMap<>();
         params.put("summary", summary);
         params.put("description", description);
-        request.setEntity(params);
 
-        final HttpClientExecuteOptions execOptions = new HttpClientExecuteOptions.Builder().tries(3)
-                .desiredStatusCode(302).build();
-        HttpResponse response = HttpClientBuilder.untrustedConnectionClient().execute(request, execOptions);
+        AtomicReference<Response> responseRef = new AtomicReference<>();
 
-        Assert.assertEquals("Got an invalid response code. Body: " + response.getResponseBodyAsString(), 302,
-                response.getResponseCode());
-        Assert.assertTrue("Got an invalid 'Location' header: " + response.getHeader("Location"),
-                response.getHeader("Location").endsWith("/index.html"));
+        await().atMost(20, TimeUnit.SECONDS).pollInterval(5, TimeUnit.SECONDS).until(() -> {
+            try {
+                Response r = given().formParams(params).post(url);
+
+                if (r.getStatusCode() == 302) {
+                    responseRef.set(r);
+                    return true;
+                }
+
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        });
+
+
+        Response response = responseRef.get();
+
+        if (response == null) {
+            throw new Exception("Could not get response!");
+        }
+
+        Assert.assertEquals("Got an invalid response code. Body: " + response.print(), 302,
+                response.getStatusCode());
+        Assert.assertTrue("Got an invalid 'Location' header: " + response.header("Location"),
+                response.header("Location").endsWith("/index.html"));
 
         checkItem(url, summary, description);
     }
 
     /**
      * Checks if an item is present at the todo list.
-     * 
-     * @param url
-     *            The url for the service
-     * @param summary
-     *            The summary to be checked
-     * @param description
-     *            The description to be checked
+     *
+     * @param url         The url for the service
+     * @param summary     The summary to be checked
+     * @param description The description to be checked
      * @throws Exception
      */
     public static void checkItem(String url, String summary, String description) throws Exception {
-        HttpRequest request = HttpClientBuilder.doGET(url);
-        final HttpClientExecuteOptions execOptions = new HttpClientExecuteOptions.Builder().tries(3)
-                .desiredStatusCode(200).build();
-        HttpResponse response = HttpClientBuilder.untrustedConnectionClient().execute(request, execOptions);
-        String responseString = response.getResponseBodyAsString();
+        RestAssured.useRelaxedHTTPSValidation();
 
-        Assert.assertEquals("Got an invalid response code. Body: " + responseString, 200, response.getResponseCode());
+        AtomicReference<Response> responseRef = new AtomicReference<>();
+
+        await().atMost(20, TimeUnit.SECONDS).pollInterval(5, TimeUnit.SECONDS).until(() -> {
+            try {
+                Response r = get(url);
+
+                if (r.getStatusCode() == 200) {
+                    responseRef.set(r);
+                    return true;
+                }
+
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        });
+
+        Response response = responseRef.get();
+
+        if (response == null) {
+            throw new Exception("Could not get response!");
+        }
+
+        String responseString = response.print();
+
+        Assert.assertEquals("Got an invalid response code. Body: " + responseString, 200, response.getStatusCode());
 
         /* TODO: Improve this check */
         Assert.assertTrue("Response: " + responseString + " - Summary: " + summary, responseString.contains(summary));

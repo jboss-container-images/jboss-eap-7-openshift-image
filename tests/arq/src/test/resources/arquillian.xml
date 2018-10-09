@@ -38,7 +38,7 @@
         <property name="originServer">https://your-ose-instance.com:8443</property>
         <property name="namespace">test-namespace</property>
         -->
-        <property name="namespace.prefix">test-arq-eapcd</property>
+        <property name="namespace.prefix">test-eap-cd</property>
         <!-- The file containing the pod definition. Used to instantiate the JBoss instance. -->
         <property name="definitionsFile">src/test/resources/testrunner-pod.json</property>
         <!-- Ports to be proxied locally, <container>:<port> -->
