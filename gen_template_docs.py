@@ -148,9 +148,8 @@ def createTemplate(data, path):
                     if len(secretName) > 0:
                         tdata['objects'][0]['secrets'] = [{ "secretName": secretName[0], "secretFile": secretName[0] + ".json" }]
 
-        # currently the clustering section applies only to EAP templates
-        if re.match('^eap', path):
-            tdata['objects'][0]['clustering'] = [{}]
+		    
+    tdata['objects'][0]['clustering'] = [{}]
 
     return templater.render(tdata)
 
