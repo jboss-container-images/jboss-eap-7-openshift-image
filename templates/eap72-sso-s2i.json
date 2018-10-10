@@ -477,7 +477,22 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "${CONTEXT_DIR}"
+                    "contextDir": "${CONTEXT_DIR}",
+                    "images": [
+                        {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "redhat-sso-cd-openshift:1.0"
+                            },
+                            "paths": [
+                                {
+                                    "destinationDir": "./${CONTEXT_DIR}/extensions/sso-adapters",
+                                    "sourcePath": "/opt/rh/rh-sso/client/eap7/."
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "strategy": {
                     "type": "Source",
@@ -489,6 +504,10 @@
                             "name": "jboss-eap72-openshift:1.0"
                         },
                         "env": [
+                            {
+                                "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                "value": "extensions/*"
+                            },
                             {
                                 "name": "ARTIFACT_DIR",
                                 "value": "${ARTIFACT_DIR}"
