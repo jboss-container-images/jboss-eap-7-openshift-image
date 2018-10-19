@@ -28,7 +28,7 @@
                     {
                         "name": "latest",
                         "annotations": {
-                            "description": "Red Hat JBoss EAP 7.2 S2I Image [Tech Preview]",
+                            "description": "Red Hat JBoss EAP 7.2 S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -49,7 +49,7 @@
                     {
                         "name": "1.0",
                         "annotations": {
-                            "description": "Red Hat JBoss EAP 7.2 S2I Image [Tech Preview]",
+                            "description": "Red Hat JBoss EAP 7.2 S2I Image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
