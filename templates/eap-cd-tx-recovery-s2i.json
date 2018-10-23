@@ -39,7 +39,7 @@
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "1.3",
+            "value": "1.4",
             "required": false
         },
         {
@@ -88,7 +88,7 @@
             "displayName": "Queues",
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "name": "MQ_QUEUES",
-            "value": "jta-crash-rec-quickstart",
+            "value": "jms.queue.jta-crash-rec-quickstart",
             "required": false
         },
         {
@@ -579,7 +579,7 @@
                                         "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "MQ_TOPICS",
+                                        "name": "MQ_ADDRESSES",
                                         "value": "${MQ_TOPICS}"
                                     },
                                     {
@@ -935,7 +935,7 @@
                                         "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "MQ_TOPICS",
+                                        "name": "MQ_ADDRESSES",
                                         "value": "${MQ_TOPICS}"
                                     },
                                     {
