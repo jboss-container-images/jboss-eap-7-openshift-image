@@ -43,7 +43,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap72-openshift:latest"
+                            "name": "registry.redhat.io/jboss-eap-7/eap72-openshift:latest"
                         }
                     },
                     {
@@ -64,7 +64,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap72-openshift:1.0"
+                            "name": "registry.redhat.io/jboss-eap-7/eap72-openshift:1.0"
                         }
                     }
                 ]
