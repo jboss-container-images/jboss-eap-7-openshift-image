@@ -21,22 +21,26 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.test.arquillian.ce.eapcd;
+package org.jboss.test.arquillian.ce.eap72;
 
+import org.arquillian.cube.openshift.api.OpenShiftResource;
 import org.arquillian.cube.openshift.api.Template;
 import org.arquillian.cube.openshift.api.TemplateParameter;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.test.arquillian.ce.common.EapBasicTestBase;
+import org.jboss.test.arquillian.ce.common.EapHttpsTestBase;
 import org.junit.runner.RunWith;
 
 /**
  * @author Marko Luksa
  */
 @RunWith(Arquillian.class)
-@Template(url = "${template.uri}/eap-cd-basic-s2i.json",
+@Template(url = "${template.uri}/${template.prefix}-https-s2i.json",
         parameters = {
-                @TemplateParameter(name = "IMAGE_STREAM_NAMESPACE", value = "${kubernetes.namespace:openshift}")
+                @TemplateParameter(name = "IMAGE_STREAM_NAMESPACE", value = "${kubernetes.namespace:openshift}"),
+                @TemplateParameter(name = "HTTPS_NAME", value = "jboss"),
+                @TemplateParameter(name = "HTTPS_PASSWORD", value = "mykeystorepass")
         })
-public class EapCDBasicTest extends EapBasicTestBase {
+@OpenShiftResource("https://raw.githubusercontent.com/${secrets.repository:jboss-openshift}/application-templates/${secrets.branch:master}/secrets/eap7-app-secret.json")
+public class Eap72HttpsTest extends EapHttpsTestBase {
 
 }

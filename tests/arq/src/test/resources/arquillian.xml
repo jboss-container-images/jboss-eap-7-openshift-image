@@ -29,7 +29,7 @@
     <defaultProtocol type="jmx-as7" />
     
     <extension qualifier="ce-cube">
-        <property name="kubernetesNamespacePrefix">cearq-eapcd</property>
+        <property name="kubernetesNamespacePrefix">cearq-eapc72</property>
     </extension>
   
     <!-- Example configuration for arquillian openshift extension -->
@@ -38,7 +38,7 @@
         <property name="originServer">https://your-ose-instance.com:8443</property>
         <property name="namespace">test-namespace</property>
         -->
-        <property name="namespace.prefix">test-eap-cd</property>
+        <property name="namespace.prefix">test-arq-eap72</property>
         <!-- The file containing the pod definition. Used to instantiate the JBoss instance. -->
         <property name="definitionsFile">src/test/resources/testrunner-pod.json</property>
         <!-- Ports to be proxied locally, <container>:<port> -->

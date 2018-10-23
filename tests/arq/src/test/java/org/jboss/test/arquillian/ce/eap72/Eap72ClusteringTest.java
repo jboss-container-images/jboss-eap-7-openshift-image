@@ -1,4 +1,4 @@
-package org.jboss.test.arquillian.ce.eapcd;
+package org.jboss.test.arquillian.ce.eap72;
 
 import org.arquillian.cube.containerobject.Environment;
 import org.arquillian.cube.openshift.api.AddRoleToServiceAccount;
@@ -11,11 +11,11 @@ import org.junit.runner.RunWith;
 
 /**
  * @author Jonh Wendell
- * org.jboss.test.arquillian.ce.eapcd.EapCDClusteringTest
+ * org.jboss.test.arquillian.ce.eap72.Eap72ClusteringTest
  */
 @RunWith(Arquillian.class)
 @Environment(key="JGROUPS_ENCRYPT_PROTOCOL", value="ASYM_ENCRYPT")
-@Template(url = "${template.uri}/eap-cd-basic-s2i.json",
+@Template(url = "${template.uri}/${template.prefix}-basic-s2i.json",
         parameters = {
                 @TemplateParameter(name = "SOURCE_REPOSITORY_URL", value = "https://github.com/jboss-openshift/openshift-examples"),
                 @TemplateParameter(name = "SOURCE_REPOSITORY_REF", value = "master"),
@@ -26,5 +26,5 @@ import org.junit.runner.RunWith;
 // these roles are required for KUBE_PING, the template default is DNS_PING.
 @AddRoleToServiceAccount(role = "view", serviceAccount = "system:serviceaccount:${kubernetes.namespace}:default")
 @AddRoleToServiceAccount(role = "view", serviceAccount = "system:serviceaccount:${kubernetes.namespace}:eap7-service-account")
-public class EapCDClusteringTest extends EapClusteringTestBase {
+public class Eap72ClusteringTest extends EapClusteringTestBase {
 }

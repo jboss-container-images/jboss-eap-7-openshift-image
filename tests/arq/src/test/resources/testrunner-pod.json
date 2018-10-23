@@ -20,7 +20,7 @@
 					]
 				}
 			},
-			"image": "jboss-eap-7-tech-preview/eap-cd-openshift:latest",
+			"image": "jboss-eap-7/eap72-openshift:latest",
             "ports": [
                 {
                     "containerPort": 8080,
