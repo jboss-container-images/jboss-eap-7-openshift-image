@@ -17,7 +17,7 @@
                 "annotations": {
                     "openshift.io/display-name": "JBoss EAP continuous delivery",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "version": "14.0"
+                    "version": "15.0"
                 }
             },
             "labels": {
@@ -38,9 +38,34 @@
                             "version": "latest",
                             "openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap-cd-openshift:latest"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-openshift:latest"
+                        }
+                    },
+                    {
+                        "name": "14",
+                        "annotations": {
+                            "description": "JBoss EAP continuous delivery Tech Preview version 14.",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.2,javaee:8,java:8",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "openshift",
+                            "version": "14",
+                            "openshift.io/display-name": "JBoss EAP continuous delivery 14 (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "14.0"
+
                         }
                     },
                     {
@@ -148,7 +173,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap-cd-openshift:12.0"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-openshift:12.0"
                         }
                     },
                     {
@@ -164,9 +189,12 @@
                             "version": "13.0",
                             "openshift.io/display-name": "JBoss EAP continuous delivery 13 (Tech Preview)"
                         },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap-cd-openshift:13.0"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-openshift:13.0"
                         }
                     },
                     {
@@ -181,9 +209,6 @@
                             "sampleRef": "openshift",
                             "version": "14.0",
                             "openshift.io/display-name": "JBoss EAP continuous delivery 14 (Tech Preview)"
-                        },
-                        "referencePolicy": {
-                            "type": "Local"
                         },
                         "referencePolicy": {
                             "type": "Local"
