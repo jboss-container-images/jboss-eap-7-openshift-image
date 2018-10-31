@@ -28,7 +28,7 @@
                     {
                         "name": "latest",
                         "annotations": {
-                            "description": "Red Hat JBoss EAP 7.2 S2I Image",
+                            "description": "Red Hat JBoss EAP 7.2 S2I Image [Tech Preview]",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -43,13 +43,13 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7/eap72-openshift:latest"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap72-openshift:latest"
                         }
                     },
                     {
                         "name": "1.0",
                         "annotations": {
-                            "description": "Red Hat JBoss EAP 7.2 S2I Image",
+                            "description": "Red Hat JBoss EAP 7.2 S2I Image [Tech Preview]",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
                             "supports": "eap:7.2,javaee:7,java:8",
@@ -64,7 +64,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7/eap72-openshift:1.0"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap72-openshift:1.0"
                         }
                     }
                 ]

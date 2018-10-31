@@ -1,5 +1,7 @@
 schema_version: 1
 
+name: "jboss-eap-7-tech-preview/eap72-openshift"
+
 modules:
       repositories:
           - name: cct_module
