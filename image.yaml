@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7/eap72-openshift"
 description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenShift container image"
 version: "1.0"
-from: "jboss-eap-7/eap72:7.2.0"
+from: "rhel7:7-released"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap72-openshift-container"
@@ -35,7 +35,14 @@ modules:
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
                   ref: master
+          - name: jboss-eap-7-image
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                  ref: eap72
       install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+          - name: eap-7.2-latest
           - name: dynamic-resources
           - name: s2i-common
           - name: java-alternatives
@@ -71,6 +78,8 @@ modules:
           - name: os-logging
 packages:
       repositories:
+          - name: base
+            id: rhel-7-server-rpms
           - jboss-os
       install:
           - python-requests
