@@ -6,10 +6,10 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "1.0.0",
-            "openshift.io/display-name": "JBoss EAP 7.2 + AMQ 7 (tx recovery) [Tech Preview]",
+            "openshift.io/display-name": "JBoss EAP 7.2 + AMQ 7 (tx recovery)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example Red Hat JBoss EAP 7 application with transaction recovery configured. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and insecure communication using http.  The template also demonstrates how to enable automated transaction recovery on scale down of application pods.  Automated transaction recovery is currently Technology Preview.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and insecure communication using http. The template also demonstrates how to enable automated transaction recovery on scale down of application pods.  Automated transaction recovery is currently Technology Preview.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
@@ -39,7 +39,7 @@
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "1.3",
+            "value": "1.4",
             "required": false
         },
         {
@@ -88,7 +88,7 @@
             "displayName": "Queues",
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "name": "MQ_QUEUES",
-            "value": "jta-crash-rec-quickstart",
+            "value": "jms.queue.jta-crash-rec-quickstart",
             "required": false
         },
         {
@@ -418,6 +418,7 @@
                             }
                         ],
                         "forcePull": true,
+                        "incremental": true,
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
@@ -578,7 +579,7 @@
                                         "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "MQ_TOPICS",
+                                        "name": "MQ_ADDRESSES",
                                         "value": "${MQ_TOPICS}"
                                     },
                                     {
@@ -934,7 +935,7 @@
                                         "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "MQ_TOPICS",
+                                        "name": "MQ_ADDRESSES",
                                         "value": "${MQ_TOPICS}"
                                     },
                                     {
