@@ -11,6 +11,8 @@ labels:
       value: "Platform for building and running JavaEE applications on JBoss EAP continuous delivery"
     - name: "io.k8s.display-name"
       value: "JBoss EAP continuous delivery"
+    - name: "usage"
+      value: "This image is generic and intended for use as a base to build your own images."
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
