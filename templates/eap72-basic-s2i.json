@@ -165,7 +165,7 @@
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
-                "publishNotReadyAddresses": "true",
+                "publishNotReadyAddresses": true,
                 "clusterIP": "None",
                 "ports": [
                     {
