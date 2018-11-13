@@ -184,7 +184,6 @@
                 },
                 "annotations": {
                     "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
-                    "
                     "description": "The JGroups ping port for clustering."
                 }
             }
