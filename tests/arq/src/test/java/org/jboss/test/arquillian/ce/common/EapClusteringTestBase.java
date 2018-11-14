@@ -1,6 +1,7 @@
 package org.jboss.test.arquillian.ce.common;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -143,17 +144,8 @@ public class EapClusteringTestBase {
     }
 
     private List<String> getPods() throws Exception {
-        List<String> pods = adapter.getPods();
-
-        //pods.removeIf(p -> p.endsWith("-build") || !p.startsWith("eap-app-"));
-        Iterator<String> iterator = pods.iterator();
-        while (iterator.hasNext()) {
-            String p = iterator.next();
-            if (p.endsWith("-build") || !p.startsWith("eap-app-")) {
-                iterator.remove();
-            }
-        }
-
+        final List<String> pods = adapter.getPods();
+        pods.removeIf((String s) -> (s.endsWith("-build") || !s.startsWith("eap-app-")));
         return pods;
     }
 
@@ -214,7 +206,7 @@ public class EapClusteringTestBase {
     }
 
     protected int doDelayRequest(String url, int seconds) throws Exception {
-        Response response = get(url.toString() + "/cluster1/Hi");
+        Response response = get(url + "/cluster1/Hi");
 
         String body = response.getBody().asString();
         assertTrue("Got an invalid response: " + body, body.startsWith("Served from node: "));

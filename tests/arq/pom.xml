@@ -18,16 +18,16 @@
     <description>Arquillian EAP 7.2 testsuite</description>
 
     <properties>
-        <version.arquillian>1.4.0.Final</version.arquillian>
-        <version.arquillian.cube>1.17.1</version.arquillian.cube>
+        <version.arquillian>1.4.1.Final</version.arquillian>
+        <version.arquillian.cube>1.18.3-SNAPSHOT</version.arquillian.cube>
         <version.json-simple>1.1.1</version.json-simple>
         <version.junit>4.12</version.junit>
         <version.org.jboss.as.arquillian.container>7.2.0.Final</version.org.jboss.as.arquillian.container>
-        <version.ce-arq>1.3.0.Final</version.ce-arq>
+        <version.fabric8.maven.plugin>3.5.42</version.fabric8.maven.plugin>
 
         <image>registry.access.redhat.com/jboss-eap-7/eap72-openshift</image>
         <image.stream.version>1.0</image.stream.version>
-        <image.stream.name>eap72-openshift</image.stream.name>
+        <image.stream.name>jboss-eap72-openshift</image.stream.name>
         <template.prefix>eap72</template.prefix>
         <forkCount>5</forkCount>
     </properties>
@@ -106,6 +106,11 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId>
+                <version>${version.fabric8.maven.plugin}</version>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -153,7 +158,7 @@
                         <image.stream.name>${image.stream.name}</image.stream.name>
                         <image.stream.version>${image.stream.version}</image.stream.version>
                         <template.prefix>${template.prefix}</template.prefix>
-                        <template.uri>https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72-dev/templates</template.uri>
+                        <template.uri>https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72-dev/templates/</template.uri>
                         <secrets.repository>jboss-openshift</secrets.repository>
                         <secrets.branch>master</secrets.branch>
                         <!-- URL to the OpenShift image streams that are officially added to OCP. These image streams are added to every test project run on OpenShift -->

@@ -29,7 +29,7 @@
     <defaultProtocol type="jmx-as7" />
     
     <extension qualifier="ce-cube">
-        <property name="kubernetesNamespacePrefix">cearq-eapc72</property>
+        <property name="kubernetesNamespacePrefix">cearq-eap72</property>
     </extension>
   
     <!-- Example configuration for arquillian openshift extension -->
@@ -45,6 +45,7 @@
         <property name="proxiedContainerPorts">testrunner:9999,testrunner:9990,testrunner:8080</property>
         <!-- Fetch the logs from Openshift and pods, and save them into target/surefire-reports -->
         <property name="logs.copy">true</property>
+        <property name="wait.timeout">200000</property>
     </extension>
 
     <!--
