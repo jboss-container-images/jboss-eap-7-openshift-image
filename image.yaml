@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
 version: "14.0"
-from: "jboss-eap-7/eap-cd:14.0"
+from: "rhel7:7-released"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-container"
@@ -37,7 +37,14 @@ modules:
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
                   ref: master
+          - name: jboss-eap-7-image
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                  ref: eap-cd
       install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+          - name: eap-cd-latest
           - name: dynamic-resources
           - name: s2i-common
           - name: java-alternatives
@@ -73,6 +80,8 @@ modules:
           - name: os-logging
 packages:
       repositories:
+          - name: base
+            id: rhel-7-server-rpms
           - jboss-os
       install:
           - python-requests
