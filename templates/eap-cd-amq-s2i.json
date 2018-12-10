@@ -143,6 +143,12 @@
             "required": false
         },
         {
+            "displayName": "AMQ Role",
+            "description": "AMQ Role for authenticated user",
+            "name": "MQ_ROLE",
+            "value": "admin"
+        },
+        {
             "displayName": "AMQ Mesh Discovery Type",
             "description": "The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace.",
             "name": "AMQ_MESH_DISCOVERY_TYPE",
@@ -625,6 +631,10 @@
                                     {
                                         "name": "MQ_PASSWORD",
                                         "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MQ_ROLE",
+                                        "value": "${MQ_ROLE}"
                                     },
                                     {
                                         "name": "MQ_PROTOCOL",
