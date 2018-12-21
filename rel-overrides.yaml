@@ -12,7 +12,7 @@ modules:
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP72-CR3
+                  ref: EAP72-CR4
 osbs:
       repository:
             name: containers/jboss-eap-7
