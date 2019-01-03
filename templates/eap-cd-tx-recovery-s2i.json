@@ -661,7 +661,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "amq-broker-72-openshift:1.0"
+                                "name": "amq-broker-72-openshift:1.1"
                             }
                         }
                     },
