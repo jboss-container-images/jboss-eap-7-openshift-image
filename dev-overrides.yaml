@@ -12,6 +12,10 @@ modules:
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
                   ref: master
+          - name: jboss-eap-7-image
+￼           git:
+￼ ￼               url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+￼ ￼               ref: eap-cd-dev
 osbs:
       repository:
             name: containers/jboss-eap-7
