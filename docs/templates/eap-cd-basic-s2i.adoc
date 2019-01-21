@@ -77,7 +77,7 @@ https://docs.openshift.com/container-platform/latest/architecture/networking/rou
 |=============
 | Service    | Security | Hostname
 
-|
+|`${APPLICATION_NAME}-https` | TLS edge
 |=============
 
 
@@ -92,7 +92,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:14 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-openshift:15 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
