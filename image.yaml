@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "14.0"
+version: "15.0"
 from: "rhel7:7-released"
 labels:
     - name: "com.redhat.component"
@@ -52,7 +52,7 @@ modules:
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
-          - name: jboss.eap.cd14.openshift
+          - name: jboss.eap.cd15.openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
@@ -78,11 +78,9 @@ modules:
           - name: openshift-layer
           - name: openshift-passwd
           - name: os-logging
+          - name: jboss.container.eap.prometheus.config
 packages:
-      repositories:
-          - name: base
-            id: rhel-7-server-rpms
-          - jboss-os
+      content_sets_file: content_sets.yml
       install:
           - python-requests
           - python-enum34
@@ -92,6 +90,8 @@ run:
       cmd:
           - "/opt/eap/bin/openshift-launch.sh"
 osbs:
+      configuration:
+            container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.2-cd-openshift-rhel-7
+            branch: jb-eap-7.3-cd-openshift-rhel-7
