@@ -6,10 +6,10 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "1.0.0",
-            "openshift.io/display-name": "JBoss EAP 7.2 (no https) [Tech Preview]",
+            "openshift.io/display-name": "JBoss EAP 7.2",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example Red Hat JBoss EAP 7 application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and insecure communication using http.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
@@ -165,6 +165,7 @@
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
+                "publishNotReadyAddresses": true,
                 "clusterIP": "None",
                 "ports": [
                     {
@@ -190,19 +191,23 @@
         {
             "kind": "Route",
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-http",
+            "id": "${APPLICATION_NAME}-https",
             "metadata": {
                 "name": "${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's http service."
+                    "description": "Route for application's https service."
                 }
             },
             "spec": {
                 "to": {
                     "name": "${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "insecureEdgeTerminationPolicy": "Redirect",
+                    "termination": "edge"
                 }
             }
         },
@@ -252,6 +257,7 @@
                             }
                         ],
                         "forcePull": true,
+                        "incremental": true,
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
@@ -382,7 +388,7 @@
                                 "env": [
                                     {
                                         "name": "JGROUPS_PING_PROTOCOL",
-                                        "value": "openshift.DNS_PING"
+                                        "value": "dns.DNS_PING"
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",

@@ -6,10 +6,10 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "1.0.0",
-            "openshift.io/display-name": "JBoss EAP 7.2 Starter [Tech Preview]",
+            "openshift.io/display-name": "JBoss EAP 7.2 Starter",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss EAP 7 application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and secure communication using https.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
@@ -200,6 +200,7 @@
                             }
                         ],
                         "forcePull": true,
+                        "incremental": true,
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",

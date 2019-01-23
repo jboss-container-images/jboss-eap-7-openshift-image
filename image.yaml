@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7/eap72-openshift"
 description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenShift container image"
 version: "1.0"
-from: "jboss-eap-7-tech-preview/eap72:7.2.0"
+from: "rhel7:7-released"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap72-openshift-container"
@@ -35,15 +35,22 @@ modules:
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
                   ref: master
+          - name: jboss-eap-7-image
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                  ref: eap72
       install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+          - name: eap-7.2-latest
           - name: dynamic-resources
           - name: s2i-common
           - name: java-alternatives
-          - name: os-eap7-openshift
           - name: os-eap-s2i
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
+          - name: jboss.eap72.openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
@@ -52,6 +59,10 @@ modules:
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
           - name: jboss.eap.cd.logging
+          - name: jboss.eap.config.mp-config
+          - name: jboss.eap.config.jgroups
+          - name: jboss.eap.config.elytron
+          - name: jboss.eap.config.tracing
           - name: os-eap-probes
           - name: jboss-maven
           - name: os-eap-db-drivers
@@ -65,9 +76,10 @@ modules:
           - name: openshift-layer
           - name: openshift-passwd
           - name: os-logging
+          - name: jboss.container.eap.prometheus.config
+            version: '7.2'
 packages:
-      repositories:
-          - jboss-os
+      content_sets_file: content_sets.yml
       install:
           - python-requests
           - python-enum34
@@ -77,6 +89,8 @@ run:
       cmd:
           - "/opt/eap/bin/openshift-launch.sh"
 osbs:
+      configuration:
+            container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
             branch: jb-eap-7.2-openshift-rhel-7
