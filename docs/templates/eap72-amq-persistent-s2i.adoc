@@ -171,7 +171,7 @@ for more information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-amq` | amq-broker-71-openshift
+|`${APPLICATION_NAME}-amq` | amq-broker-72-openshift
 |============
 
 
@@ -229,7 +229,7 @@ for more information.
 |`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
 |`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`
 |`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
-|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
