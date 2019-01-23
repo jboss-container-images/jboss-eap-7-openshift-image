@@ -189,7 +189,7 @@ for more information.
 |Deployment |Variable name |Description |Example value
 
 .18+| `${APPLICATION_NAME}`
-|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`

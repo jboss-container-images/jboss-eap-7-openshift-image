@@ -207,7 +207,7 @@ for more information.
 |Deployment |Variable name |Description |Example value
 
 .39+| `${APPLICATION_NAME}`
-|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`HOSTNAME_HTTP` | Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server. | `${HOSTNAME_HTTP}`
