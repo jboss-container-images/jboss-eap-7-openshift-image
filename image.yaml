@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift"
+name: "jboss-eap-7/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "13.0"
-from: "jboss-eap-7/eap-cd:13.0"
+version: "14.0"
+from: "jboss-eap-7/eap-cd:14.0"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-container"
@@ -39,18 +39,23 @@ modules:
           - name: dynamic-resources
           - name: s2i-common
           - name: java-alternatives
-          - name: os-eap7-openshift
           - name: os-eap-s2i
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
+          - name: jboss.eap.cd14.openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
+          - name: os-eap-activemq-rar
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
           - name: jboss.eap.cd.logging
+          - name: jboss.eap.config.mp-config
+          - name: jboss.eap.config.jgroups
+          - name: jboss.eap.config.elytron
+          - name: jboss.eap.config.tracing
           - name: os-eap-probes
           - name: jboss-maven
           - name: os-eap-db-drivers
