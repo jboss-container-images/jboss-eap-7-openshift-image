@@ -77,10 +77,7 @@ modules:
           - name: jboss.container.eap.prometheus.config
             version: '7.1'
 packages:
-      repositories:
-          - name: base
-            id: rhel-7-server-rpms
-          - jboss-os
+      content_sets_file: content_sets.yml
       install:
           - python-requests
           - python-enum34
@@ -91,6 +88,8 @@ run:
       cmd:
           - "/opt/eap/bin/openshift-launch.sh"
 osbs:
+      configuration:
+            container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
             branch: jb-eap-7.1-openshift-rhel-7
