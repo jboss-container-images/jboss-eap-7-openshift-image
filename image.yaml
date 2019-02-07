@@ -2,8 +2,8 @@ schema_version: 1
 
 name: "jboss-eap-7/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "14.0"
-from: "jboss-eap-7/eap-cd:14.0"
+version: "15.0"
+from: "rhel7:7-released"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-container"
@@ -11,6 +11,8 @@ labels:
       value: "Platform for building and running JavaEE applications on JBoss EAP continuous delivery"
     - name: "io.k8s.display-name"
       value: "JBoss EAP continuous delivery"
+    - name: "usage"
+      value: "This image is generic and intended for use as a base to build your own images."
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -30,12 +32,19 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: sprint-16
+                  ref: sprint-28
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: sprint-16
+                  ref: CD15
+          - name: jboss-eap-7-image
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                  ref: CD15
       install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+          - name: eap-cd-latest
           - name: dynamic-resources
           - name: s2i-common
           - name: java-alternatives
@@ -43,7 +52,7 @@ modules:
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
-          - name: jboss.eap.cd14.openshift
+          - name: jboss.eap.cd15.openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
@@ -69,9 +78,9 @@ modules:
           - name: openshift-layer
           - name: openshift-passwd
           - name: os-logging
+          - name: jboss.container.eap.prometheus.config
 packages:
-      repositories:
-          - jboss-os
+      content_sets_file: content_sets.yml
       install:
           - python-requests
           - python-enum34
@@ -81,6 +90,8 @@ run:
       cmd:
           - "/opt/eap/bin/openshift-launch.sh"
 osbs:
+      configuration:
+            container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.2-cd-openshift-rhel-7
+            branch: jb-eap-cd-openshift-rhel-7

@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap-cd-mysql-s2i
+= eap-cd-tx-recovery-postgresql-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example JBoss Enterprise Application Platform continuous delivery application with a MySQL database. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc.
+An example JBoss Enterprise Application Platform continuous delivery application with an PostgreSQL database configured with secure communication using passthrough TLS and ephemeral storage with transaction recovery enabled. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc
 
 toc::[]
 
@@ -26,12 +26,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.4 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | todolist/todolist-jdbc | False
-|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | java:jboss/datasources/TodoListDS | False
+|`DB_JNDI` | `DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | java:jboss/datasources/TodoListDS | False
 |`DB_DATABASE` | `DB_DATABASE` | Database name | root | True
-|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}` | False
-|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}` | False
 |`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
@@ -40,12 +38,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`DB_MIN_POOL_SIZE` | `DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}` | False
 |`DB_MAX_POOL_SIZE` | `DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}` | False
 |`DB_TX_ISOLATION` | `DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}` | False
-|`MYSQL_LOWER_CASE_TABLE_NAMES` | `MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}` | False
-|`MYSQL_MAX_CONNECTIONS` | `MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}` | False
-|`MYSQL_FT_MIN_WORD_LEN` | `MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}` | False
-|`MYSQL_FT_MAX_WORD_LEN` | `MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}` | False
-|`MYSQL_AIO` | `MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}` | False
-|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
+|`POSTGRESQL_MAX_CONNECTIONS` | `POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}` | False
+|`POSTGRESQL_SHARED_BUFFERS` | `POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}` | False
 |`DB_USERNAME` | `DB_USERNAME` | Database user name | `${DB_USERNAME}` | True
 |`DB_PASSWORD` | `DB_PASSWORD` | Database user password | `${DB_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
@@ -60,8 +54,10 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -- | False
 |`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
-|`MYSQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "mysql" image stream.  Typically, this aligns with the major.minor version of MySQL. | 5.7 | True
+|`POSTGRESQL_IMAGE_STREAM_TAG` | -- | The tag to use for the "postgresql" image stream.  Typically, this aligns with the major.minor version of PostgreSQL. | 9.5 | True
 |`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
+|`VOLUME_CAPACITY` | -- | Size of the volume used by EAP for persisting data. | 1Gi | True
+|`SPLIT_DATA` | `SPLIT_DATA` | Split the data directory for each node in a cluster. | true | False
 |=======================================================================
 
 
@@ -86,8 +82,8 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `secure-${APPLICATION_NAME}`
 |8443 | --
 .1+| The web server's https port.
-.1+| `${APPLICATION_NAME}-mysql`
-|3306 | --
+.1+| `${APPLICATION_NAME}-postgresql`
+|5432 | --
 .1+| The database server's port.
 .1+| `${APPLICATION_NAME}-ping`
 |8888 | ping
@@ -141,7 +137,8 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
-|`${APPLICATION_NAME}-mysql` | ImageChange
+|`${APPLICATION_NAME}-migration` | ImageChange
+|`${APPLICATION_NAME}-postgresql` | ImageChange
 |============
 
 
@@ -157,12 +154,26 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
-|`${APPLICATION_NAME}-mysql` | 1
+|`${APPLICATION_NAME}-migration` | 1
+|`${APPLICATION_NAME}-postgresql` | 1
 |============
 
 
 ==== Pod Template
 
+
+===== Service Accounts
+
+Service accounts are API objects that exist within each project. They can be created or deleted like any other API object. Refer to the
+https://docs.openshift.com/enterprise/latest/dev_guide/service_accounts.html#managing-service-accounts[Openshift documentation] for more
+information.
+
+|============
+|Deployment | Service Account
+
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}-sa`
+|`${APPLICATION_NAME}-migration` | `${APPLICATION_NAME}-sa`
+|============
 
 
 
@@ -172,7 +183,8 @@ for more information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-mysql` | mysql
+|`${APPLICATION_NAME}-migration` | `${APPLICATION_NAME}`
+|`${APPLICATION_NAME}-postgresql` | postgresql
 |============
 
 
@@ -185,9 +197,9 @@ for more information.
 /bin/bash -c /opt/eap/bin/readinessProbe.sh
 ----
 
-.${APPLICATION_NAME}-mysql
+.${APPLICATION_NAME}-postgresql
 ----
-/bin/sh -i -c MYSQL_PWD="$MYSQL_PASSWORD" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'
+/bin/sh -i -c psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'
 ----
 
 
@@ -203,8 +215,12 @@ for more information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
-.1+| `${APPLICATION_NAME}-mysql`
-|-- | 3306 | `TCP`
+.3+| `${APPLICATION_NAME}-migration`
+|jolokia | 8778 | `TCP`
+|http | 8080 | `TCP`
+|ping | 8888 | `TCP`
+.1+| `${APPLICATION_NAME}-postgresql`
+|-- | 5432 | `TCP`
 |=============
 
 
@@ -215,12 +231,13 @@ for more information.
 |Deployment |Variable name |Description |Example value
 
 .29+| `${APPLICATION_NAME}`
-|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
-|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mysql | `${DB_JNDI}`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | `${DB_JNDI}`
 |`DB_USERNAME` | Database user name | `${DB_USERNAME}`
 |`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
 |`DB_DATABASE` | Database name | `${DB_DATABASE}`
-|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-mysql=DB`
+|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`TX_JDBC_RECOVERY_MARKER_TABLE_SUFFIX` | -- | `${APPLICATION_NAME}`
 |`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
 |`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
 |`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
@@ -232,9 +249,6 @@ for more information.
 |`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
 |`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
 |`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
-|`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
-|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
-|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
 |`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
 |`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
@@ -242,17 +256,47 @@ for more information.
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
-|`DEFAULT_JOB_REPOSITORY` | -- | `${APPLICATION_NAME}-mysql`
-|`TIMER_SERVICE_DATA_STORE` | -- | `${APPLICATION_NAME}-mysql`
-.8+| `${APPLICATION_NAME}-mysql`
-|`MYSQL_USER` | -- | `${DB_USERNAME}`
-|`MYSQL_PASSWORD` | -- | `${DB_PASSWORD}`
-|`MYSQL_DATABASE` | -- | `${DB_DATABASE}`
-|`MYSQL_LOWER_CASE_TABLE_NAMES` | Sets how the table names are stored and compared. | `${MYSQL_LOWER_CASE_TABLE_NAMES}`
-|`MYSQL_MAX_CONNECTIONS` | The maximum permitted number of simultaneous client connections. | `${MYSQL_MAX_CONNECTIONS}`
-|`MYSQL_FT_MIN_WORD_LEN` | The minimum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MIN_WORD_LEN}`
-|`MYSQL_FT_MAX_WORD_LEN` | The maximum length of the word to be included in a FULLTEXT index. | `${MYSQL_FT_MAX_WORD_LEN}`
-|`MYSQL_AIO` | Controls the innodb_use_native_aio setting value if the native AIO is broken. | `${MYSQL_AIO}`
+|`DEFAULT_JOB_REPOSITORY` | -- | `${APPLICATION_NAME}-postgresql`
+|`TIMER_SERVICE_DATA_STORE` | -- | `${APPLICATION_NAME}-postgresql`
+|`SPLIT_DATA` | Split the data directory for each node in a cluster. | `${SPLIT_DATA}`
+|`SCRIPT_DEBUG` | -- | false
+.29+| `${APPLICATION_NAME}-migration`
+|`DB_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`DB_JNDI` | Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql | `${DB_JNDI}`
+|`DB_USERNAME` | Database user name | `${DB_USERNAME}`
+|`DB_PASSWORD` | Database user password | `${DB_PASSWORD}`
+|`DB_DATABASE` | Database name | `${DB_DATABASE}`
+|`TX_DATABASE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-postgresql=DB`
+|`TX_JDBC_RECOVERY_MARKER_TABLE_SUFFIX` | -- | `${APPLICATION_NAME}`
+|`DB_MIN_POOL_SIZE` | Sets xa-pool/min-pool-size for the configured datasource. | `${DB_MIN_POOL_SIZE}`
+|`DB_MAX_POOL_SIZE` | Sets xa-pool/max-pool-size for the configured datasource. | `${DB_MAX_POOL_SIZE}`
+|`DB_TX_ISOLATION` | Sets transaction-isolation for the configured datasource. | `${DB_TX_ISOLATION}`
+|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
+|`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
+|`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
+|`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
+|`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
+|`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
+|`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
+|`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
+|`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
+|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
+|`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
+|`DEFAULT_JOB_REPOSITORY` | -- | `${APPLICATION_NAME}-postgresql`
+|`TIMER_SERVICE_DATA_STORE` | -- | `${APPLICATION_NAME}-postgresql`
+|`SPLIT_DATA` | Split the data directory for each node in a cluster. | `${SPLIT_DATA}`
+|`SCRIPT_DEBUG` | -- | false
+.6+| `${APPLICATION_NAME}-postgresql`
+|`POSTGRESQL_USER` | -- | `${DB_USERNAME}`
+|`POSTGRESQL_PASSWORD` | -- | `${DB_PASSWORD}`
+|`POSTGRESQL_DATABASE` | -- | `${DB_DATABASE}`
+|`POSTGRESQL_MAX_CONNECTIONS` | The maximum number of client connections allowed. This also sets the maximum number of prepared transactions. | `${POSTGRESQL_MAX_CONNECTIONS}`
+|`POSTGRESQL_MAX_PREPARED_TRANSACTIONS` | -- | `${POSTGRESQL_MAX_CONNECTIONS}`
+|`POSTGRESQL_SHARED_BUFFERS` | Configures how much memory is dedicated to PostgreSQL for caching data. | `${POSTGRESQL_SHARED_BUFFERS}`
 |=======================================================================
 
 
@@ -262,15 +306,35 @@ for more information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-mysql` | `${APPLICATION_NAME}-data` | `/var/lib/mysql/data` | -- | false
+|`${APPLICATION_NAME}` | `${APPLICATION_NAME}-eap-pvol` | `/opt/eap/standalone/partitioned_data` | eap | false
+|`${APPLICATION_NAME}-migration` | `${APPLICATION_NAME}-eap-pvol` | `/opt/eap/standalone/partitioned_data` | eap | false
+|`${APPLICATION_NAME}-postgresql` | `${APPLICATION_NAME}-data` | `/var/lib/pgsql/data` | -- | false
 |=============
 
 
 === External Dependencies
 
 
+==== Volume Claims
 
+A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
+by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
+Refer to the https://docs.openshift.com/container-platform/latest/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
+more information.
+
+|=============
+|Name | Access Mode
+
+|`${APPLICATION_NAME}-eap-claim` | ReadWriteMany
+|=============
+
+
+
+
+==== Secrets
+
+This template requires the secret eap7-app-secret
+to be installed for the application to run.
 
 
 
