@@ -79,6 +79,8 @@ modules:
           - name: openshift-passwd
           - name: os-logging
           - name: jboss.container.eap.prometheus.config
+          - name: os-eap-txnrecovery.run
+            version: 'python2'
 packages:
       content_sets_file: content_sets.yml
       install:
