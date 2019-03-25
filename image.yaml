@@ -79,6 +79,8 @@ modules:
           - name: os-logging
           - name: jboss.container.eap.prometheus.config
             version: '7.2'
+          - name: os-eap-txnrecovery.run
+            version: 'python2'
 packages:
       content_sets_file: content_sets.yml
       install:
