@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7-tech-preview/eap72-openjdk11-openshift"
 description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenJDK 11 OpenShift container image"
 version: "TP"
-from: "rhel7:7-released"
+from: "ubi8-dev-preview/ubi"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap72-openshift-container"
@@ -77,9 +77,9 @@ modules:
           - name: jboss.container.eap.prometheus.config
             version: '7.2'
           - name: os-eap-txnrecovery.run
-            version: 'python2'
+            version: 'python3'
 packages:
-      content_sets_file: content_sets.yml
+      #content_sets_file: content_sets.yml
       install:
           - python-requests
           - python-enum34
