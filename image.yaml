@@ -2,8 +2,8 @@ schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap72-openjdk11-openshift"
 description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenJDK 11 OpenShift container image"
-version: "TP"
-from: "ubi8-dev-preview/ubi"
+version: "1.0"
+from: "ubi8-dev-preview/ubi-minimal:latest"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap72-openshift-container"
@@ -71,6 +71,8 @@ modules:
           - name: os-eap-hawkular
           - name: os-eap-deployment-scanner
           - name: os-eap-extensions
+          - name: os-eap-python
+            version: '3'
           - name: openshift-layer
           - name: openshift-passwd
           - name: os-logging
@@ -80,10 +82,9 @@ modules:
             version: 'python3'
 packages:
       #content_sets_file: content_sets.yml
-      install:
-          - python-requests
-          - python-enum34
-          - PyYAML
+      # this is a hack to install the RHEL repo
+      repositories:
+          - ubi8
 run:
       user: 185
       cmd:

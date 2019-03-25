@@ -47,7 +47,7 @@
                         }
                     },
                     {
-                        "name": "1.0-TP",
+                        "name": "1.0",
                         "annotations": {
                             "description": "Red Hat JBoss EAP 7.2 OpenJDK 11 S2I Image [Tech Preview]",
                             "iconClass": "icon-eap",
