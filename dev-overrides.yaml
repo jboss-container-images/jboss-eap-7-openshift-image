@@ -5,11 +5,11 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: sprint-28
+                  ref: sprint-31
           - name: jboss-eap-modules
             git:
-                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: sprint-30
+                  url: https://github.com/luck3y/jboss-eap-modules.git
+                  ref: sprint-31
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
@@ -17,5 +17,5 @@ modules:
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.2-openshift-dev-rhel-7
+            branch: jb-eap-7.2-openshift-dev-openjdk11-rhel-7
 

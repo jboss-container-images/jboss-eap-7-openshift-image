@@ -1,7 +1,7 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap72-openshift"
-description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenShift container image"
+name: "jboss-eap-7-tech-preview/eap72-openjdk11-openshift"
+description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenJDK 11 OpenShift container image"
 version: "1.0"
 from: "rhel7:7-released"
 labels:
@@ -41,7 +41,7 @@ modules:
                   ref: eap72
       install:
           - name: jboss.container.openjdk.jdk
-            version: "8"
+            version: "11"
           - name: eap-7.2-latest
           - name: dynamic-resources
           - name: s2i-common
@@ -51,6 +51,7 @@ modules:
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
           - name: jboss.eap72.openshift
+            version: "1.0-openjdk11"
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
@@ -66,11 +67,8 @@ modules:
           - name: jboss.eap.config.tracing
           - name: os-eap-probes
           - name: jboss-maven
-          - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
-          - name: os-java-hawkular
-          - name: os-eap70-hawkular
           - name: os-eap-hawkular
           - name: os-eap-deployment-scanner
           - name: os-eap-extensions
@@ -83,10 +81,6 @@ modules:
             version: 'python2'
 packages:
       content_sets_file: content_sets.yml
-      install:
-          - python-requests
-          - python-enum34
-          - PyYAML
 run:
       user: 185
       cmd:
@@ -96,4 +90,4 @@ osbs:
             container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.2-openshift-rhel-7
+            branch: jb-eap-7.2-openshift-openjdk11-rhel-7
