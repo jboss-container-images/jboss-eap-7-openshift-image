@@ -29,6 +29,13 @@
             "required": true
         },
         {
+            "displayName": "EAP Image Name",
+            "description": "Name of the EAP image to use, examples: jboss-eap72-openshift:1.0, jboss-eap72-openjdk11-openshift:1.0",
+            "name": "EAP_IMAGE_NAME",
+            "value": "jboss-eap72-openshift:1.0",
+            "required": true
+        },
+        {
             "displayName": "Custom https Route Hostname",
             "description": "Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server.",
             "name": "HOSTNAME_HTTPS",
@@ -484,7 +491,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso73-openshift:1.0"
+                                "name": "${EAP_IMAGE_NAME}"
                             },
                             "paths": [
                                 {
