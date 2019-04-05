@@ -6,7 +6,7 @@ version: "1.0"
 from: "rhel7:7-released"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap72-openshift-container"
+      value: "jboss-eap-7-eap72-openjdk11-openshift-container"
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP 7.2"
     - name: "io.k8s.display-name"
