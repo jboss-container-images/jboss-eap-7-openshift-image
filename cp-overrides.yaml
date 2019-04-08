@@ -13,7 +13,7 @@ modules:
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_721
+                  ref: EAP_721_CR2
 osbs:
       repository:
             name: containers/jboss-eap-7
