@@ -16,5 +16,5 @@ modules:
                   ref: EAP_720
 osbs:
       repository:
-            name: containers/jboss-eap-7
-            branch: jb-eap-7.2-openshift-cp-openjdk11-rhel-7
+            name: containers/jboss-eap-7-tech-preview
+            branch: jb-eap-7.2-openjdk-11-openshift-cp-rhel-7
