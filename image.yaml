@@ -45,7 +45,6 @@ modules:
           - name: eap-7.2-latest
           - name: dynamic-resources
           - name: s2i-common
-          - name: java-alternatives
           - name: os-eap-s2i
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
