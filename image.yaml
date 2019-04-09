@@ -62,6 +62,7 @@ modules:
           - name: os-eap-datasource
             version: "1.0"
           - name: jboss.eap.cd.logging
+          - name: jboss.eap.logging.jdk11
           - name: jboss.eap.config.mp-config
           - name: jboss.eap.config.jgroups
           - name: jboss.eap.config.elytron
@@ -90,5 +91,5 @@ osbs:
       configuration:
             container_file: container.yaml
       repository:
-            name: containers/jboss-eap-7
-            branch: jb-eap-7.2-openshift-openjdk11-rhel-7
+            name: containers/jboss-eap-7-tech-preview
+            branch: jb-eap-7.2-openjdk-11-openshift-rhel-7

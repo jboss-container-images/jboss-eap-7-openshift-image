@@ -13,17 +13,11 @@ for resource in eap72-image-stream.json \
   eap72-amq-s2i.json \
   eap72-basic-s2i.json \
   eap72-https-s2i.json \
-  eap72-mongodb-persistent-s2i.json \
-  eap72-mongodb-s2i.json \
-  eap72-mysql-persistent-s2i.json \
-  eap72-mysql-s2i.json \
-  eap72-postgresql-persistent-s2i.json \
-  eap72-postgresql-s2i.json \
   eap72-sso-s2i.json \
   eap72-third-party-db-s2i.json \
   eap72-tx-recovery-s2i.json
 do
-  oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/${resource}
+  oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72-openjdk11/templates/${resource}
 done
 ----
 
@@ -41,13 +35,13 @@ To update an to the most recent image:
 
 [source, bash]
 ----
-oc import-image jboss-eap72-openshift:1.0
+oc import-image jboss-eap72-openjdk11-openshift:1.0
 ----
 
 Optionally include namespace to the import:
 [source, bash]
 ----
-oc -n myproject import-image jboss-eap72-openshift:1.0
+oc -n myproject import-image jboss-eap72-openjdk11-openshift:1.0
 ----
 
 #### Creating New Applications With Templates
