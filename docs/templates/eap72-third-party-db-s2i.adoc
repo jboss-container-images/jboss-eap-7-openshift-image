@@ -24,6 +24,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
+|`EAP_IMAGE_NAME` | -- | Name of the EAP image to use, examples: jboss-eap72-openshift:1.0, jboss-eap72-openjdk11-openshift:1.0 | jboss-eap72-openshift:1.0 | True
 |`CONFIGURATION_NAME` | -- | The name of the secret containing configuration properties for the datasources. | eap-app-config | True
 |`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
@@ -110,7 +111,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|jboss-eap72-openshift:1.0 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
+|`${EAP_IMAGE_NAME}` |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
 |=============
 
 
