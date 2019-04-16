@@ -1,12 +1,12 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap72-openjdk11-openshift"
+name: "jboss-eap-7/eap72-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenJDK 11 OpenShift container image"
 version: "1.0"
-from: "rhel7:7-released"
+from: "ubi8:8.0-122"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap72-openjdk11-openshift-container"
+      value: "jboss-eap-7-eap72-openjdk11-openshift-rhel8-container"
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP 7.2"
     - name: "io.k8s.display-name"
@@ -42,6 +42,8 @@ modules:
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
+          - name: jboss.container.maven.35.bash
+            version: "3.5"
           - name: eap-7.2-latest
           - name: dynamic-resources
           - name: s2i-common
@@ -62,13 +64,12 @@ modules:
           - name: os-eap-datasource
             version: "1.0"
           - name: jboss.eap.cd.logging
-          - name: jboss.eap.logging.jdk11
           - name: jboss.eap.config.mp-config
           - name: jboss.eap.config.jgroups
           - name: jboss.eap.config.elytron
           - name: jboss.eap.config.tracing
           - name: os-eap-probes
-          - name: jboss-maven
+            version: '2.0'
           - name: os-eap-sso
           - name: os-eap70-sso
           - name: os-eap-hawkular
@@ -80,7 +81,9 @@ modules:
           - name: jboss.container.eap.prometheus.config
             version: '7.2'
           - name: os-eap-txnrecovery.run
-            version: 'python2'
+            version: 'python3'
+          - name: os-eap-python
+            version: '3.6'
 packages:
       content_sets_file: content_sets.yml
 run:
@@ -91,5 +94,5 @@ osbs:
       configuration:
             container_file: container.yaml
       repository:
-            name: containers/jboss-eap-7-tech-preview
-            branch: jb-eap-7.2-openjdk-11-openshift-rhel-7
+            name: containers/jboss-eap-7
+            branch: jb-eap-7.2-openjdk-11-openshift-ubi-8

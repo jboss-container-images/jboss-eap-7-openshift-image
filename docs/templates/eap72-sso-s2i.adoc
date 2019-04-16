@@ -24,7 +24,7 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
-|`EAP_IMAGE_NAME` | -- | Name of the EAP image to use, examples: jboss-eap72-openshift:1.0, jboss-eap72-openjdk11-openshift:1.0 | jboss-eap72-openshift:1.0 | True
+|`EAP_IMAGE_NAME` | -- | Name of the EAP image to use, examples: jboss-eap72-openjdk11-rhel8-openshift:1.0, jboss-eap72-openshift:1.0 | jboss-eap72-openjdk11-rhel8-openshift:1.0 | True
 |`HOSTNAME_HTTPS` | `HOSTNAME_HTTP` | Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server. | `${HOSTNAME_HTTP}` | True
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/redhat-developer/redhat-sso-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 7.0.x-ose | False
