@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "15.0"
+version: "16.0"
 from: "rhel7:7-released"
 labels:
     - name: "com.redhat.component"
@@ -54,10 +54,11 @@ modules:
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
-          - name: jboss.eap.cd15.openshift
+          - name: jboss.eap.cd16.openshift
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
+            version: "1.1"
           - name: os-java-run
           - name: os-eap-launch
           - name: os-eap7-launch

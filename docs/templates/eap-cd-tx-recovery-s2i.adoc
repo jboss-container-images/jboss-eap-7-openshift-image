@@ -111,7 +111,7 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:15 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-openshift:16 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
 |=============
 
 
@@ -238,7 +238,7 @@ information.
 |`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
 |`MQ_ADDRESSES` | -- | `${MQ_TOPICS}`
 |`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
-|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
@@ -260,7 +260,7 @@ information.
 |`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
 |`AMQ_STORAGE_USAGE_LIMIT` | The AMQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
 .14+| `${APPLICATION_NAME}-migration`
-|`JGROUPS_PING_PROTOCOL` | -- | openshift.DNS_PING
+|`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
 |`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq7=MQ`
