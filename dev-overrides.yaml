@@ -1,23 +1,100 @@
 schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-openshift"
+version: "17.0"
 
 modules:
       repositories:
           - name: cct_module
+            #path: /home/yborgess/dev/projects/ocp/cct_module
+            #path: /Users/ysantana/dev/projects/redhat/ocp/cct_module
+            #path: /mnt/mac-shared/projects/redhat/ocp/cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
                   ref: master
           - name: jboss-eap-modules
-            git:
-                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: CD16
+            #path: /home/yborgess/dev/projects/ocp/jboss-eap-modules
+            #path: /Users/ysantana/dev/projects/redhat/ocp/jboss-eap-modules
+            path: /mnt/mac-shared/projects/redhat/ocp/jboss-eap-modules
+            #git:
+            #      url: https://github.com/jboss-container-images/jboss-eap-modules.git
+            #      ref: master
           - name: jboss-eap-7-image
+            #path: /home/yborgess/dev/projects/ocp/jboss-eap-7-image
+            #path: /Users/ysantana/dev/projects/redhat/ocp/jboss-eap-7-image
+            #path: /mnt/mac-shared/projects/redhat/wildfly/dist/target/wildfly-17.0.0.Beta1-SNAPSHOT.zip
+            #path: /mnt/mac-shared/projects/redhat/ocp/jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: CD16
+                  ref: eap-cd-dev
+          - name: wildfly-cekit-modules
+            path: /mnt/mac-shared/projects/redhat/ocp/wildfly-cekit-modules
 
-osbs:
-      repository:
-            name: containers/jboss-eap-7
-            branch: jb-eap-cd-dev-openshift-rhel-7
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+          - name: eap-cd-latest
+          - name: dynamic-resources
+          - name: s2i-common
+          - name: java-alternatives
+          - name: os-eap-s2i
+          - name: os-java-jolokia
+          - name: jboss.eap.cd.jolokia
+          - name: os-eap7-openshift
+          - name: jboss.container.config.cd
+            version: "17.0"
+          - name: jboss.eap.cd.openshift.modules
+          - name: os-eap7-ping
+          - name: os-eap-activemq-rar
+            version: "1.1"
+          - name: os-java-run
+          - name: os-eap-launch
+          - name: os-eap7-launch
+          - name: jboss.eap.cd.openshift.launch
+          - name: jboss.container.launch.cd
+            version: "17.0"
+          # New wildfly-cekit-modules
+          - name: jboss.container.wildfly.s2i.install-common
+          - name: jboss.container.wildfly.launch-config.config
+          - name: jboss.container.wildfly.launch-config.launch-common
+          - name: jboss.container.wildfly.launch-config.os
+          - name: jboss.container.wildfly.launch.datasources
+          - name: jboss.container.wildfly.launch.json-logging
+          - name: jboss.container.wildfly.launch.jgroups
+          - name: jboss.container.wildfly.launch.mp-config
+          - name: jboss.container.wildfly.launch.tracing
+          # New wildfly-cekit-modules - END
+          # These are moved to wf-cekit
+          #- name: jboss.eap.cd.logging
+          #- name: jboss.eap.config.mp-config
+          #- name: jboss.eap.config.jgroups
+          - name: jboss.eap.config.elytron
+            version: "1.0"
+          - name: jboss.eap.config.tracing
+          - name: os-eap-probes
+            version: "1.0"
+          - name: jboss-maven
+          - name: os-eap-db-drivers
+          - name: os-eap-sso
+          - name: os-eap70-sso
+          - name: os-java-hawkular
+          - name: os-eap70-hawkular
+          - name: os-eap-hawkular
+          - name: os-eap-deployment-scanner
+          - name: os-eap-extensions
+          - name: openshift-layer
+          - name: openshift-passwd
+          - name: os-logging
+          - name: jboss.container.eap.prometheus.config
+          - name: os-eap-txnrecovery.run
+            version: 'python2'
+
+artifacts:
+  - name: jboss-eap-cd.zip
+    path: /mnt/mac-shared/projects/redhat/wildfly/dist/target/wildfly-17.0.0.Final-SNAPSHOT.zip
+
+#osbs:
+#      repository:
+#            name: containers/jboss-eap-7
+#            branch: jb-eap-cd-dev-openshift-rhel-7
+
