@@ -43,6 +43,10 @@ modules:
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
                   ref: eap-cd
+          - name: wildfly-cekit-modules
+            git:
+                  url: https://github.com/kabir/wildfly-cekit-modules.git
+                  ref: master
       install:
           - name: jboss.container.openjdk.jdk
             version: "8"
@@ -56,7 +60,8 @@ modules:
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
-          - name: jboss.eap.cd16.openshift
+          - name: jboss.container.config.cd
+            version: "17.0"
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
@@ -65,6 +70,10 @@ modules:
           - name: os-eap-launch
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
+          - name: jboss.container.launch.cd
+            version: "17.0"
+          - name: jboss.container.security-domains
+            version: "1.0"
           - name: jboss.eap.cd.logging
           - name: jboss.eap.config.mp-config
           - name: jboss.eap.config.jgroups
