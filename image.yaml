@@ -72,13 +72,21 @@ modules:
           - name: jboss.eap.cd.openshift.launch
           - name: jboss.container.launch.cd
             version: "17.0"
+          # New wildfly-cekit-modules
+          - name: jboss.container.wildfly.launch.datasources
+          - name: jboss.container.wildfly.launch.json-logging
+          - name: jboss.container.wildfly.launch.jgroups
+          - name: jboss.container.wildfly.launch.mp-config
+          - name: jboss.container.wildfly.launch.tracing
+          # New wildfly-cekit-modules - END
           - name: jboss.container.security-domains
             version: "1.0"
-          - name: jboss.eap.cd.logging
-          - name: jboss.eap.config.mp-config
-          - name: jboss.eap.config.jgroups
+          # These are moved to wf-cekit
+          # - name: jboss.eap.cd.logging
+          # - name: jboss.eap.config.mp-config
+          #- name: jboss.eap.config.jgroups
           - name: jboss.eap.config.elytron
-          - name: jboss.eap.config.tracing
+          #- name: jboss.eap.config.tracing
           - name: os-eap-probes
             version: "1.0"
           - name: jboss-maven
