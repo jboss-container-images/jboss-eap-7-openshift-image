@@ -46,6 +46,8 @@ modules:
       install:
           - name: jboss.container.openjdk.jdk
             version: "8"
+          - name: jboss.container.maven.35.bash
+            version: "3.5scl"
           - name: eap-cd-latest
           - name: dynamic-resources
           - name: s2i-common
