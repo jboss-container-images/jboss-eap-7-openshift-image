@@ -13,9 +13,9 @@ modules:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
                   ref: CD16
           - name: jboss-eap-7-image
-￼           git:
-￼ ￼               url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-￼ ￼               ref: CD16
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                  ref: CD16
 osbs:
       repository:
             name: containers/jboss-eap-7
