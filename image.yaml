@@ -73,6 +73,9 @@ modules:
           - name: jboss.container.launch.cd
             version: "17.0"
           # New wildfly-cekit-modules
+          - name: jboss.container.wildfly.launch-config.cli
+          - name: jboss.container.wildfly.launch-config.launch-common
+          - name: jboss.container.wildfly.launch-config.os
           - name: jboss.container.wildfly.launch.datasources
           - name: jboss.container.wildfly.launch.json-logging
           - name: jboss.container.wildfly.launch.jgroups
