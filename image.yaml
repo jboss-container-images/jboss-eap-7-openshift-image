@@ -81,6 +81,7 @@ modules:
           - name: jboss.container.wildfly.launch.jgroups
           - name: jboss.container.wildfly.launch.mp-config
           - name: jboss.container.wildfly.launch.tracing
+          - name: jboss.container.wildfly.launch.deployment-scanner
           # New wildfly-cekit-modules - END
           - name: jboss.container.security-domains
             version: "1.0"
@@ -99,7 +100,7 @@ modules:
           - name: os-java-hawkular
           - name: os-eap70-hawkular
           - name: os-eap-hawkular
-          - name: os-eap-deployment-scanner
+          # - name: os-eap-deployment-scanner
           - name: os-eap-extensions
           - name: openshift-layer
           - name: openshift-passwd
