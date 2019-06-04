@@ -71,6 +71,7 @@ modules:
           - name: jboss.eap.config.elytron
           - name: jboss.eap.config.tracing
           - name: os-eap-probes
+            version: "1.0"
           - name: jboss-maven
           - name: os-eap-db-drivers
           - name: os-eap-sso
