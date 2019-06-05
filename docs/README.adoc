@@ -31,6 +31,8 @@ toc::[levels=1]
 * link:./templates/eap-cd-third-party-db-s2i.adoc[eap-cd-third-party-db-s2i]
 * link:./templates/eap-cd-tx-recovery-postgresql-s2i.adoc[eap-cd-tx-recovery-postgresql-s2i]
 * link:./templates/eap-cd-tx-recovery-s2i.adoc[eap-cd-tx-recovery-s2i]
+* link:./templates/t.adoc[t]
+* link:./templates/template-names.adoc[template-names]
 
 ////
   the source for the release notes part of this page is in the file
