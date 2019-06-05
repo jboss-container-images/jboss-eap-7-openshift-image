@@ -7,7 +7,7 @@
 = Application Templates
 
 This project contains OpenShift v3 application templates which support applications based on Red Hat JBoss Enterprise Application Platform 7.2.
-Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap72[here].
+Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap72-openjdk11-ubi8[here].
 
 :icons: font
 :toc: macro
@@ -16,14 +16,16 @@ toc::[levels=1]
 
 == templates
 
-* link:./templates/eap72-amq-persistent-s2i.adoc[eap72-amq-persistent-s2i]
-* link:./templates/eap72-amq-s2i.adoc[eap72-amq-s2i]
-* link:./templates/eap72-basic-s2i.adoc[eap72-basic-s2i]
-* link:./templates/eap72-https-s2i.adoc[eap72-https-s2i]
-* link:./templates/eap72-sso-s2i.adoc[eap72-sso-s2i]
-* link:./templates/eap72-starter-s2i.adoc[eap72-starter-s2i]
-* link:./templates/eap72-third-party-db-s2i.adoc[eap72-third-party-db-s2i]
-* link:./templates/eap72-tx-recovery-s2i.adoc[eap72-tx-recovery-s2i]
+* link:./templates/eap72-openjdk11-amq-persistent-s2i.adoc[eap72-openjdk11-amq-persistent-s2i]
+* link:./templates/eap72-openjdk11-amq-s2i.adoc[eap72-openjdk11-amq-s2i]
+* link:./templates/eap72-openjdk11-basic-s2i.adoc[eap72-openjdk11-basic-s2i]
+* link:./templates/eap72-openjdk11-https-s2i.adoc[eap72-openjdk11-https-s2i]
+* link:./templates/eap72-openjdk11-sso-s2i.adoc[eap72-openjdk11-sso-s2i]
+* link:./templates/eap72-openjdk11-starter-s2i.adoc[eap72-openjdk11-starter-s2i]
+* link:./templates/eap72-openjdk11-third-party-db-s2i.adoc[eap72-openjdk11-third-party-db-s2i]
+* link:./templates/eap72-openjdk11-tx-recovery-s2i.adoc[eap72-openjdk11-tx-recovery-s2i]
+* link:./templates/t.adoc[t]
+* link:./templates/template-names.adoc[template-names]
 
 ////
   the source for the release notes part of this page is in the file

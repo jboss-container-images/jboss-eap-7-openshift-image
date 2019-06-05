@@ -6,17 +6,17 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "1.0.0",
-            "openshift.io/display-name": "JBoss EAP 7.2 Starter (UBI 8)",
+            "openshift.io/display-name": "JBoss EAP 7.2 Starter (JDK 11 & UBI 8)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss EAP 7 application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap72-starter-s2i"
+        "name": "eap72-openjdk11-starter-s2i"
     },
     "labels": {
-        "template": "eap72-starter-s2i",
+        "template": "eap72-openjdk11-starter-s2i",
         "xpaas": "1.0.0"
     },
     "message": "A new EAP based application has been created in your project.",
