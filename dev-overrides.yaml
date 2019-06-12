@@ -56,7 +56,6 @@ modules:
           # New wildfly-cekit-modules
           - name: jboss.container.wildfly.s2i.install-common
           - name: jboss.container.wildfly.launch-config.config
-          - name: jboss.container.wildfly.launch-config.launch-common
           - name: jboss.container.wildfly.launch-config.os
           - name: jboss.container.wildfly.launch.datasources
           - name: jboss.container.wildfly.launch.json-logging
