@@ -71,7 +71,7 @@ modules:
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
           - name: jboss.container.launch.cd
-            version: "17.0"
+            version: "18.0"
           # New wildfly-cekit-modules
           - name: jboss.container.wildfly.s2i.install-common
           - name: jboss.container.wildfly.launch-config.config
