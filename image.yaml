@@ -59,7 +59,7 @@ modules:
           - name: jboss.container.eap.galleon
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
-          # - name: os-eap7-openshift
+          - name: os-eap7-openshift
           #- name: jboss.eap.config.openshift
           #  version: "16.0-openjdk11"
           #- name: jboss.eap.cd.openshift.modules
