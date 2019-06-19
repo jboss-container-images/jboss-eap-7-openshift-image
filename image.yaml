@@ -45,7 +45,7 @@ modules:
                   ref: eap-cd
           - name: wildfly-cekit-modules
             git:
-                  url: https://github.com/kabir/wildfly-cekit-modules.git
+                  url: https://github.com/wildfly/wildfly-cekit-modules.git
                   ref: master
       install:
           - name: jboss.container.openjdk.jdk
