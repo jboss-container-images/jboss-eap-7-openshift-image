@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
 version: "18.0"
-from: "rhel7:7-released"
+from: "ubi8:8.0"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-container"
@@ -49,38 +49,34 @@ modules:
                   ref: master
       install:
           - name: jboss.container.openjdk.jdk
-            version: "8"
+            version: "11"
           - name: jboss.container.maven.35.bash
-            version: "3.5scl"
+            version: "3.5"
           - name: jboss.container.eap.cd
             version: "18.0"
           - name: dynamic-resources
-          - name: s2i-common
-          - name: java-alternatives
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
-          # config and final steps added at the end, only add os-java-run dependency
-          #- name: os-eap7-openshift
-          - name: os-java-run
-          # do not add config
-          # - name: jboss.container.config.cd
-          # version: "17.0"
-          # remove ping
-          # - name: jboss.eap.cd.openshift.modules
+          - name: os-eap7-openshift
+          #- name: jboss.eap.config.openshift
+          #  version: "16.0-openjdk11"
+          #- name: jboss.eap.cd.openshift.modules
           #- name: os-eap7-ping
           - name: jboss.container.eap.openshift.modules
             version: "18.0"
           - name: os-eap-activemq-rar
             version: "1.1"
-          # added previously
-          # - name: os-java-run
+          - name: jboss.container.java.jvm.bash
           - name: os-eap-launch
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
           - name: jboss.container.launch.cd
             version: "18.0"
+          # To be removed when wildfly-cekit-modules handle it.
+          - name: os-eap-datasource
+            version: "1.0"
           # New wildfly-cekit-modules
           - name: jboss.container.wildfly.launch-config.config
           - name: jboss.container.wildfly.launch-config.os
@@ -99,13 +95,10 @@ modules:
             version: "1.0"
           #- name: jboss.eap.config.tracing
           - name: os-eap-probes
-            version: "1.0"
+            version: "2.0"
           - name: jboss-maven
-          - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
-          - name: os-java-hawkular
-          - name: os-eap70-hawkular
           - name: os-eap-hawkular
           # - name: os-eap-deployment-scanner
           - name: os-eap-extensions
@@ -113,18 +106,17 @@ modules:
           - name: openshift-passwd
           - name: os-logging
           - name: jboss.container.eap.prometheus.config
+            version: "7.2"
           - name: os-eap-txnrecovery.run
-            version: 'python2'
-          # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
+            version: 'python3'
+          - name: os-eap-python
+            version: '3.6'
+           # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
           - name: jboss.container.wildfly.galleon.build-feature-pack
           - name: jboss.container.wildfly.galleon.provision-server
           - name: jboss.container.eap.final-setup
 packages:
       content_sets_file: content_sets.yml
-      install:
-          - python-requests
-          - python-enum34
-          - PyYAML
 run:
       user: 185
       cmd:
