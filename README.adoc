@@ -6,7 +6,7 @@ You should have the 'oc' tools available and be logged in to your OpenShift inst
 For example, for OpenShift Online, see: https://docs.openshift.com/online/cli_reference/get_started_cli.html
 [source, bash]
 ----
-for resource in eap72-image-stream.json \
+for resource in eap72-opendjk11-image-stream.json \
   eap72-openjdk11-amq-persistent-s2i.json \
   eap72-openjdk11-amq-s2i.json \
   eap72-openjdk11-basic-s2i.json \
@@ -15,7 +15,7 @@ for resource in eap72-image-stream.json \
   eap72-openjdk11-third-party-db-s2i.json \
   eap72-openjdk11-tx-recovery-s2i.json
 do
-  oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72-openjdk11/templates/${resource}
+  oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72-openjdk11-ubi8/templates/${resource}
 done
 ----
 
