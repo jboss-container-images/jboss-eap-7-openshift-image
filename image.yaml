@@ -57,9 +57,11 @@ modules:
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
-          - name: os-java-jolokia
-          - name: jboss.eap.cd.jolokia
-          - name: os-eap7-openshift
+          #- name: os-java-jolokia
+          #- name: jboss.eap.cd.jolokia
+          - name: jboss.container.wildfly.standalone-conf.jolokia
+          #- name: os-eap7-openshift
+          - name: jboss.container.wildfly.standalone-conf.java
           #- name: jboss.eap.config.openshift
           #  version: "16.0-openjdk11"
           #- name: jboss.eap.cd.openshift.modules
