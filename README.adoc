@@ -1,7 +1,5 @@
 # Red Hat JBoss Enterprise Application Platform 7.2 OpenShift container image
 
-NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image/tree/eap72[Red Hat JBoss Enterprise Application Platform 7 container image]
-
 ## Importing Imagestreams and Templates
 
 You should have the 'oc' tools available and be logged in to your OpenShift instance. For more details on how to do this, please consult the OpenShift documentation.
@@ -9,13 +7,13 @@ For example, for OpenShift Online, see: https://docs.openshift.com/online/cli_re
 [source, bash]
 ----
 for resource in eap72-image-stream.json \
-  eap72-amq-persistent-s2i.json \
-  eap72-amq-s2i.json \
-  eap72-basic-s2i.json \
-  eap72-https-s2i.json \
-  eap72-sso-s2i.json \
-  eap72-third-party-db-s2i.json \
-  eap72-tx-recovery-s2i.json
+  eap72-openjdk11-amq-persistent-s2i.json \
+  eap72-openjdk11-amq-s2i.json \
+  eap72-openjdk11-basic-s2i.json \
+  eap72-openjdk11-https-s2i.json \
+  eap72-openjdk11-sso-s2i.json \
+  eap72-openjdk11-third-party-db-s2i.json \
+  eap72-openjdk11-tx-recovery-s2i.json
 do
   oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72-openjdk11/templates/${resource}
 done
@@ -35,13 +33,13 @@ To update an to the most recent image:
 
 [source, bash]
 ----
-oc import-image jboss-eap72-openjdk11-openshift:1.0
+oc import-image jboss-eap72-openjdk11-rhel8-openshift:1.0
 ----
 
 Optionally include namespace to the import:
 [source, bash]
 ----
-oc -n myproject import-image jboss-eap72-openjdk11-openshift:1.0
+oc -n myproject import-image jboss-eap72-openjdk11-rhel8-openshift:1.0
 ----
 
 #### Creating New Applications With Templates
@@ -49,13 +47,13 @@ Example:
 
 [source, bash]
 ----
-oc -n myproject new-app eap72-basic-s2i -p APPLICATION_NAME=eap72-basic-app
+oc -n myproject new-app eap72-openjdk11-basic-s2i -p APPLICATION_NAME=eap72-basic-app
 ----
 
 or, if a namespace was used with `-n` above:
 [source, bash]
 ----
-oc -n myproject new-app eap72-basic-s2i -p APPLICATION_NAME=eap72-basic-app -p IMAGE_STREAM_NAMESPACE=myproject
+oc -n myproject new-app eap72-openjdk11-basic-s2i -p APPLICATION_NAME=eap72-basic-app -p IMAGE_STREAM_NAMESPACE=myproject
 ----
 
 For more information on application creation and deployment see: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/red_hat_jboss_enterprise_application_platform_for_openshift/build_run_java_app_s2i#deploy_eap_s2i

@@ -1,7 +1,7 @@
 = Application Templates
 
 This project contains OpenShift v3 application templates which support applications based on Red Hat JBoss Enterprise Application Platform 7.2.
-Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap72[here].
+Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap72-openjdk11-ubi8[here].
 
 :icons: font
 :toc: macro
