@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7/eap72-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.2 OpenJDK 11 OpenShift container image"
 version: "1.0"
-from: "ubi8:8.0-122"
+from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap72-openjdk11-openshift-rhel8-container"
