@@ -3,7 +3,7 @@ schema_version: 1
 name: "jboss-eap-7/eap-cd-runtime-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift runtime image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
 version: "18.0"
-from: "ubi8:8.0"
+from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-openshift-runtime-container"
@@ -62,5 +62,8 @@ modules:
             version: '3.6'
 packages:
       install:
-          - hostname      
+          # required by launch scripts
+          - hostname
+          # required by probes
+          - python3-requests
 # TODO OSBS, REPO, ...
