@@ -78,8 +78,8 @@ modules:
           - name: jboss.container.launch.cd
             version: "18.0"
           # To be removed when wildfly-cekit-modules handle it.
-          - name: os-eap-datasource
-            version: "1.0"
+          # - name: os-eap-datasource
+          #  version: "1.0"
           # New wildfly-cekit-modules
           - name: jboss.container.wildfly.launch-config.config
           - name: jboss.container.wildfly.launch-config.os
@@ -91,6 +91,7 @@ modules:
           - name: jboss.container.wildfly.launch.os.node-name
           - name: jboss.container.wildfly.launch.tracing
           - name: jboss.container.wildfly.launch.deployment-scanner
+          - name: jboss.container.wildfly.launch.keycloak
           # New wildfly-cekit-modules - END
           # These are moved to wf-cekit
           # - name: jboss.eap.cd.logging
@@ -102,7 +103,7 @@ modules:
           - name: os-eap-probes
             version: "2.0"
           - name: jboss-maven
-          - name: os-eap-sso
+          # - name: os-eap-sso
           - name: os-eap70-sso
           # - name: os-eap-hawkular
           # - name: os-eap-deployment-scanner
@@ -119,6 +120,9 @@ modules:
            # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
           - name: jboss.container.wildfly.galleon.build-feature-pack
           - name: jboss.container.wildfly.galleon.provision-server
+           # patch default config with markers for which we don't have yet scripts using CLI.
+          - name: jboss.container.config.cd
+            version: "18.0"
           - name: jboss.container.eap.final-setup
 packages:
       content_sets_file: content_sets.yml
