@@ -1,40 +1,26 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift"
-version: "17.0"
+name: "jboss-eap-7/eap-cd-openshift"
+version: "18.0"
 
 modules:
       repositories:
           - name: cct_module
-            #path: /home/yborgess/dev/projects/ocp/cct_module
-            #path: /Users/ysantana/dev/projects/redhat/ocp/cct_module
-            #path: /mnt/mac-shared/projects/redhat/ocp/cct_module
-            path: /home/kabir/sourcecontrol/jboss-openshift/cct_module
-            #git:
-            #      url: https://github.com/jboss-openshift/cct_module.git
-            #      ref: master
+            git:
+                 url: https://github.com/jboss-openshift/cct_module.git
+                 ref: master
           - name: jboss-eap-modules
-            #path: /home/yborgess/dev/projects/ocp/jboss-eap-modules
-            #path: /Users/ysantana/dev/projects/redhat/ocp/jboss-eap-modules
-            path: /home/kabir/sourcecontrol/jboss-container-images/jboss-eap-modules
-            #git:
-            #      url: https://github.com/jboss-container-images/jboss-eap-modules.git
-            #      ref: master
+            git:
+                 url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                 ref: master
           - name: jboss-eap-7-image
-            #path: /home/yborgess/dev/projects/ocp/jboss-eap-7-image
-            #path: /Users/ysantana/dev/projects/redhat/ocp/jboss-eap-7-image
-            #path: /mnt/mac-shared/projects/redhat/wildfly/dist/target/wildfly-17.0.0.Beta1-SNAPSHOT.zip
-            #path: /mnt/mac-shared/projects/redhat/ocp/jboss-eap-7-image
-
-            path: /home/kabir/sourcecontrol/jboss-container-images/jboss-eap-7-image
-            #git:
-            #      url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-            #      ref: eap-cd-dev
+            git:
+                 url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                 ref: eap-cd-dev
           - name: wildfly-cekit-modules
-            path: /home/kabir/sourcecontrol/wildfly/wildfly-cekit-modules
-            #git:
-            #      url: https://github.com/kabir/wildfly-cekit-modules.git
-            #      ref: master
+            git:
+                 url: https://github.com/wildfly/wildfly-cekit-modules.git
+                 ref: master
 
 #artifacts:
 #  - name: jboss-eap-cd.zip
