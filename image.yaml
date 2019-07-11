@@ -93,6 +93,7 @@ modules:
           - name: jboss.container.wildfly.launch.deployment-scanner
           - name: jboss.container.wildfly.launch.keycloak
           - name: jboss.container.wildfly.launch.https
+          - name: jboss.container.wildfly.galleon.fp-content.keycloak
           # New wildfly-cekit-modules - END
           # These are moved to wf-cekit
           # - name: jboss.eap.cd.logging
