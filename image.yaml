@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap-cd-openshift"
+name: "jboss-eap-7-tech-preview/eap-cd-openshift"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
 version: "18.0"
 from: "ubi8:8-released"
@@ -107,7 +107,8 @@ modules:
           - name: jboss-maven
           # - name: os-eap-sso
           - name: os-eap70-sso
-          # - name: os-eap-hawkular
+          # We keep this one to only advertise that hawkular is no more supported.
+          - name: os-eap-hawkular
           # - name: os-eap-deployment-scanner
           - name: os-eap-extensions
           - name: openshift-layer
