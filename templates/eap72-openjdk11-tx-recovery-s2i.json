@@ -5,7 +5,7 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "openshift.io/display-name": "JBoss EAP 7.2 + AMQ 7 with tx recovery (JDK 11 & UBI 8)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example Red Hat JBoss EAP 7 application with transaction recovery configured. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
@@ -17,7 +17,7 @@
     },
     "labels": {
         "template": "eap72-openjdk11-tx-recovery-s2i",
-        "xpaas": "1.0.0"
+        "xpaas": "1.1.0"
     },
     "message": "A new EAP based application has been created in your project.",
     "parameters": [
@@ -30,9 +30,9 @@
         },
         {
             "displayName": "EAP Image Name",
-            "description": "Name of the EAP image to use, examples: jboss-eap72-openjdk11-openshift-rhel8:1.0, jboss-eap72-openshift:1.0",
+            "description": "Name of the EAP image to use, examples: jboss-eap72-openjdk11-openshift-rhel8:1.1, jboss-eap72-openshift:1.1",
             "name": "EAP_IMAGE_NAME",
-            "value": "jboss-eap72-openjdk11-openshift-rhel8:1.0",
+            "value": "jboss-eap72-openjdk11-openshift-rhel8:1.1",
             "required": true
         },
         {

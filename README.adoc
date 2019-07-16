@@ -33,13 +33,13 @@ To update an to the most recent image:
 
 [source, bash]
 ----
-oc import-image jboss-eap72-openjdk11-rhel8-openshift:1.0
+oc import-image jboss-eap72-openjdk11-rhel8-openshift:1.1
 ----
 
 Optionally include namespace to the import:
 [source, bash]
 ----
-oc -n myproject import-image jboss-eap72-openjdk11-rhel8-openshift:1.0
+oc -n myproject import-image jboss-eap72-openjdk11-rhel8-openshift:1.1
 ----
 
 #### Creating New Applications With Templates

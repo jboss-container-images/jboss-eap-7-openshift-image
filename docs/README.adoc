@@ -24,10 +24,6 @@ toc::[levels=1]
 * link:./templates/eap72-openjdk11-starter-s2i.adoc[eap72-openjdk11-starter-s2i]
 * link:./templates/eap72-openjdk11-third-party-db-s2i.adoc[eap72-openjdk11-third-party-db-s2i]
 * link:./templates/eap72-openjdk11-tx-recovery-s2i.adoc[eap72-openjdk11-tx-recovery-s2i]
-* link:./templates/t.adoc[t]
-* link:./templates/template-names.adoc[template-names]
-* link:./templates/t.adoc[t]
-* link:./templates/template-names.adoc[template-names]
 
 ////
   the source for the release notes part of this page is in the file
