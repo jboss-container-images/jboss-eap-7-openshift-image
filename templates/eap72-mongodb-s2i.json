@@ -596,9 +596,10 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/eap/bin/readinessProbe.sh"
+                                            "/opt/eap/bin/readinessProbe.sh false"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 10
                                 },
                                 "ports": [
                                     {

@@ -30,6 +30,8 @@ toc::[levels=1]
 * link:./templates/eap72-starter-s2i.adoc[eap72-starter-s2i]
 * link:./templates/eap72-third-party-db-s2i.adoc[eap72-third-party-db-s2i]
 * link:./templates/eap72-tx-recovery-s2i.adoc[eap72-tx-recovery-s2i]
+* link:./templates/t.adoc[t]
+* link:./templates/template-names.adoc[template-names]
 
 ////
   the source for the release notes part of this page is in the file
