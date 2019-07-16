@@ -1,21 +1,19 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift"
-
 modules:
       repositories:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  ref: 0.37.0
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
+                  ref: CD17_CR2
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: eap-cd-dev
+                  ref: CD17_CR2
 
 osbs:
       repository:
