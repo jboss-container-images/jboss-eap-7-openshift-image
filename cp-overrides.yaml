@@ -5,16 +5,18 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: 0.37.0
+                  ref: EAP_730_BETA_CR1
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: CD17_CR2
+                  ref: EAP_730_BETA_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: CD17_CR2
+                  ref: EAP_730_BETA_CR1
+
 osbs:
       repository:
             name: containers/jboss-eap-7-tech-preview
-            branch: jb-eap-cd-openshift-cp-rhel-8
+            branch: jb-eap-7.3-openshift-cp-rhel-8
+
