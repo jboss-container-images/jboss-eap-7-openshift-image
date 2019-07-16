@@ -19,5 +19,5 @@ modules:
 
 osbs:
       repository:
-            name: containers/jboss-eap-7
-            branch: jb-eap-cd-dev-openshift-rhel-7
+            name: containers/jboss-eap-7-tech-preview
+            branch: jb-eap-cd-openshift-dev-rhel-8

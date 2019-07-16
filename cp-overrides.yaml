@@ -18,5 +18,5 @@ modules:
                   ref: CD16
 osbs:
       repository:
-            name: containers/jboss-eap-7
-            branch: jb-eap-cd-cp-openshift-rhel-7
+            name: containers/jboss-eap-7-tech-preview
+            branch: jb-eap-cd-openshift-cp-rhel-8
