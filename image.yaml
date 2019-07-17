@@ -93,14 +93,16 @@ modules:
           - name: jboss.container.wildfly.launch.deployment-scanner
           - name: jboss.container.wildfly.launch.keycloak
           - name: jboss.container.wildfly.launch.https
+          - name: jboss.container.wildfly.launch.security-domains
+          - name: jboss.container.wildfly.launch.elytron
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
           # New wildfly-cekit-modules - END
           # These are moved to wf-cekit
           # - name: jboss.eap.cd.logging
           # - name: jboss.eap.config.mp-config
           #- name: jboss.eap.config.jgroups
-          - name: jboss.eap.config.elytron
-            version: "1.0"
+          #- name: jboss.eap.config.elytron
+          #  version: "1.0"
           #- name: jboss.eap.config.tracing
           - name: os-eap-probes
             version: "2.0"
