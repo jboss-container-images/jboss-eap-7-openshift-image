@@ -1,12 +1,12 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap-cd-openshift"
+name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "16.0"
-from: "rhel7:7-released"
+version: "17.0"
+from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap-cd-openshift-container"
+      value: "jboss-eap-7-eap-cd-openshift-rhel8-container"
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP continuous delivery"
     - name: "io.k8s.display-name"
@@ -45,36 +45,37 @@ modules:
                   ref: CD16
       install:
           - name: jboss.container.openjdk.jdk
-            version: "8"
+            version: "11"
+          - name: jboss.container.maven.35.bash
+            version: "3.5"
           - name: eap-cd-latest
           - name: dynamic-resources
-          - name: s2i-common
-          - name: java-alternatives
-          - name: os-eap-s2i
+          - name: jboss.container.eap.s2i.bash
           - name: os-java-jolokia
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
-          - name: jboss.eap.cd16.openshift
+          - name: jboss.eap.config.openshift
+            version: "CD17.0"
           - name: jboss.eap.cd.openshift.modules
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
             version: "1.1"
-          - name: os-java-run
+          - name: jboss.container.java.jvm.bash
           - name: os-eap-launch
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
+          - name: os-eap-datasource
+            version: "1.0"
           - name: jboss.eap.cd.logging
           - name: jboss.eap.config.mp-config
           - name: jboss.eap.config.jgroups
           - name: jboss.eap.config.elytron
           - name: jboss.eap.config.tracing
           - name: os-eap-probes
+            version: "2.0"
           - name: jboss-maven
-          - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
-          - name: os-java-hawkular
-          - name: os-eap70-hawkular
           - name: os-eap-hawkular
           - name: os-eap-deployment-scanner
           - name: os-eap-extensions
@@ -82,14 +83,13 @@ modules:
           - name: openshift-passwd
           - name: os-logging
           - name: jboss.container.eap.prometheus.config
+            version: "7.2"
           - name: os-eap-txnrecovery.run
-            version: 'python2'
+            version: 'python3'
+          - name: os-eap-python
+            version: '3.6'
 packages:
       content_sets_file: content_sets.yml
-      install:
-          - python-requests
-          - python-enum34
-          - PyYAML
 run:
       user: 185
       cmd:
@@ -98,5 +98,5 @@ osbs:
       configuration:
             container_file: container.yaml
       repository:
-            name: containers/jboss-eap-7
-            branch: jb-eap-cd-openshift-rhel-7
+            name: containers/jboss-eap-7-tech-preview
+            branch: jb-eap-cd-openshift-rhel-8
