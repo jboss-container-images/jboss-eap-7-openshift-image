@@ -491,7 +491,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "${EAP_IMAGE_NAME}"
+                                "name": "redhat-sso73-openshift:1.0"
                             },
                             "paths": [
                                 {
@@ -510,7 +510,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap72-openshift:1.1"
+                            "name": "${EAP_IMAGE_NAME}"
                         },
                         "env": [
                             {
