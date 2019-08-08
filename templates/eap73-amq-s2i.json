@@ -5,21 +5,21 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
-            "version": "17.0",
-            "openshift.io/display-name": "JBoss EAP CD 17 + Single Sign-On with passthrough TLS",
+            "version": "1.0.0",
+            "openshift.io/display-name": "JBoss EAP 7.3 + AMQ 7 with passthrough TLS [Tech Preview]",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example JBoss Enterprise Application Platform continuous delivery application Single Sign-On application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration, integrated with Red Hat Single Sign-On and secure communication using passthrough TLS.",
+            "description": "An example JBoss Enterprise Application Platform application using Red Hat JBoss AMQ. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73/README.adoc",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform based application, including a build configuration, application deployment configuration, using Red Hat JBoss AMQ and secure communication using passthrough TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-sso-s2i"
+        "name": "eap73-amq-s2i"
     },
     "labels": {
-        "template": "eap-cd-sso-s2i",
-        "xpaas": "17.0"
+        "template": "eap73-amq-s2i",
+        "xpaas": "1.0.0"
     },
-    "message": "A new JBoss EAP CD based application with SSL and SSO support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new JBoss EAP 7 and AMQ 7 based application with SSL support has been created in your project. The username/password for accessing the AMQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -29,54 +29,74 @@
             "required": true
         },
         {
+            "displayName": "EAP Image Name",
+            "description": "Name of the EAP image to use, examples: jboss-eap73-openjdk8-openshift-rhel7:released, jboss-eap73-openjdk11-openshift-rhel8:released",
+            "name": "EAP_IMAGE_NAME",
+            "value": "jboss-eap73-openjdk8-openshift-rhel7:released",
+            "required": true
+        },
+        {
             "displayName": "Custom https Route Hostname",
-            "description": "Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server.",
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTPS",
             "value": "",
-            "required": true
+            "required": false
         },
         {
             "displayName": "Git Repository URL",
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/redhat-developer/redhat-sso-quickstarts",
+            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
             "required": true
         },
         {
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "7.0.x-ose",
+            "value": "openshift",
             "required": false
         },
         {
             "displayName": "Context Directory",
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "",
+            "value": "helloworld-mdb",
+            "required": false
+        },
+        {
+            "displayName": "JMS Connection Factory JNDI Name",
+            "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory",
+            "name": "MQ_JNDI",
+            "value": "java:jboss/DefaultJMSConnectionFactory",
+            "required": false
+        },
+        {
+            "displayName": "AMQ Protocols",
+            "description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
+            "name": "MQ_PROTOCOL",
+            "value": "openwire",
             "required": false
         },
         {
             "displayName": "Queues",
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "name": "MQ_QUEUES",
-            "value": "",
+            "value": "HelloWorldMDBQueue",
             "required": false
         },
         {
             "displayName": "Topics",
             "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "name": "MQ_TOPICS",
-            "value": "",
+            "value": "HelloWorldMDBTopic",
             "required": false
         },
         {
-            "displayName": "AMQ cluster password",
-            "description": "AMQ cluster admin password",
-            "name": "MQ_CLUSTER_PASSWORD",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
+            "displayName": "AMQ Serializable Packages",
+            "description": "List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html",
+            "name": "MQ_SERIALIZABLE_PACKAGES",
+            "value": "",
+            "required": false
         },
         {
             "displayName": "Server Keystore Secret Name",
@@ -101,16 +121,52 @@
         },
         {
             "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate (e.g. jboss)",
+            "description": "The name associated with the server certificate",
             "name": "HTTPS_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate (e.g. mykeystorepass)",
+            "description": "The password for the keystore and certificate",
             "name": "HTTPS_PASSWORD",
             "value": "",
+            "required": false
+        },
+        {
+            "displayName": "AMQ Username",
+            "description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
+            "name": "MQ_USERNAME",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression",
+            "required": false
+        },
+        {
+            "displayName": "AMQ Password",
+            "description": "Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
+            "name": "MQ_PASSWORD",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": false
+        },
+        {
+            "displayName": "AMQ Role",
+            "description": "AMQ Role for authenticated user",
+            "name": "MQ_ROLE",
+            "value": "admin"
+        },
+        {
+            "displayName": "AMQ Mesh Discovery Type",
+            "description": "The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace.",
+            "name": "AMQ_MESH_DISCOVERY_TYPE",
+            "value": "dns",
+            "required": false
+        },
+        {
+            "displayName": "AMQ Storage Limit",
+            "description": "The AMQ storage usage limit",
+            "name": "AMQ_STORAGE_USAGE_LIMIT",
+            "value": "100 gb",
             "required": false
         },
         {
@@ -152,14 +208,14 @@
         },
         {
             "displayName": "JGroups Certificate Name",
-            "description": "The name associated with the server certificate (e.g. secret-key)",
+            "description": "The name associated with the server certificate",
             "name": "JGROUPS_ENCRYPT_NAME",
             "value": "",
             "required": false
         },
         {
             "displayName": "JGroups Keystore Password",
-            "description": "The password for the keystore and certificate (e.g. password)",
+            "description": "The password for the keystore and certificate",
             "name": "JGROUPS_ENCRYPT_PASSWORD",
             "value": "",
             "required": false
@@ -180,140 +236,6 @@
             "required": false
         },
         {
-            "displayName": "URL for SSO",
-            "description": "The URL for the SSO server (e.g. https://secure-sso-myproject.example.com/auth).  This is the URL through which the user will be redirected when a login or token is required by the application.",
-            "name": "SSO_URL",
-            "value": "",
-            "required": true
-        },
-        {
-            "displayName": "URL for SSO (internal service)",
-            "description": "The URL for the internal SSO service, where secure-sso (the default) is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL.",
-            "name": "SSO_SERVICE_URL",
-            "value": "https://secure-sso:8443/auth",
-            "required": false
-        },
-        {
-            "displayName": "SSO Realm",
-            "description": "The SSO realm to which the application client(s) should be associated (e.g. demo).",
-            "name": "SSO_REALM",
-            "value": "",
-            "required": true
-        },
-        {
-            "displayName": "SSO Username",
-            "description": "The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates.",
-            "name": "SSO_USERNAME",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Password",
-            "description": "The password for the SSO service user.",
-            "name": "SSO_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Public Key",
-            "description": "SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability",
-            "name": "SSO_PUBLIC_KEY",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Bearer Only?",
-            "description": "SSO Client Access Type",
-            "name": "SSO_BEARER_ONLY",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Artifact Directories",
-            "description": "List of directories from which archives will be copied into the deployment folder.  If unspecified, all archives in /target will be copied.",
-            "name": "ARTIFACT_DIR",
-            "value": "app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Keystore Secret",
-            "description": "The name of the secret containing the keystore file",
-            "name": "SSO_SAML_KEYSTORE_SECRET",
-            "value": "eap7-app-secret",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Keystore",
-            "description": "The name of the keystore file within the secret",
-            "name": "SSO_SAML_KEYSTORE",
-            "value": "keystore.jks",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "SSO_SAML_CERTIFICATE_NAME",
-            "value": "jboss",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "SSO_SAML_KEYSTORE_PASSWORD",
-            "value": "mykeystorepass",
-            "required": false
-        },
-        {
-            "displayName": "SSO Client Secret",
-            "description": "The SSO Client Secret for Confidential Access",
-            "name": "SSO_SECRET",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "required": true
-        },
-        {
-            "displayName": "Enable CORS for SSO?",
-            "description": "Enable CORS for SSO applications",
-            "name": "SSO_ENABLE_CORS",
-            "value": "false",
-            "required": false
-        },
-        {
-            "displayName": "SSO SAML Logout Page",
-            "description": "SSO logout page for SAML applications",
-            "name": "SSO_SAML_LOGOUT_PAGE",
-            "value": "/",
-            "required": false
-        },
-        {
-            "displayName": "Disable SSL Validation in EAP->SSO communication",
-            "description": "If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl)",
-            "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
-            "value": "true",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store",
-            "description": "The name of the truststore file within the secret (e.g. truststore.jks)",
-            "name": "SSO_TRUSTSTORE",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store Password",
-            "description": "The password for the truststore and certificate (e.g. mykeystorepass)",
-            "name": "SSO_TRUSTSTORE_PASSWORD",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "SSO Trust Store Secret",
-            "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
-            "name": "SSO_TRUSTSTORE_SECRET",
-            "value": "eap7-app-secret",
-            "required": false
-        },
-        {
             "displayName": "Maven mirror URL",
             "description": "Maven mirror to use for S2I builds",
             "name": "MAVEN_MIRROR_URL",
@@ -324,6 +246,12 @@
             "displayName": "Maven Additional Arguments",
             "description": "Maven additional arguments to use for S2I builds",
             "name": "MAVEN_ARGS_APPEND",
+            "value": "-Dcom.redhat.xpaas.repo.jbossorg",
+            "required": false
+        },
+        {
+            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
             "value": "",
             "required": false
         },
@@ -355,7 +283,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The web server's HTTP port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -379,7 +308,8 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The web server's HTTPS port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 }
             }
         },
@@ -411,6 +341,56 @@
             }
         },
         {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "ports": [
+                    {
+                        "port": 61616,
+                        "targetPort": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-tcp",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "description": "The broker's OpenWire port."
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "mesh",
+                        "port": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            },
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-mesh",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "annotations": {
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
+                    "description": "Supports node discovery for mesh formation."
+                }
+            }
+        },
+        {
             "kind": "Route",
             "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http",
@@ -420,7 +400,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's http service."
+                    "description": "Route for application's HTTP service."
                 }
             },
             "spec": {
@@ -439,7 +419,7 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "annotations": {
-                    "description": "Route for application's https service."
+                    "description": "Route for application's HTTPS service."
                 }
             },
             "spec": {
@@ -478,42 +458,12 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "${CONTEXT_DIR}",
-                    "images": [
-                        {
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso-cd-openshift:1.0"
-                            },
-                            "paths": [
-                                {
-                                    "destinationDir": "./${CONTEXT_DIR}/extensions/sso-adapters",
-                                    "sourcePath": "/opt/rh/rh-sso/client/eap7/."
-                                }
-                            ]
-                        }
-                    ]
+                    "contextDir": "${CONTEXT_DIR}"
                 },
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
-                        "forcePull": true,
-                        "incremental": true,
-                        "from": {
-                            "kind": "ImageStreamTag",
-                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:17"
-                        },
                         "env": [
-                            {
-                                "name": "CUSTOM_INSTALL_DIRECTORIES",
-                                "value": "extensions/*"
-                            },
-                            {
-                                "name": "ARTIFACT_DIR",
-                                "value": "${ARTIFACT_DIR}"
-                            },
                             {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
@@ -521,8 +471,19 @@
                             {
                                 "name": "MAVEN_ARGS_APPEND",
                                 "value": "${MAVEN_ARGS_APPEND}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
                             }
-                        ]
+                        ],
+                        "forcePull": true,
+                        "incremental": true,
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                            "name": "${EAP_IMAGE_NAME}"
+                        }
                     }
                 },
                 "output": {
@@ -598,7 +559,7 @@
                         }
                     },
                     "spec": {
-                        "terminationGracePeriodSeconds": 75,
+                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
                                 "name": "${APPLICATION_NAME}",
@@ -611,11 +572,6 @@
                                 },
                                 "volumeMounts": [
                                     {
-                                        "name": "sso-saml-keystore-volume",
-                                        "mountPath": "/etc/sso-saml-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
                                         "name": "eap-keystore-volume",
                                         "mountPath": "/etc/eap-secret-volume",
                                         "readOnly": true
@@ -623,11 +579,6 @@
                                     {
                                         "name": "eap-jgroups-keystore-volume",
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
-                                        "name": "sso-truststore-volume",
-                                        "mountPath": "/etc/sso-secret-volume",
                                         "readOnly": true
                                     }
                                 ],
@@ -675,6 +626,42 @@
                                 ],
                                 "env": [
                                     {
+                                        "name": "MQ_SERVICE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-amq7=MQ"
+                                    },
+                                    {
+                                        "name": "MQ_JNDI",
+                                        "value": "${MQ_JNDI}"
+                                    },
+                                    {
+                                        "name": "MQ_USERNAME",
+                                        "value": "${MQ_USERNAME}"
+                                    },
+                                    {
+                                        "name": "MQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MQ_ROLE",
+                                        "value": "${MQ_ROLE}"
+                                    },
+                                    {
+                                        "name": "MQ_PROTOCOL",
+                                        "value": "tcp"
+                                    },
+                                    {
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "MQ_SERIALIZABLE_PACKAGES",
+                                        "value": "${MQ_SERIALIZABLE_PACKAGES}"
+                                    },
+                                    {
                                         "name": "JGROUPS_PING_PROTOCOL",
                                         "value": "dns.DNS_PING"
                                     },
@@ -685,14 +672,6 @@
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
                                         "value": "8888"
-                                    },
-                                    {
-                                        "name": "HOSTNAME_HTTP",
-                                        "value": "${HOSTNAME_HTTP}"
-                                    },
-                                    {
-                                        "name": "HOSTNAME_HTTPS",
-                                        "value": "${HOSTNAME_HTTPS}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -713,18 +692,6 @@
                                     {
                                         "name": "HTTPS_PASSWORD",
                                         "value": "${HTTPS_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "MQ_CLUSTER_PASSWORD",
-                                        "value": "${MQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "MQ_QUEUES",
-                                        "value": "${MQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "MQ_TOPICS",
-                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
@@ -753,93 +720,11 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
-                                    },
-                                    {
-                                        "name": "SSO_URL",
-                                        "value": "${SSO_URL}"
-                                    },
-                                    {
-                                        "name": "SSO_SERVICE_URL",
-                                        "value": "${SSO_SERVICE_URL}"
-                                    },
-                                    {
-                                        "name": "SSO_REALM",
-                                        "value": "${SSO_REALM}"
-                                    },
-                                    {
-                                        "name": "SSO_USERNAME",
-                                        "value": "${SSO_USERNAME}"
-                                    },
-                                    {
-                                        "name": "SSO_PASSWORD",
-                                        "value": "${SSO_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "SSO_PUBLIC_KEY",
-                                        "value": "${SSO_PUBLIC_KEY}"
-                                    },
-                                    {
-                                        "name": "SSO_BEARER_ONLY",
-                                        "value": "${SSO_BEARER_ONLY}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE_SECRET",
-                                        "value": "${SSO_SAML_KEYSTORE_SECRET}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE",
-                                        "value": "${SSO_SAML_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE_DIR",
-                                        "value": "/etc/sso-saml-secret-volume"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_CERTIFICATE_NAME",
-                                        "value": "${SSO_SAML_CERTIFICATE_NAME}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_KEYSTORE_PASSWORD",
-                                        "value": "${SSO_SAML_KEYSTORE_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "SSO_SECRET",
-                                        "value": "${SSO_SECRET}"
-                                    },
-                                    {
-                                        "name": "SSO_ENABLE_CORS",
-                                        "value": "${SSO_ENABLE_CORS}"
-                                    },
-                                    {
-                                        "name": "SSO_SAML_LOGOUT_PAGE",
-                                        "value": "${SSO_SAML_LOGOUT_PAGE}"
-                                    },
-                                    {
-                                        "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
-                                        "value": "${SSO_DISABLE_SSL_CERTIFICATE_VALIDATION}"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE",
-                                        "value": "${SSO_TRUSTSTORE}"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE_DIR",
-                                        "value": "/etc/sso-secret-volume"
-                                    },
-                                    {
-                                        "name": "SSO_TRUSTSTORE_PASSWORD",
-                                        "value": "${SSO_TRUSTSTORE_PASSWORD}"
                                     }
                                 ]
                             }
                         ],
                         "volumes": [
-                            {
-                                "name": "sso-saml-keystore-volume",
-                                "secret": {
-                                    "secretName": "${SSO_SAML_KEYSTORE_SECRET}"
-                                }
-                            },
                             {
                                 "name": "eap-keystore-volume",
                                 "secret": {
@@ -851,12 +736,160 @@
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
                                 }
-                            },
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-amq"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "name": "amq-broker-72-openshift:1.1"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "${APPLICATION_NAME}-amq",
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-amq",
+                            "application": "${APPLICATION_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
                             {
-                                "name": "sso-truststore-volume",
-                                "secret": {
-                                    "secretName": "${SSO_TRUSTSTORE_SECRET}"
-                                }
+                                "name": "${APPLICATION_NAME}-amq",
+                                "image": "amq-broker-72-openshift",
+                                "imagePullPolicy": "Always",
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/amq/bin/readinessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "ports": [
+                                    {
+                                        "name": "console-jolokia",
+                                        "containerPort": 8161,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "amqp",
+                                        "containerPort": 5672,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "amqp-ssl",
+                                        "containerPort": 5671,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "mqtt",
+                                        "containerPort": 1883,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "stomp",
+                                        "containerPort": 61613,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "stomp-ssl",
+                                        "containerPort": 61612,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "tcp",
+                                        "containerPort": 61616,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "tcp-ssl",
+                                        "containerPort": 61617,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "AMQ_USER",
+                                        "value": "${MQ_USERNAME}"
+                                    },
+                                    {
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_TRANSPORTS",
+                                        "value": "${MQ_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "AMQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "AMQ_ADDRESSES",
+                                        "value": "${MQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "MQ_SERIALIZABLE_PACKAGES",
+                                        "value": "${MQ_SERIALIZABLE_PACKAGES}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_DISCOVERY_TYPE",
+                                        "value": "${AMQ_MESH_DISCOVERY_TYPE}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-amq-mesh"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "AMQ_STORAGE_USAGE_LIMIT",
+                                        "value": "${AMQ_STORAGE_USAGE_LIMIT}"
+                                    }
+                                ]
                             }
                         ]
                     }

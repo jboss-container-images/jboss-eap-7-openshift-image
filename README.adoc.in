@@ -1,7 +1,7 @@
 = Application Templates
 
-This project contains OpenShift v3 application templates which support applications based on JBoss EAP continuous delivery (EAP CD)
-Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap-cd[here].
+This project contains OpenShift v3 application templates which support applications based on Red Hat JBoss Enterprise Application Platform 7.3.
+Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap73[here].
 
 :icons: font
 :toc: macro
