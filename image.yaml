@@ -81,6 +81,7 @@ modules:
           # - name: os-eap-datasource
           #  version: "1.0"
           # New wildfly-cekit-modules
+          - name: jboss.container.wildfly.launch.admin
           - name: jboss.container.wildfly.launch-config.config
           - name: jboss.container.wildfly.launch-config.os
           - name: jboss.container.wildfly.launch.datasources
@@ -95,6 +96,7 @@ modules:
           - name: jboss.container.wildfly.launch.https
           - name: jboss.container.wildfly.launch.security-domains
           - name: jboss.container.wildfly.launch.elytron
+          - name: jboss.container.wildfly.launch.port-offset
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
           # New wildfly-cekit-modules - END
           # These are moved to wf-cekit
