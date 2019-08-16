@@ -1,4 +1,4 @@
 x86_64:
-  - rhel-8-for-x86_64-baseos-rpms
-  - rhel-8-for-x86_64-appstream-rpms
+- rhel-server-rhscl-7-rpms
+- rhel-7-server-rpms
 

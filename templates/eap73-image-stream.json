@@ -1,0 +1,118 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jboss-eap73-image-streams",
+        "annotations": {
+            "description": "ImageStream definition for JBoss Enterprise Application Platform 7.3",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
+        }
+    },
+    "items": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-eap73-openjdk8-openshift-rhel7",
+                "annotations": {
+                    "openshift.io/display-name": "JBoss EAP 7.3",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "version": "1.0"
+                }
+            },
+            "labels": {
+                "xpaas": "1.0"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "name": "latest",
+                        "annotations": {
+                            "description": "The latest available build of JBoss EAP 7.3",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.3,javaee:8,java:8",
+                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "openshift",
+                            "version": "latest",
+                            "openshift.io/display-name": "JBoss EAP 7.3.0.Beta (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap73-openjdk8-openshift-rhel7:latest"
+                        }
+                    },
+                    {
+                        "name": "released",
+                        "annotations": {
+                            "description": "Latest released build of the JBoss EAP 7.3.0.Beta Technical Preview",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.3,javaee:8,java:8",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "openshift",
+                            "version": "TP",
+                            "openshift.io/display-name": "JBoss EAP 7.3.0.Beta (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "TP"
+
+                        }
+                    },
+                    {
+                        "name": "TP",
+                        "annotations": {
+                            "description": "JBoss EAP 7.3.0.Beta Technical Preview",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.3,javaee:8,java:8",
+                            "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "openshift",
+                            "version": "TP",
+                            "openshift.io/display-name": "JBoss EAP 7.3.0.Beta (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "7.3.0.Beta"
+
+                        }
+                    },
+                    {
+                        "name": "7.3.0.Beta",
+                        "annotations": {
+                            "description": "JBoss EAP 7.3.0.Beta Tech Preview S2I Image",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.3,javaee:8,java:8",
+                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "openshift",
+                            "version": "7.3.0.Beta",
+                            "openshift.io/display-name": "JBoss EAP 7.3.0.Beta (Tech Preview)"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap73-openjdk8-openshift-rhel7:7.3.0.Beta"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
