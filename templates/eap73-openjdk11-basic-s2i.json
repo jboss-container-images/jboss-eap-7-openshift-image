@@ -5,21 +5,21 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
-            "version": "17.0",
-            "openshift.io/display-name": "JBoss EAP CD 17 (with passthrough TLS, DB drivers)",
+            "version": "1.0.0",
+            "openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 11) [Tech Preview]",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc.",
-            "template.openshift.io/long-description": "This template defines resources needed to develop JBoss Enterprise Application Server continuous delivery based application, including a build configuration, application deployment configuration, using third-party DB drivers and secure communication using passthrough TLS.",
+            "description": "An example JBoss Enterprise Application Platform application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73-openjdk11/README.adoc",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-third-party-db-s2i"
+        "name": "eap73-openjdk11-basic-s2i"
     },
     "labels": {
-        "template": "eap-cd-third-party-db-s2i",
-        "xpaas": "17.0"
+        "template": "eap73-openjdk11-basic-s2i",
+        "xpaas": "1.0.0"
     },
-    "message": "A new EAP 7 based application with SSL support has been created in your project. Please be sure to create the following secrets:\"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed application(s);  \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new JBoss EAP 7 based application has been created in your project.",
     "parameters": [
         {
             "displayName": "Application Name",
@@ -29,113 +29,50 @@
             "required": true
         },
         {
-            "displayName": "Configuration Secret Name",
-            "description": "The name of the secret containing configuration properties for the datasources.",
-            "name": "CONFIGURATION_NAME",
-            "value": "eap-app-config",
+            "displayName": "EAP Image Name",
+            "description": "Name of the EAP image to use, examples: jboss-eap73-openjdk8-openshift-rhel7:released, jboss-eap73-openjdk11-openshift-rhel8:released",
+            "name": "EAP_IMAGE_NAME",
+            "value": "jboss-eap73-openjdk11-openshift-rhel8:released",
             "required": true
-        },
-        {
-            "displayName": "Custom https Route Hostname",
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
-            "name": "HOSTNAME_HTTPS",
-            "value": "",
-            "required": false
         },
         {
             "displayName": "Git Repository URL",
             "description": "Git source URI for application",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
             "required": true
         },
         {
             "displayName": "Git Reference",
             "description": "Git branch/tag reference",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "1.3",
+            "value": "openshift",
             "required": false
         },
         {
             "displayName": "Context Directory",
             "description": "Path within Git project to build; empty for root project directory.",
             "name": "CONTEXT_DIR",
-            "value": "datavirt/hibernate-webapp",
+            "value": "kitchensink",
             "required": false
         },
         {
-            "displayName": "Drivers ImageStreamTag",
-            "description": "ImageStreamTag definition for the image containing the drivers and configuration, e.g. jboss-datavirt63-driver-openshift:1.1",
-            "name": "EXTENSIONS_IMAGE",
-            "value": "jboss-datavirt63-driver-openshift:1.1",
-            "required": true
-        },
-        {
-            "displayName": "Drivers ImageStream Namespace",
-            "description": "Namespace within which the ImageStream definition for the image containing the drivers and configuration is located.",
-            "name": "EXTENSIONS_IMAGE_NAMESPACE",
-            "value": "openshift",
-            "required": true
-        },
-        {
-            "displayName": "Drivers Image Install Directory",
-            "description": "Full path to the directory within the extensions image where the extensions are located (e.g. install.sh, modules/, etc.)",
-            "name": "EXTENSIONS_INSTALL_DIR",
-            "value": "/extensions",
-            "required": true
-        },
-        {
-            "displayName": "Queue Names",
+            "displayName": "Queues",
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "name": "MQ_QUEUES",
             "value": "",
             "required": false
         },
         {
-            "displayName": "Topic Names",
+            "displayName": "Topics",
             "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "name": "MQ_TOPICS",
             "value": "",
             "required": false
         },
         {
-            "displayName": "Server Keystore Secret Name",
-            "description": "The name of the secret containing the keystore file",
-            "name": "HTTPS_SECRET",
-            "value": "eap-app-secret",
-            "required": true
-        },
-        {
-            "displayName": "Server Keystore Filename",
-            "description": "The name of the keystore file within the secret",
-            "name": "HTTPS_KEYSTORE",
-            "value": "keystore.jks",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Type",
-            "description": "The type of the keystore file (JKS or JCEKS)",
-            "name": "HTTPS_KEYSTORE_TYPE",
-            "value": "",
-            "required": false
-        },
-        {
-            "displayName": "Server Certificate Name",
-            "description": "The name associated with the server certificate",
-            "name": "HTTPS_NAME",
-            "value": "jboss",
-            "required": false
-        },
-        {
-            "displayName": "Server Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "HTTPS_PASSWORD",
-            "value": "mykeystorepass",
-            "required": false
-        },
-        {
-            "displayName": "Messaging Cluster Admin Password",
-            "description": "Admin password for Messaging cluster.",
+            "displayName": "AMQ cluster password",
+            "description": "AMQ cluster admin password",
             "name": "MQ_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -143,7 +80,7 @@
         },
         {
             "displayName": "Github Webhook Secret",
-            "description": "A secret string used to configure the GitHub webhook.",
+            "description": "GitHub trigger secret",
             "name": "GITHUB_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -151,7 +88,7 @@
         },
         {
             "displayName": "Generic Webhook Secret",
-            "description": "A secret string used to configure the Generic webhook.",
+            "description": "Generic build trigger secret",
             "name": "GENERIC_WEBHOOK_SECRET",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -165,36 +102,8 @@
             "required": true
         },
         {
-            "displayName": "JGroups Secret Name",
-            "description": "The name of the secret containing the keystore to be used for securing JGroups communications.",
-            "name": "JGROUPS_ENCRYPT_SECRET",
-            "value": "eap-app-secret",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Keystore Filename",
-            "description": "The name of the keystore file within the JGroups secret.",
-            "name": "JGROUPS_ENCRYPT_KEYSTORE",
-            "value": "jgroups.jceks",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Certificate Name",
-            "description": "The name associated with the JGroups server certificate",
-            "name": "JGROUPS_ENCRYPT_NAME",
-            "value": "secret-key",
-            "required": false
-        },
-        {
-            "displayName": "JGroups Keystore Password",
-            "description": "The password for the keystore and certificate",
-            "name": "JGROUPS_ENCRYPT_PASSWORD",
-            "value": "password",
-            "required": false
-        },
-        {
             "displayName": "JGroups Cluster Password",
-            "description": "Password used by JGroups to authenticate nodes in the cluster.",
+            "description": "JGroups cluster password",
             "name": "JGROUPS_CLUSTER_PASSWORD",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -218,7 +127,7 @@
             "displayName": "Maven Additional Arguments",
             "description": "Maven additional arguments to use for S2I builds",
             "name": "MAVEN_ARGS_APPEND",
-            "value": "",
+            "value": "-Dcom.redhat.xpaas.repo.jbossorg",
             "required": false
         },
         {
@@ -263,30 +172,6 @@
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
-                "ports": [
-                    {
-                        "port": 8443,
-                        "targetPort": 8443
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The web server's https port."
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
                 "publishNotReadyAddresses": true,
                 "clusterIP": "None",
                 "ports": [
@@ -313,28 +198,9 @@
         {
             "kind": "Route",
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-http",
-            "metadata": {
-                "name": "${APPLICATION_NAME}",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "Route for application's http service."
-                }
-            },
-            "spec": {
-                "to": {
-                    "name": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-https",
             "metadata": {
-                "name": "secure-${APPLICATION_NAME}",
+                "name": "${APPLICATION_NAME}",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -343,12 +209,12 @@
                 }
             },
             "spec": {
-                "host": "${HOSTNAME_HTTPS}",
                 "to": {
-                    "name": "secure-${APPLICATION_NAME}"
+                    "name": "${APPLICATION_NAME}"
                 },
                 "tls": {
-                    "termination": "passthrough"
+                    "insecureEdgeTerminationPolicy": "Redirect",
+                    "termination": "edge"
                 }
             }
         },
@@ -378,22 +244,7 @@
                         "uri": "${SOURCE_REPOSITORY_URL}",
                         "ref": "${SOURCE_REPOSITORY_REF}"
                     },
-                    "contextDir": "${CONTEXT_DIR}",
-                    "images": [
-                        {
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "${EXTENSIONS_IMAGE_NAMESPACE}",
-                                "name": "${EXTENSIONS_IMAGE}"
-                            },
-                            "paths": [
-                                {
-                                    "destinationDir": "./${CONTEXT_DIR}/extensions/extras",
-                                    "sourcePath": "${EXTENSIONS_INSTALL_DIR}/."
-                                }
-                            ]
-                        }
-                    ]
+                    "contextDir": "${CONTEXT_DIR}"
                 },
                 "strategy": {
                     "type": "Source",
@@ -408,10 +259,6 @@
                                 "value": "${MAVEN_ARGS_APPEND}"
                             },
                             {
-                                "name": "CUSTOM_INSTALL_DIRECTORIES",
-                                "value": "extensions/*"
-                            },
-                            {
                                 "name": "ARTIFACT_DIR",
                                 "value": "${ARTIFACT_DIR}"
                             }
@@ -421,7 +268,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:17"
+                            "name": "${EAP_IMAGE_NAME}"
                         }
                     }
                 },
@@ -447,16 +294,6 @@
                     {
                         "type": "ImageChange",
                         "imageChange": {}
-                    },
-                    {
-                        "type": "ImageChange",
-                        "imageChange": {
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "${EXTENSIONS_IMAGE_NAMESPACE}",
-                                "name": "${EXTENSIONS_IMAGE}"
-                            }
-                        }
                     },
                     {
                         "type": "ConfigChange"
@@ -519,23 +356,6 @@
                                         "memory": "${MEMORY_LIMIT}"
                                     }
                                 },
-                                "volumeMounts": [
-                                    {
-                                        "name": "configuration",
-                                        "mountPath": "/etc/eap-environment",
-                                        "readOnly": true
-                                    },
-                                    {
-                                        "name": "eap-keystore-volume",
-                                        "mountPath": "/etc/eap-secret-volume",
-                                        "readOnly": true
-                                    },
-                                    {
-                                        "name": "eap-jgroups-keystore-volume",
-                                        "mountPath": "/etc/jgroups-encrypt-secret-volume",
-                                        "readOnly": true
-                                    }
-                                ],
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -568,11 +388,6 @@
                                         "protocol": "TCP"
                                     },
                                     {
-                                        "name": "https",
-                                        "containerPort": 8443,
-                                        "protocol": "TCP"
-                                    },
-                                    {
                                         "name": "ping",
                                         "containerPort": 8888,
                                         "protocol": "TCP"
@@ -592,30 +407,6 @@
                                         "value": "8888"
                                     },
                                     {
-                                        "name": "ENV_FILES",
-                                        "value": "/etc/eap-environment/*"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/eap-secret-volume"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE_TYPE",
-                                        "value": "${HTTPS_KEYSTORE_TYPE}"
-                                    },
-                                    {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
-                                    },
-                                    {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
-                                    },
-                                    {
                                         "name": "MQ_CLUSTER_PASSWORD",
                                         "value": "${MQ_CLUSTER_PASSWORD}"
                                     },
@@ -628,26 +419,6 @@
                                         "value": "${MQ_TOPICS}"
                                     },
                                     {
-                                        "name": "JGROUPS_ENCRYPT_SECRET",
-                                        "value": "${JGROUPS_ENCRYPT_SECRET}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
-                                        "value": "/etc/jgroups-encrypt-secret-volume"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
-                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_NAME",
-                                        "value": "${JGROUPS_ENCRYPT_NAME}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_ENCRYPT_PASSWORD",
-                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
-                                    },
-                                    {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
@@ -656,26 +427,6 @@
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
                                     }
                                 ]
-                            }
-                        ],
-                        "volumes": [
-                            {
-                                "name": "configuration",
-                                "secret": {
-                                    "secretName": "${CONFIGURATION_NAME}"
-                                }
-                            },
-                            {
-                                "name": "eap-keystore-volume",
-                                "secret": {
-                                    "secretName": "${HTTPS_SECRET}"
-                                }
-                            },
-                            {
-                                "name": "eap-jgroups-keystore-volume",
-                                "secret": {
-                                    "secretName": "${JGROUPS_ENCRYPT_SECRET}"
-                                }
                             }
                         ]
                     }

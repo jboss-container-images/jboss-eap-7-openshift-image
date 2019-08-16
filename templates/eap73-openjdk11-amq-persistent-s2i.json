@@ -4,28 +4,35 @@
     "metadata": {
         "annotations": {
             "iconClass": "icon-eap",
-            "tags": "eap,javaee,java,jboss,hidden",
-            "version": "17.0",
-            "openshift.io/display-name": "JBoss EAP CD 17 + AMQ 7 with passthrough TLS",
+            "tags": "eap,javaee,java,jboss",
+            "version": "1.0.0",
+            "openshift.io/display-name": "JBoss EAP 7.3 + AMQ 7 with passthrough TLS (OpenJDK 11) [Tech Preview]",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example JBoss Enterprise Application Platform continuous delivery application using Red Hat JBoss AMQ. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration, using Red Hat JBoss AMQ and secure communication using passthrough TLS.",
+            "description": "An example JBoss Enterprise Application Platform 7.3 application using Red Hat JBoss AMQ with persistence and secure communication using https. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73-openjdk11/README.adoc",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform based application, including a build configuration, application deployment configuration, using Red Hat JBoss AMQ with persistence and secure communication using passthrough TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-amq-s2i"
+        "name": "eap73-openjdk11-amq-persistent-s2i"
     },
     "labels": {
-        "template": "eap-cd-amq-s2i",
-        "xpaas": "17.0"
+        "template": "eap73-openjdk11-amq-persistent-s2i",
+        "xpaas": "1.0.0"
     },
-    "message": "A new JBoss EAP CD and AMQ 7 based application with SSL support has been created in your project. The username/password for accessing the AMQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new JBoss EAP 7 and AMQ persistent based application with SSL support has been created in your project. The username/password for accessing the AMQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "eap-app",
+            "required": true
+        },
+        {
+            "displayName": "EAP Image Name",
+            "description": "Name of the EAP image to use, examples: jboss-eap73-openjdk8-openshift-rhel7:released, jboss-eap73-openjdk11-openshift-rhel8:released",
+            "name": "EAP_IMAGE_NAME",
+            "value": "jboss-eap73-openjdk11-openshift-rhel8:released",
             "required": true
         },
         {
@@ -57,10 +64,24 @@
             "required": false
         },
         {
+            "displayName": "AMQ Volume Size",
+            "description": "Size of the volume used by AMQ for persisting messages.",
+            "name": "VOLUME_CAPACITY",
+            "value": "1Gi",
+            "required": true
+        },
+        {
             "displayName": "JMS Connection Factory JNDI Name",
             "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory",
             "name": "MQ_JNDI",
             "value": "java:jboss/DefaultJMSConnectionFactory",
+            "required": false
+        },
+        {
+            "displayName": "Split the data directory?",
+            "description": "Split the data directory for each node in a mesh.",
+            "name": "AMQ_SPLIT",
+            "value": "false",
             "required": false
         },
         {
@@ -96,7 +117,7 @@
             "description": "The name of the secret containing the keystore file",
             "name": "HTTPS_SECRET",
             "value": "eap7-app-secret",
-            "required": true
+            "required": false
         },
         {
             "displayName": "Server Keystore Filename",
@@ -239,7 +260,7 @@
             "displayName": "Maven Additional Arguments",
             "description": "Maven additional arguments to use for S2I builds",
             "name": "MAVEN_ARGS_APPEND",
-            "value": "-Dcom.redhat.xpaas.repo.jbossorg",
+            "value": "-Dcom.redhat.xpaas.repo.jbossorg",            
             "required": false
         },
         {
@@ -475,7 +496,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:17"
+                            "name": "${EAP_IMAGE_NAME}"
                         }
                     }
                 },
@@ -635,10 +656,6 @@
                                         "value": "${MQ_PASSWORD}"
                                     },
                                     {
-                                        "name": "MQ_ROLE",
-                                        "value": "${MQ_ROLE}"
-                                    },
-                                    {
                                         "name": "MQ_PROTOCOL",
                                         "value": "tcp"
                                     },
@@ -746,7 +763,10 @@
             },
             "spec": {
                 "strategy": {
-                    "type": "Recreate"
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "maxSurge": 0
+                    }
                 },
                 "triggers": [
                     {
@@ -837,6 +857,12 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/amq/data/kahadb",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
+                                    }
+                                ],
                                 "env": [
                                     {
                                         "name": "AMQ_USER",
@@ -845,6 +871,10 @@
                                     {
                                         "name": "AMQ_PASSWORD",
                                         "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_ROLE",
+                                        "value": "${MQ_ROLE}"
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",
@@ -861,6 +891,10 @@
                                     {
                                         "name": "MQ_SERIALIZABLE_PACKAGES",
                                         "value": "${MQ_SERIALIZABLE_PACKAGES}"
+                                    },
+                                    {
+                                        "name": "AMQ_SPLIT",
+                                        "value": "${AMQ_SPLIT}"
                                     },
                                     {
                                         "name": "AMQ_MESH_DISCOVERY_TYPE",
@@ -884,7 +918,35 @@
                                     }
                                 ]
                             }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-amq-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-amq-claim"
+                                }
+                            }
                         ]
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-amq-claim",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
                     }
                 }
             }

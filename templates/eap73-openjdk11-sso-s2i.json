@@ -5,27 +5,41 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
-            "version": "17.0",
-            "openshift.io/display-name": "JBoss EAP CD 17 + Single Sign-On with passthrough TLS",
+            "version": "1.0.0",
+            "openshift.io/display-name": "JBoss EAP 7.3 + Single Sign-On with passthrough TLS (OpenJDK 11) [Tech Preview]",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "description": "An example JBoss Enterprise Application Platform continuous delivery application Single Sign-On application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration, integrated with Red Hat Single Sign-On and secure communication using passthrough TLS.",
+            "description": "An example JBoss Enterprise Application Platform application Single Sign-On application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73-openjdk11/README.adoc",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform based application, including a build configuration, application deployment configuration, integrated with Red Hat Single Sign-On and secure communication using passthrough TLS.",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-sso-s2i"
+        "name": "eap73-openjdk11-sso-s2i"
     },
     "labels": {
-        "template": "eap-cd-sso-s2i",
-        "xpaas": "17.0"
+        "template": "eap73-openjdk11-sso-s2i",
+        "xpaas": "1.0.0"
     },
-    "message": "A new JBoss EAP CD based application with SSL and SSO support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new JBoss EAP 7 based application with SSL and SSO support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "parameters": [
         {
             "displayName": "Application Name",
             "description": "The name for the application.",
             "name": "APPLICATION_NAME",
             "value": "eap-app",
+            "required": true
+        },
+        {
+            "displayName": "EAP Image Name",
+            "description": "Name of the EAP image to use, examples: jboss-eap73-openjdk8-openshift-rhel7:released, jboss-eap73-openjdk11-openshift-rhel8:released",
+            "name": "EAP_IMAGE_NAME",
+            "value": "jboss-eap73-openjdk11-openshift-rhel8:released",
+            "required": true
+        },
+        {
+            "displayName": "SSO Image Name",
+            "description": "Name of the SSO image to use, examples: redhat-sso73-openshift:1.0",
+            "name": "SSO_IMAGE_NAME",
+            "value": "redhat-sso73-openshift:1.0",
             "required": true
         },
         {
@@ -484,7 +498,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso-cd-openshift:1.0"
+                                "name": "${SSO_IMAGE_NAME}"
                             },
                             "paths": [
                                 {
@@ -503,7 +517,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:17"
+                            "name": "${EAP_IMAGE_NAME}"
                         },
                         "env": [
                             {
