@@ -36,13 +36,6 @@
             "required": true
         },
         {
-            "displayName": "SSO Image Name",
-            "description": "Name of the SSO image to use, examples: redhat-sso73-openshift:1.0",
-            "name": "SSO_IMAGE_NAME",
-            "value": "redhat-sso73-openshift:1.0",
-            "required": true
-        },
-        {
             "displayName": "Custom https Route Hostname",
             "description": "Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server.",
             "name": "HOSTNAME_HTTPS",
@@ -498,7 +491,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "${SSO_IMAGE_NAME}"
+                                "name": "redhat-sso73-openshift:1.0"
                             },
                             "paths": [
                                 {
