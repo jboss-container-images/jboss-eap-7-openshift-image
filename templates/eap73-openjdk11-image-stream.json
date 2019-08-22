@@ -13,7 +13,7 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-eap73-openshift-rhel8",
+                "name": "jboss-eap73-openjdk11-openshift-rhel8",
                 "annotations": {
                     "openshift.io/display-name": "JBoss EAP 7.3",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -43,7 +43,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap73-openshift-rhel8:latest"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap73-openjdk11-openshift-rhel8:latest"
                         }
                     },
                     {
@@ -108,7 +108,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap73-openshift-rhel8:7.3.0.Beta"
+                            "name": "registry.redhat.io/jboss-eap-7-tech-preview/eap73-openjdk11-openshift-rhel8:7.3.0.Beta"
                         }
                     }
                 ]
