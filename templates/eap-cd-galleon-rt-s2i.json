@@ -176,7 +176,7 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}-build-artifacts",
                 "labels": {
-                    "application": "${APPLICATION_NAME}-build-artifacts"
+                    "application": "${APPLICATION_NAME}"
                 }
             }
         },
@@ -186,7 +186,7 @@
             "metadata": {
                 "name": "${APPLICATION_NAME}-build-artifacts",
                 "labels": {
-                    "application": "${APPLICATION_NAME}-build-artifacts"
+                    "application": "${APPLICATION_NAME}"
                 }
             },
             "spec": {
@@ -213,6 +213,10 @@
                             {
                                 "name": "GALLEON_PROVISION_LAYERS",
                                 "value": "${GALLEON_PROVISION_LAYERS}"
+                            },
+                            {
+                                "name": "GALLEON_PROVISION_DEFAULT_FAT_SERVER",
+                                "value": "true"
                             }
                         ],
                         "forcePull": true,
@@ -254,11 +258,11 @@
             }
         },
         {
-            "apiVersion": "build.openshift.io/v1",
+            "apiVersion": "v1",
             "kind": "BuildConfig",
             "metadata": {
                 "labels": {
-                    "app": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}"
             },
