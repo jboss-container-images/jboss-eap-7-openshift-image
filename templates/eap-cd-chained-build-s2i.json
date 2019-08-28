@@ -13,10 +13,10 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "name": "eap-cd-galleon-rt-s2i"
+        "name": "eap-cd-chained-build-s2i"
     },
     "labels": {
-        "template": "eap-cd-galleon-rt-s2i",
+        "template": "eap-cd-chained-build-s2i",
         "xpaas": "17.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
