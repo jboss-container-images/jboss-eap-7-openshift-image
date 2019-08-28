@@ -82,6 +82,7 @@ modules:
           #  version: "1.0"
           # New wildfly-cekit-modules
           - name: jboss.container.wildfly.launch.admin
+          - name: jboss.container.wildfly.launch.access-log-valve
           - name: jboss.container.wildfly.launch-config.config
           - name: jboss.container.wildfly.launch-config.os
           - name: jboss.container.wildfly.launch.datasources
