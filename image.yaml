@@ -59,9 +59,7 @@ modules:
           - name: jboss.container.eap.galleon
           #- name: os-java-jolokia
           #- name: jboss.eap.cd.jolokia
-          - name: jboss.container.wildfly.standalone-conf.jolokia
           #- name: os-eap7-openshift
-          - name: jboss.container.wildfly.standalone-conf.java
           #- name: jboss.eap.config.openshift
           #  version: "16.0-openjdk11"
           #- name: jboss.eap.cd.openshift.modules
@@ -100,6 +98,9 @@ modules:
           - name: jboss.container.wildfly.launch.port-offset
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
+          - name: jboss.container.wildfly.galleon.fp-content.jolokia
+          - name: jboss.container.wildfly.galleon.fp-content.java
+          - name: jboss.container.wildfly.galleon.fp-content.base-layers
           # New wildfly-cekit-modules - END
           # These are moved to wf-cekit
           # - name: jboss.eap.cd.logging
@@ -114,14 +115,14 @@ modules:
           # - name: os-eap-sso
           - name: os-eap70-sso
           # We keep this one to only advertise that hawkular is no more supported.
-          - name: os-eap-hawkular
+          - name: jboss.container.eap.hawkular
           # - name: os-eap-deployment-scanner
           - name: os-eap-extensions
           - name: openshift-layer
           - name: openshift-passwd
           - name: os-logging
           - name: jboss.container.eap.prometheus.config
-            version: "7.2"
+            version: "CD"
           - name: os-eap-txnrecovery.run
             version: 'python3'
           - name: os-eap-python
