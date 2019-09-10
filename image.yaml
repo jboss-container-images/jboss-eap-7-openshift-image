@@ -86,6 +86,7 @@ modules:
           - name: jboss.container.wildfly.launch.datasources
           - name: jboss.container.wildfly.launch.json-logging
           - name: jboss.container.wildfly.launch.jgroups
+          - name: jboss.container.wildfly.launch.filters
           - name: jboss.container.wildfly.launch.logger-category
           - name: jboss.container.wildfly.launch.mp-config
           - name: jboss.container.wildfly.launch.os.node-name
