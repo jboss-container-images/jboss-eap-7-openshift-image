@@ -111,7 +111,7 @@ modules:
           #  version: "1.0"
           #- name: jboss.eap.config.tracing
           - name: os-eap-probes
-            version: "2.0"
+            version: "3.0"
           - name: jboss-maven
           # - name: os-eap-sso
           - name: os-eap70-sso
