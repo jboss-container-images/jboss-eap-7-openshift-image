@@ -84,6 +84,7 @@ modules:
           - name: jboss.container.wildfly.launch-config.config
           - name: jboss.container.wildfly.launch-config.os
           - name: jboss.container.wildfly.launch.datasources
+          - name: jboss.container.wildfly.launch.extensions
           - name: jboss.container.wildfly.launch.json-logging
           - name: jboss.container.wildfly.launch.jgroups
           - name: jboss.container.wildfly.launch.filters
@@ -118,7 +119,7 @@ modules:
           # We keep this one to only advertise that hawkular is no more supported.
           - name: jboss.container.eap.hawkular
           # - name: os-eap-deployment-scanner
-          - name: os-eap-extensions
+          # - name: os-eap-extensions
           - name: openshift-layer
           - name: openshift-passwd
           - name: os-logging
