@@ -18,8 +18,3 @@ osbs:
   repository:
     name: containers/jboss-eap-7
     branch: jb-eap-7.2-openjdk-11-openshift-ubi-8
-  configuration:
-    container:
-      compose:
-        pulp_repos: true
-        include_unpublished_pulp_repos: true
