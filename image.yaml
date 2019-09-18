@@ -122,7 +122,7 @@ modules:
           # - name: os-eap-extensions
           - name: openshift-layer
           - name: openshift-passwd
-          - name: os-logging
+          - name: jboss.container.util.logging.bash
           - name: jboss.container.eap.prometheus.config
             version: "CD"
           - name: os-eap-txnrecovery.run
