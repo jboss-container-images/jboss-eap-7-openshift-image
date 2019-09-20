@@ -1,30 +1,29 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap-cd-openshift"
+name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
 version: "18.0"
 
 modules:
       repositories:
           - name: cct_module
             git:
-                 url: https://github.com/jboss-openshift/cct_module.git
-                 ref: master
+                  url: https://github.com/jboss-openshift/cct_module.git
+                  ref: master
           - name: jboss-eap-modules
-            git:
-                 url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                 ref: master
+            path: ../jboss-eap-modules
           - name: jboss-eap-7-image
             git:
-                 url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                 ref: eap-cd-dev
+                  url: https://github.com/wildfly/temp-eap-7-image.git
+                  ref: EAP7-1216
           - name: wildfly-cekit-modules
             git:
-                 url: https://github.com/wildfly/wildfly-cekit-modules.git
-                 ref: master
+                  url: https://github.com/wildfly/wildfly-cekit-modules.git
+                  ref: master
 
-#artifacts:
-#  - name: jboss-eap-cd.zip
-#    path: /mnt/mac-shared/projects/redhat/wildfly/dist/target/wildfly-17.0.0.Final-SNAPSHOT.zip
+artifacts:
+  - name: maven-repo.zip
+    # update with the path to your repo.
+    # path: /home/jdenise/workspaces/maven-repo.zip
 
 #osbs:
 #      repository:
