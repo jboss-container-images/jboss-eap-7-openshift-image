@@ -10,7 +10,9 @@ modules:
                   url: https://github.com/jboss-openshift/cct_module.git
                   ref: master
           - name: jboss-eap-modules
-            path: ../jboss-eap-modules
+            git:
+                  url: https://github.com/wildfly/temp-eap-modules.git
+                  ref: EAP7-1216
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/wildfly/temp-eap-7-image.git
@@ -21,9 +23,9 @@ modules:
                   ref: master
 
 artifacts:
-  - name: maven-repo.zip
-    # update with the path to your repo.
-    # path: /home/jdenise/workspaces/maven-repo.zip
+  - name: maven-repo
+    target: maven-repo.zip
+    md5: bcd87ba0852baea551ce86a9f454c26b
 
 #osbs:
 #      repository:
