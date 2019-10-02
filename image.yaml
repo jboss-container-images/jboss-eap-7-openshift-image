@@ -99,6 +99,7 @@ modules:
           - name: jboss.container.wildfly.launch.elytron
           - name: jboss.container.wildfly.launch.port-offset
           - name: jboss.container.wildfly.launch.resource-adapters
+          - name: jboss.container.wildfly.launch.messaging
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
           - name: jboss.container.wildfly.galleon.fp-content.jolokia
           - name: jboss.container.wildfly.galleon.fp-content.java
@@ -133,9 +134,6 @@ modules:
            # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
           - name: jboss.container.wildfly.galleon.build-feature-pack
           - name: jboss.container.wildfly.galleon.provision-server
-           # patch default config with markers for which we don't have yet scripts using CLI.
-          - name: jboss.container.config.cd
-            version: "18.0"
           - name: jboss.container.eap.final-setup
 packages:
       content_sets_file: content_sets.yml
