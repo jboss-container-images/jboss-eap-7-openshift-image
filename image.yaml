@@ -105,6 +105,7 @@ modules:
           - name: jboss.container.wildfly.galleon.fp-content.java
           - name: jboss.container.wildfly.galleon.fp-content.base-layers
           - name: jboss.container.wildfly.galleon.fp-content.mvn
+          - name: jboss.container.wildfly.galleon.fp-content.ejb-tx-recovery
           # New wildfly-cekit-modules - END
           # These are moved to wf-cekit
           # - name: jboss.eap.cd.logging
