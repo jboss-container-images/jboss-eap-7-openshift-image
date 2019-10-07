@@ -63,6 +63,13 @@
             "required": false
         },
         {
+            "displayName": "Enable ExampleDS datasource",
+            "description": "Enable ExampleDS datasource.",
+            "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+            "value": "false",
+            "required": false
+        },
+        {
             "displayName": "AMQ Volume Size",
             "description": "Size of the volume used by AMQ for persisting messages.",
             "name": "VOLUME_CAPACITY",
@@ -1035,6 +1042,10 @@
                                     {
                                         "name": "SPLIT_DATA",
                                         "value": "${SPLIT_DATA}"
+                                    },
+                                    {
+                                        "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+                                        "value": "${ENABLE_GENERATE_DEFAULT_DATASOURCE}"
                                     }
                                 ]
                             }

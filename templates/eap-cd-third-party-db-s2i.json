@@ -70,6 +70,13 @@
             "required": false
         },
         {
+            "displayName": "Enable ExampleDS datasource",
+            "description": "Enable ExampleDS datasource.",
+            "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+            "value": "false",
+            "required": false
+        },
+        {
             "displayName": "Drivers ImageStreamTag",
             "description": "ImageStreamTag definition for the image containing the drivers and configuration, e.g. jboss-datavirt63-driver-openshift:1.1",
             "name": "EXTENSIONS_IMAGE",
@@ -738,6 +745,10 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+                                        "value": "${ENABLE_GENERATE_DEFAULT_DATASOURCE}"
                                     }
                                 ]
                             }
