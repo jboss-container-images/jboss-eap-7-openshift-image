@@ -13,12 +13,6 @@ for resource in eap-cd-image-stream.json \
   eap-cd-amq-s2i.json \
   eap-cd-basic-s2i.json \
   eap-cd-https-s2i.json \
-  eap-cd-mongodb-persistent-s2i.json \
-  eap-cd-mongodb-s2i.json \
-  eap-cd-mysql-persistent-s2i.json \
-  eap-cd-mysql-s2i.json \
-  eap-cd-postgresql-persistent-s2i.json \
-  eap-cd-postgresql-s2i.json \
   eap-cd-sso-s2i.json \
   eap-cd-third-party-db-s2i.json \
   eap-cd-tx-recovery-s2i.json
@@ -34,20 +28,20 @@ If you have administrative access to the general `openshift` namespace and want 
 oc replace -n openshift --force -f ...
 ----
 
-See https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/16/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#import_imagestreams_templates for more details on importing templates.
+See https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#import_imagestreams_templates for more details on importing templates.
 
 #### Updating Existing Images
 To update an to the most recent image:
 
 [source, bash]
 ----
-oc import-image eap-cd-openshift:16
+oc import-image eap-cd-openshift:17
 ----
 
 Optionally include namespace to the import:
 [source, bash]
 ----
-oc -n myproject import-image eap-cd-openshift:16
+oc -n myproject import-image eap-cd-openshift:17
 ----
 
 #### Creating New Applications With Templates
@@ -64,7 +58,7 @@ or, if a namespace was used with `-n` above:
 oc -n myproject new-app eap-cd-basic-s2i -p APPLICATION_NAME=eap-cd-basic-app -p IMAGE_STREAM_NAMESPACE=myproject
 ----
 
-For more information on application creation and deployment see: https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/16/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#deploy_eap_s2i
+For more information on application creation and deployment see: https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#deploy_eap_s2i
 
 ## Creating Secrets
 
@@ -88,7 +82,7 @@ oc create -n myproject -f https://raw.githubusercontent.com/jboss-openshift/appl
 
 Please refer to the EAP CD Documentation for additional details.
 
-https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/16/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#prepare_for_deployment
+https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#prepare_for_deployment
 
 ## License
 
