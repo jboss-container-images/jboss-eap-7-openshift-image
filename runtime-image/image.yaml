@@ -55,7 +55,6 @@ modules:
           - name: dynamic-resources
           - name: jboss.container.jolokia.bash
           - name: jboss.container.eap.prometheus.runtime
-            version: "7.2"
           - name: os-eap-txnrecovery.run
             version: 'python3'
           - name: os-eap-python

@@ -61,13 +61,11 @@ modules:
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
           - name: jboss.container.eap.openshift.modules
-            version: "18.0"
           - name: os-eap-activemq-rar
             version: "1.1"
           - name: jboss.container.eap.amq6
           - name: jboss.container.java.jvm.bash
-          - name: jboss.container.launch.cd
-            version: "18.0"
+          - name: jboss.container.eap.launch
           - name: jboss.container.wildfly.launch.admin
           - name: jboss.container.wildfly.launch.access-log-valve
           - name: jboss.container.wildfly.launch-config.config
@@ -104,7 +102,6 @@ modules:
           - name: openshift-passwd
           - name: jboss.container.util.logging.bash
           - name: jboss.container.eap.prometheus.config
-            version: "CD"
           - name: os-eap-txnrecovery.run
             version: 'python3'
           - name: os-eap-python
