@@ -62,6 +62,19 @@
             "name": "CONTEXT_DIR",
             "value": "datavirt/hibernate-webapp",
             "required": false
+        }, 
+        {
+            "displayName": "Galleon layers",
+            "description": "Comma separated list of Galleon layers to provision a server.",
+            "name": "GALLEON_PROVISION_LAYERS",
+            "required": false
+        },
+        {
+            "displayName": "Enable ExampleDS datasource",
+            "description": "Enable ExampleDS datasource.",
+            "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+            "value": "false",
+            "required": false
         },
         {
             "displayName": "Drivers ImageStreamTag",
@@ -363,10 +376,20 @@
             }
         },
         {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-build-artifacts",
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
             "kind": "BuildConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${APPLICATION_NAME}",
+                "name": "${APPLICATION_NAME}-build-artifacts",
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 }
@@ -408,6 +431,14 @@
                                 "value": "${MAVEN_ARGS_APPEND}"
                             },
                             {
+                                "name": "GALLEON_PROVISION_LAYERS",
+                                "value": "${GALLEON_PROVISION_LAYERS}"
+                            },
+                            {
+                                "name": "GALLEON_PROVISION_DEFAULT_FAT_SERVER",
+                                "value": "true"
+                            },
+                            {
                                 "name": "CUSTOM_INSTALL_DIRECTORIES",
                                 "value": "extensions/*"
                             },
@@ -428,7 +459,7 @@
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "${APPLICATION_NAME}:latest"
+                        "name": "${APPLICATION_NAME}-build-artifacts:latest"
                     }
                 },
                 "triggers": [
@@ -455,6 +486,66 @@
                                 "kind": "ImageStreamTag",
                                 "namespace": "${EXTENSIONS_IMAGE_NAMESPACE}",
                                 "name": "${EXTENSIONS_IMAGE}"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "source": {
+                    "dockerfile": "FROM eap-cd-runtime-openshift:17\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME && chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
+                    "images": [
+                        {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}-build-artifacts:latest"
+                            },
+                            "paths": [
+                                {
+                                    "sourcePath": "/s2i-output/server/",
+                                    "destinationDir": "."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "strategy": {
+                    "dockerStrategy": {
+                        "imageOptimizationPolicy": "SkipLayers",
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "eap-cd-runtime-openshift:17",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                        }
+                    },
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChange": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}-build-artifacts:latest"
                             }
                         }
                     },
@@ -654,6 +745,10 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+                                        "value": "${ENABLE_GENERATE_DEFAULT_DATASOURCE}"
                                     }
                                 ]
                             }

@@ -1,0 +1,68 @@
+schema_version: 1
+
+name: "jboss-eap-7-tech-preview/eap-cd-runtime-openshift-rhel8"
+description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift runtime image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
+version: "18.0"
+from: "ubi8:8-released"
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-eap-cd-runtime-openshift-rhel8-container"
+    - name: "io.k8s.description"
+      value: "Base image to run EAP CD server and application"
+    - name: "io.k8s.display-name"
+      value: "JBoss EAP continuous delivery runtime image"
+    - name: "io.openshift.expose-services"
+      value: "8080:http"
+    - name: "io.openshift.tags"
+      value: "javaee,eap,eap7"
+    - name: "maintainer"
+      value: "Red Hat"
+envs:
+    - name: "LAUNCH_JBOSS_IN_BACKGROUND"
+      value: "true"
+    - name: HTTPS_ENABLE_HTTP2
+      value: "true"
+    - name: SCRIPT_DEBUG
+      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+      example: "true"
+    - name: JBOSS_HOME
+      value: "/opt/eap"
+    # env var set by modules in the builder image context, duplicating them here.
+    - name: JBOSS_MODULES_SYSTEM_PKGS
+      value: "org.jboss.logmanager,jdk.nashorn.api"
+    - name: DEFAULT_ADMIN_USERNAME
+      value: "eapadmin"
+    - name: MICROPROFILE_CONFIG_DIR_ORDINAL
+      value: "500"
+ports:
+    - value: 8443
+    - value: 8080
+    - value: 8787
+      expose: false
+modules:
+      repositories:
+          - name: cct_module
+            git:
+                  url: https://github.com/jboss-openshift/cct_module.git
+                  ref: master
+          - name: jboss-eap-modules
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: master
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "11"
+          - name: dynamic-resources
+          - name: jboss.container.jolokia.bash
+          - name: jboss.container.eap.prometheus.runtime
+          - name: os-eap-txnrecovery.run
+            version: 'python3'
+          - name: os-eap-python
+            version: '3.6'
+packages:
+      install:
+          # required by launch scripts
+          - hostname
+          # required by probes
+          - python3-requests
+# TODO OSBS, REPO, ...

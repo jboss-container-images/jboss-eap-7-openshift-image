@@ -1,21 +1,34 @@
 schema_version: 1
 
+name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
+version: "18.0"
+
 modules:
       repositories:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: 0.37.0
+                  ref: master
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: CD17_CR2
+                  ref: master
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: CD17_CR2
+                  ref: eap-cd-dev
+          - name: wildfly-cekit-modules
+            git:
+                  url: https://github.com/wildfly/wildfly-cekit-modules.git
+                  ref: master
+
+artifacts:
+  - name: maven-repo
+    target: maven-repo.zip
+    md5: d81393faddbb779c2b754f2f2adaf51a
 
 osbs:
       repository:
             name: containers/jboss-eap-7-tech-preview
             branch: jb-eap-cd-openshift-dev-rhel-8
+
