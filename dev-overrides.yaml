@@ -29,6 +29,6 @@ artifacts:
 
 osbs:
       repository:
-            name: containers//jboss-eap-7-tech-preview
+            name: containers/jboss-eap-7-tech-preview
             branch: jb-eap-cd-openshift-dev-rhel-8
 
