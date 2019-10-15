@@ -27,8 +27,8 @@ artifacts:
     target: maven-repo.zip
     md5: d81393faddbb779c2b754f2f2adaf51a
 
-#osbs:
-#      repository:
-#            name: containers//jboss-eap-7-tech-preview
-#            branch: jb-eap-cd-openshift-dev-rhel-8
+osbs:
+      repository:
+            name: containers//jboss-eap-7-tech-preview
+            branch: jb-eap-cd-openshift-dev-rhel-8
 
