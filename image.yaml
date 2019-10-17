@@ -60,6 +60,8 @@ modules:
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
+          - name: jboss.container.eap.galleon.build-settings
+            version: "public"
           - name: jboss.container.eap.openshift.modules
           - name: os-eap-activemq-rar
             version: "1.1"
