@@ -36,6 +36,13 @@
             "required": true
         },
         {
+            "displayName": "AMQ Image Name",
+            "description": "Name of the AMQ image to use, example: amq-broker-72-openshift:1.1",
+            "name": "AMQ_IMAGE_NAME",
+            "value": "amq-broker-72-openshift:1.1",
+            "required": true
+        },
+        {
             "displayName": "Custom https Route Hostname",
             "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTPS",
@@ -779,7 +786,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "amq-broker-72-openshift:1.1"
+                                "name": "${AMQ_IMAGE_NAME}"
                             }
                         }
                     },

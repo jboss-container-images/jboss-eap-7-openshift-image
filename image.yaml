@@ -40,7 +40,7 @@ modules:
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: eap72
+                  ref: 7.2.x
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
@@ -50,7 +50,8 @@ modules:
           - name: dynamic-resources
           - name: s2i-common
           - name: os-eap-s2i
-          - name: os-java-jolokia
+          - name: jboss.container.jolokia.api
+          - name: jboss.container.jolokia.bash
           - name: jboss.eap.cd.jolokia
           - name: os-eap7-openshift
           - name: jboss.eap72.openshift
@@ -59,7 +60,7 @@ modules:
           - name: os-eap7-ping
           - name: os-eap-activemq-rar
             version: '1.1'
-          - name: os-java-run
+          - name: jboss.container.java.jvm.bash
           - name: os-eap-launch
           - name: os-eap7-launch
           - name: jboss.eap.cd.openshift.launch
@@ -77,7 +78,7 @@ modules:
           - name: os-eap-extensions
           - name: openshift-layer
           - name: openshift-passwd
-          - name: os-logging
+          - name: jboss.container.util.logging.bash
           - name: jboss.container.eap.prometheus.config
             version: '7.2'
           - name: os-eap-txnrecovery.run
@@ -85,7 +86,8 @@ modules:
           - name: os-eap-python
             version: '3.6'
 packages:
-      content_sets_file: content_sets.yml
+        content_sets_file: content_sets.yml
+
 run:
       user: 185
       cmd:
