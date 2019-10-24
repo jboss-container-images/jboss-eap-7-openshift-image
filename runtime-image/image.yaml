@@ -60,9 +60,16 @@ modules:
           - name: os-eap-python
             version: '3.6'
 packages:
+      content_sets_file: content_sets.yml
       install:
           # required by launch scripts
           - hostname
           # required by probes
           - python3-requests
-# TODO OSBS, REPO, ...
+
+osbs:
+      configuration:
+            container_file: container.yaml
+      repository:
+            name: containers/jboss-eap-7-tech-preview
+            branch: jb-eap-cd-runtime-openshift-dev-rhel-8
