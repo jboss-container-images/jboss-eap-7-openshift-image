@@ -28,7 +28,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: ed7a171369f97976e530fea155b4ee78
+    md5: b196001c8e08e480bd3b01970f73aa0c
 
 osbs:
       repository:
