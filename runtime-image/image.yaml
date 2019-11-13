@@ -34,6 +34,8 @@ envs:
       value: "eapadmin"
     - name: MICROPROFILE_CONFIG_DIR_ORDINAL
       value: "500"
+    - name: SSO_FORCE_LEGACY_SECURITY
+      value: "true"
 ports:
     - value: 8443
     - value: 8080
