@@ -602,7 +602,7 @@
                     }
                 },
                 "source": {
-                    "dockerfile": "FROM eap-cd-runtime-openshift:17\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME && chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
+                    "dockerfile": "FROM eap-cd-runtime-openshift:18\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME && chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
                     "images": [
                         {
                             "from": {
