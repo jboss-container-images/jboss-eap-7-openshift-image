@@ -28,6 +28,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/redhat-developer/redhat-sso-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 7.0.x-ose | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld | False
+|`GALLEON_PROVISION_LAYERS` | -- | Comma separated list of Galleon layers to provision a server. | -- | False
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | `ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | false | False
 |`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}` | False
 |`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}` | False
 |`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
@@ -124,7 +126,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:17 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-openshift:18 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-runtime-openshift:18 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 
@@ -206,7 +209,7 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.39+| `${APPLICATION_NAME}`
+.40+| `${APPLICATION_NAME}`
 |`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
@@ -246,6 +249,7 @@ for more information.
 |`SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}`
 |`SSO_TRUSTSTORE_DIR` | The name of the truststore file within the secret (e.g. truststore.jks) | `/etc/sso-secret-volume`
 |`SSO_TRUSTSTORE_PASSWORD` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE_PASSWORD}`
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | `${ENABLE_GENERATE_DEFAULT_DATASOURCE}`
 |=======================================================================
 
 
