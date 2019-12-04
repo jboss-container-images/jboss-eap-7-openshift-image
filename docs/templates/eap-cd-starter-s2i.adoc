@@ -27,6 +27,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | openshift | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
+|`GALLEON_PROVISION_LAYERS` | -- | Comma separated list of Galleon layers to provision a server. | -- | False
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | `ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | false | False
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
@@ -85,7 +87,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:17 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-openshift:18 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-runtime-openshift:18 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 
@@ -165,8 +168,9 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.1+| `${APPLICATION_NAME}`
+.2+| `${APPLICATION_NAME}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | `${ENABLE_GENERATE_DEFAULT_DATASOURCE}`
 |=======================================================================
 
 
