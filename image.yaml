@@ -52,8 +52,9 @@ modules:
             version: "11"
           - name: jboss.container.maven.35.bash
             version: "3.5"
-          - name: jboss.container.eap.cd
-            version: "latest"
+          - name: eap-cd-env-latest
+          - name: jboss.container.eap.setup
+          - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
           # so must be after jboss.container.eap.cd
           - name: jboss.container.maven.default.bash
