@@ -1,8 +1,12 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap73-openjdk11-openshift-rhel8"
+name: "jboss-eap-7/eap73-openjdk8-openshift-rhel8"
 version: "7.3.0"
 
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-eap73-openjdk8-openshift-rhel8-container"
+      
 modules:
       repositories:
           - name: cct_module
@@ -21,6 +25,10 @@ modules:
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
                   ref: master
+
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
 
 artifacts:
   - name: maven-repo
