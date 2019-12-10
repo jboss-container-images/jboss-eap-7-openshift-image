@@ -1,18 +1,16 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
-description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "18.0"
+name: "jboss-eap-7/eap73-openjdk11-openshift-rhel8"
+description: "Red Hat JBoss Enterprise Application Platform 7.3 OpenShift container image."
+version: "7.3.0"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap-cd-openshift-rhel8-container"
+      value: "jboss-eap-7-eap73-openjdk11-openshift-rhel8-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP continuous delivery"
+      value: "Platform for building and running JavaEE applications on JBoss EAP 7.3"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP continuous delivery"
-    - name: "usage"
-      value: "This image is generic and intended for use as a base to build your own images."
+      value: "JBoss EAP 7.3"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -42,7 +40,7 @@ modules:
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: eap-cd-dev
+                  ref: eap73-dev
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
@@ -52,8 +50,9 @@ modules:
             version: "11"
           - name: jboss.container.maven.35.bash
             version: "3.5"
-          - name: jboss.container.eap.cd
-            version: "latest"
+          - name: eap-73-env-latest
+          - name: jboss.container.eap.setup
+          - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
           # so must be after jboss.container.eap.cd
           - name: jboss.container.maven.default.bash
@@ -122,5 +121,5 @@ osbs:
       configuration:
             container_file: container.yaml
       repository:
-            name: containers/jboss-eap-7-tech-preview
-            branch: jb-eap-cd-openshift-rhel-8
+            name: containers/jboss-eap-7
+            branch: jb-eap-7.3-openshift-rhel-8

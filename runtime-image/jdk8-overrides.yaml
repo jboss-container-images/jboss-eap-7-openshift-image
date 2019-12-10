@@ -1,0 +1,29 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap73-openjdk8-runtime-openshift-rhel8"
+version: "7.3.0"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-eap73-openjdk8-runtime-openshift-rhel8-container"
+
+modules:
+      repositories:
+          - name: cct_module
+            git:
+                  url: https://github.com/jboss-openshift/cct_module.git
+                  ref: master
+          - name: jboss-eap-modules
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: master
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+
+osbs:
+      configuration:
+            container_file: container.yaml
+      repository:
+            name: containers/jboss-eap-7
+            branch: jb-eap-7.3-runtime-openshift-rhel-8
