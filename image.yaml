@@ -72,8 +72,6 @@ modules:
           - name: os-eap-db-drivers
           - name: os-eap-sso
           - name: os-eap70-sso
-          - name: os-java-hawkular
-          - name: os-eap70-hawkular
           - name: os-eap-hawkular
           - name: os-eap-deployment-scanner
           - name: os-eap-extensions
