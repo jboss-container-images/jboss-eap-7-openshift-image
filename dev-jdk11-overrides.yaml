@@ -21,14 +21,23 @@ modules:
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
                   ref: master
+      install:
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-python
+            version: '3.6'
 
-artifacts:
-  - name: maven-repo
-    target: maven-repo.zip
-    md5: 1f7a658f75d747b40c157f22e26f24a7
+packages:
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
+
+#artifacts:
+#  - name: maven-repo
+#    target: maven-repo.zip
+#    md5: 1f7a658f75d747b40c157f22e26f24a7
 
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.3-openshift-rhel-8
+            branch: jb-eap-7.3-openjdk-11-openshift-dev-rhel-8
 

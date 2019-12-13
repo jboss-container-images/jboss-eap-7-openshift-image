@@ -2,10 +2,11 @@ schema_version: 1
 
 name: "jboss-eap-7/eap73-openjdk8-openshift-rhel8"
 version: "7.3.0"
+from: "ubi7:7-released"
 
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap73-openjdk8-openshift-rhel8-container"
+      value: "jboss-eap-7-eap73-openjdk8-openshift-rhel7-container"
       
 modules:
       repositories:
@@ -29,14 +30,24 @@ modules:
       install:
           - name: jboss.container.openjdk.jdk
             version: "8"
+          - name: jboss.container.maven.35.bash
+            version: "3.5scl"
+          - name: os-eap-txnrecovery.run
+            version: 'python2'
+          - name: os-eap-probes
+            version: "2.0"
 
-artifacts:
-  - name: maven-repo
-    target: maven-repo.zip
-    md5: 1f7a658f75d747b40c157f22e26f24a7
+packages:
+  manager: yum
+  content_sets_file: content_sets_rhel7.yml
+
+#artifacts:
+#  - name: maven-repo
+#    target: maven-repo.zip
+#    md5: 1f7a658f75d747b40c157f22e26f24a7
 
 osbs:
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.3-openshift-rhel-8
+            branch: jb-eap-7.3-openjdk-8-openshift-dev-rhel-8
 

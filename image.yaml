@@ -32,19 +32,19 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  ref: 0.39.0
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
+                  ref: EAP_730_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: eap73-dev
+                  ref: EAP_730_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: master
+                  ref: 0.18.0
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
@@ -105,14 +105,22 @@ modules:
           - name: jboss.container.eap.prometheus.config
           - name: os-eap-txnrecovery.run
             version: 'python3'
-          - name: os-eap-python
-            version: '3.6'
-           # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
+
+          # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
           - name: jboss.container.wildfly.galleon.build-feature-pack
           - name: jboss.container.wildfly.galleon.provision-server
           - name: jboss.container.eap.final-setup
-packages:
-      content_sets_file: content_sets.yml
+
+# note that building in OSBS using ODCS requires a content set to be specified, these are done in the overrides
+# cekit doesn't appear to allow this to be overriden from a default
+#packages:
+#      content_sets_file: content_sets.yml
+
+artifacts:
+  - name: maven-repo
+    target: maven-repo.zip
+    md5: 1f7a658f75d747b40c157f22e26f24a7
+
 run:
       user: 185
       cmd:
@@ -122,4 +130,4 @@ osbs:
             container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.3-openshift-rhel-8
+            branch: jb-eap-7.3-openjdk-11-openshift-dev-rhel-8
