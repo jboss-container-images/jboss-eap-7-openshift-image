@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap-cd-starter-s2i
+= eap73-basic-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc
+An example JBoss Enterprise Application Platform application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/7.3.x/README.adoc
 
 toc::[]
 
@@ -24,14 +24,20 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
+|`EAP_IMAGE_NAME` | -- | Name of the EAP image to use, example: jboss-eap73-openjdk11-openjdk11-openshift:7.3 | jboss-eap73-openjdk11-openjdk11-openshift:7.3 | True
+|`EAP_RUNTIME_IMAGE_NAME` | -- | Name of the EAP image to use, example: jboss-eap73-openjdk11-openjdk11-runtime-openshift:7.3 | jboss-eap73-openjdk11-openjdk11-runtime-openshift:7.3 | True
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | openshift | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
 |`GALLEON_PROVISION_LAYERS` | -- | Comma separated list of Galleon layers to provision a server. | -- | False
 |`ENABLE_GENERATE_DEFAULT_DATASOURCE` | `ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | false | False
+|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}` | False
+|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}` | False
+|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
+|`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
 |`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -Dcom.redhat.xpaas.repo.jbossorg | False
@@ -58,6 +64,9 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 .1+| `${APPLICATION_NAME}`
 |8080 | --
 .1+| The web server's http port.
+.1+| `${APPLICATION_NAME}-ping`
+|8888 | ping
+.1+| The JGroups ping port for clustering.
 |=============
 
 
@@ -87,8 +96,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:18 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
-|eap-cd-runtime-openshift:18 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
+|`${EAP_IMAGE_NAME}` |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
+|`${EAP_RUNTIME_IMAGE_NAME}` |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 
@@ -156,9 +165,10 @@ for more information.
 |=============
 |Deployments | Name  | Port  | Protocol
 
-.2+| `${APPLICATION_NAME}`
+.3+| `${APPLICATION_NAME}`
 |jolokia | 8778 | `TCP`
 |http | 8080 | `TCP`
+|ping | 8888 | `TCP`
 |=============
 
 
@@ -168,7 +178,14 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.2+| `${APPLICATION_NAME}`
+.9+| `${APPLICATION_NAME}`
+|`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
+|`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
+|`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
+|`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
+|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
+|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`
+|`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | `${ENABLE_GENERATE_DEFAULT_DATASOURCE}`
 |=======================================================================

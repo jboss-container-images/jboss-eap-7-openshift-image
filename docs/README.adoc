@@ -6,8 +6,8 @@
 
 = Application Templates
 
-This project contains OpenShift v3 application templates which support applications based on JBoss EAP continuous delivery (EAP CD)
-Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap-cd[here].
+This project contains OpenShift v3 application templates which support applications based on JBoss EAP 7.3
+Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/7.3.x[here].
 
 :icons: font
 :toc: macro
@@ -16,14 +16,21 @@ toc::[levels=1]
 
 == templates
 
-* link:./templates/eap-cd-amq-persistent-s2i.adoc[eap-cd-amq-persistent-s2i]
-* link:./templates/eap-cd-amq-s2i.adoc[eap-cd-amq-s2i]
-* link:./templates/eap-cd-basic-s2i.adoc[eap-cd-basic-s2i]
-* link:./templates/eap-cd-https-s2i.adoc[eap-cd-https-s2i]
-* link:./templates/eap-cd-sso-s2i.adoc[eap-cd-sso-s2i]
-* link:./templates/eap-cd-starter-s2i.adoc[eap-cd-starter-s2i]
-* link:./templates/eap-cd-third-party-db-s2i.adoc[eap-cd-third-party-db-s2i]
-* link:./templates/eap-cd-tx-recovery-s2i.adoc[eap-cd-tx-recovery-s2i]
+* link:./templates/eap73-amq-persistent-s2i.adoc[eap73-amq-persistent-s2i]
+* link:./templates/eap73-amq-s2i.adoc[eap73-amq-s2i]
+* link:./templates/eap73-basic-s2i.adoc[eap73-basic-s2i]
+* link:./templates/eap73-https-s2i.adoc[eap73-https-s2i]
+* link:./templates/eap73-openjdk11-amq-persistent-s2i.adoc[eap73-openjdk11-amq-persistent-s2i]
+* link:./templates/eap73-openjdk11-amq-s2i.adoc[eap73-openjdk11-amq-s2i]
+* link:./templates/eap73-openjdk11-basic-s2i.adoc[eap73-openjdk11-basic-s2i]
+* link:./templates/eap73-openjdk11-https-s2i.adoc[eap73-openjdk11-https-s2i]
+* link:./templates/eap73-openjdk11-sso-s2i.adoc[eap73-openjdk11-sso-s2i]
+* link:./templates/eap73-openjdk11-third-party-db-s2i.adoc[eap73-openjdk11-third-party-db-s2i]
+* link:./templates/eap73-openjdk11-tx-recovery-s2i.adoc[eap73-openjdk11-tx-recovery-s2i]
+* link:./templates/eap73-sso-s2i.adoc[eap73-sso-s2i]
+* link:./templates/eap73-third-party-db-s2i.adoc[eap73-third-party-db-s2i]
+* link:./templates/eap73-tx-recovery-s2i.adoc[eap73-tx-recovery-s2i]
+* link:./templates/fn.adoc[fn]
 
 ////
   the source for the release notes part of this page is in the file

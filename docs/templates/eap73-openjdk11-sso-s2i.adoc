@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap-cd-amq-persistent-s2i
+= eap73-sso-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example JBoss Enterprise Application Platform continuous delivery application using Red Hat JBoss AMQ with persistence and secure communication using https. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc
+An example JBoss Enterprise Application Platform application Single Sign-On application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/7.3.x/README.adoc
 
 toc::[]
 
@@ -24,41 +24,53 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
-|`HOSTNAME_HTTPS` | -- | Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix> | -- | False
-|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts.git | True
-|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | openshift | False
-|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld-mdb | False
+|`EAP_IMAGE_NAME` | -- | Name of the EAP image to use, example: jboss-eap73-openjdk11-openshift:7.3 | jboss-eap73-openjdk11-openshift:7.3 | True
+|`EAP_RUNTIME_IMAGE_NAME` | -- | Name of the EAP image to use, example: jboss-eap73-openjdk11-runtime-openshift:7.3 | jboss-eap73-openjdk11-runtime-openshift:7.3 | True
+|`SSO_IMAGE_NAME` | -- | Name of the SSO image to use, examples: redhat-sso73-openshift:1.0 | redhat-sso73-openshift:1.0 | True
+|`HOSTNAME_HTTPS` | `HOSTNAME_HTTP` | Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server. | `${HOSTNAME_HTTP}` | True
+|`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/redhat-developer/redhat-sso-quickstarts | True
+|`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 7.0.x-ose | False
+|`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | helloworld | False
 |`GALLEON_PROVISION_LAYERS` | -- | Comma separated list of Galleon layers to provision a server. | -- | False
 |`ENABLE_GENERATE_DEFAULT_DATASOURCE` | `ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | false | False
-|`VOLUME_CAPACITY` | -- | Size of the volume used by AMQ for persisting messages. | 1Gi | True
-|`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory | java:jboss/DefaultJMSConnectionFactory | False
-|`AMQ_SPLIT` | `AMQ_SPLIT` | Split the data directory for each node in a mesh. | false | False
-|`MQ_PROTOCOL` | `MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | openwire | False
-|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | HelloWorldMDBQueue | False
-|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | HelloWorldMDBTopic | False
-|`MQ_SERIALIZABLE_PACKAGES` | `MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}` | False
-|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | False
+|`MQ_QUEUES` | `MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}` | False
+|`MQ_TOPICS` | `MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}` | False
+|`MQ_CLUSTER_PASSWORD` | `MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}` | True
+|`HTTPS_SECRET` | -- | The name of the secret containing the keystore file | eap7-app-secret | True
 |`HTTPS_KEYSTORE` | `HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | keystore.jks | False
 |`HTTPS_KEYSTORE_TYPE` | `HTTPS_KEYSTORE` | The type of the keystore file (JKS or JCEKS) | `${HTTPS_KEYSTORE}` | False
-|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}` | False
-|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}` | False
-|`MQ_USERNAME` | `MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}` | False
-|`MQ_PASSWORD` | `MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}` | False
-|`MQ_ROLE` | `AMQ_ROLE` | AMQ Role for authenticated user | admin | ?
-|`AMQ_MESH_DISCOVERY_TYPE` | `AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | dns | False
-|`AMQ_STORAGE_USAGE_LIMIT` | `AMQ_STORAGE_USAGE_LIMIT` | The AMQ storage usage limit | 100 gb | False
+|`HTTPS_NAME` | `HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}` | False
+|`HTTPS_PASSWORD` | `HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}` | False
 |`GITHUB_WEBHOOK_SECRET` | -- | GitHub trigger secret | secret101 | True
 |`GENERIC_WEBHOOK_SECRET` | -- | Generic build trigger secret | secret101 | True
 |`IMAGE_STREAM_NAMESPACE` | -- | Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project. | openshift | True
 |`JGROUPS_ENCRYPT_SECRET` | `JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | eap7-app-secret | False
 |`JGROUPS_ENCRYPT_KEYSTORE` | `JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | jgroups.jceks | False
-|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}` | False
-|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}` | False
+|`JGROUPS_ENCRYPT_NAME` | `JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}` | False
+|`JGROUPS_ENCRYPT_PASSWORD` | `JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}` | False
 |`JGROUPS_CLUSTER_PASSWORD` | `JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}` | True
 |`AUTO_DEPLOY_EXPLODED` | `AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | false | False
+|`SSO_URL` | `SSO_URL` | The URL for the SSO server (e.g. https://secure-sso-myproject.example.com/auth).  This is the URL through which the user will be redirected when a login or token is required by the application. | `${SSO_URL}` | True
+|`SSO_SERVICE_URL` | `SSO_SERVICE_URL` | The URL for the internal SSO service, where secure-sso (the default) is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL. | https://secure-sso:8443/auth | False
+|`SSO_REALM` | `SSO_REALM` | The SSO realm to which the application client(s) should be associated (e.g. demo). | `${SSO_REALM}` | True
+|`SSO_USERNAME` | `SSO_USERNAME` | The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates. | `${SSO_USERNAME}` | False
+|`SSO_PASSWORD` | `SSO_PASSWORD` | The password for the SSO service user. | `${SSO_PASSWORD}` | False
+|`SSO_PUBLIC_KEY` | `SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability | `${SSO_PUBLIC_KEY}` | False
+|`SSO_BEARER_ONLY` | `SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}` | False
+|`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder.  If unspecified, all archives in /target will be copied. | app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target | False
+|`SSO_SAML_KEYSTORE_SECRET` | `SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | eap7-app-secret | False
+|`SSO_SAML_KEYSTORE` | `SSO_SAML_KEYSTORE_SECRET` | The name of the keystore file within the secret | keystore.jks | False
+|`SSO_SAML_CERTIFICATE_NAME` | `SSO_SAML_CERTIFICATE_NAME` | The name associated with the server certificate | jboss | False
+|`SSO_SAML_KEYSTORE_PASSWORD` | `SSO_SAML_KEYSTORE` | The password for the keystore and certificate | mykeystorepass | False
+|`SSO_SECRET` | `SSO_SECRET` | The SSO Client Secret for Confidential Access | `${SSO_SECRET}` | True
+|`SSO_ENABLE_CORS` | `SSO_ENABLE_CORS` | Enable CORS for SSO applications | false | False
+|`SSO_SAML_LOGOUT_PAGE` | `SSO_SAML_LOGOUT_PAGE` | SSO logout page for SAML applications | `/` | False
+|`SSO_DISABLE_SSL_CERTIFICATE_VALIDATION` | `SSO_DISABLE_SSL_CERTIFICATE_VALIDATION` | If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl) | true | False
+|`SSO_TRUSTSTORE` | `SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}` | False
+|`SSO_TRUSTSTORE_PASSWORD` | `SSO_TRUSTSTORE` | The password for the truststore and certificate (e.g. mykeystorepass) | `${SSO_TRUSTSTORE}` | False
+|`SSO_TRUSTSTORE_SECRET` | `SSO_TRUSTSTORE` | The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName | eap7-app-secret | False
 |`MAVEN_MIRROR_URL` | -- | Maven mirror to use for S2I builds | -- | False
-|`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -Dcom.redhat.xpaas.repo.jbossorg | False
-|`ARTIFACT_DIR` | -- | List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied. | -- | False
+|`MAVEN_ARGS_APPEND` | -- | Maven additional arguments to use for S2I builds | -- | False
 |`MEMORY_LIMIT` | -- | Container memory limit | 1Gi | False
 |=======================================================================
 
@@ -80,19 +92,13 @@ https://cloud.google.com/container-engine/docs/services/[container-engine docume
 
 .1+| `${APPLICATION_NAME}`
 |8080 | --
-.1+| The web server's HTTP port.
+.1+| The web server's http port.
 .1+| `secure-${APPLICATION_NAME}`
 |8443 | --
-.1+| The web server's HTTPS port.
+.1+| The web server's https port.
 .1+| `${APPLICATION_NAME}-ping`
 |8888 | ping
 .1+| The JGroups ping port for clustering.
-.1+| `${APPLICATION_NAME}-amq-tcp`
-|61616 | --
-.1+| The broker's OpenWire port.
-.1+| `${APPLICATION_NAME}-amq-mesh`
-|61616 | mesh
-.1+| Supports node discovery for mesh formation.
 |=============
 
 
@@ -123,8 +129,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:18 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
-|eap-cd-runtime-openshift:18 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
+|`${EAP_IMAGE_NAME}` |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
+|`${EAP_RUNTIME_IMAGE_NAME}` |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 
@@ -143,7 +149,6 @@ https://access.redhat.com/beta/documentation/en/openshift-enterprise-30-develope
 |Deployment | Triggers
 
 |`${APPLICATION_NAME}` | ImageChange
-|`${APPLICATION_NAME}-amq` | ImageChange
 |============
 
 
@@ -159,7 +164,6 @@ for more information.
 |Deployment | Replicas
 
 |`${APPLICATION_NAME}` | 1
-|`${APPLICATION_NAME}-amq` | 1
 |============
 
 
@@ -174,7 +178,6 @@ for more information.
 |Deployment | Image
 
 |`${APPLICATION_NAME}` | `${APPLICATION_NAME}`
-|`${APPLICATION_NAME}-amq` | amq-broker-72-openshift
 |============
 
 
@@ -185,11 +188,6 @@ for more information.
 .${APPLICATION_NAME}
 ----
 /bin/bash -c /opt/eap/bin/readinessProbe.sh
-----
-
-.${APPLICATION_NAME}-amq
-----
-/bin/bash -c /opt/amq/bin/readinessProbe.sh
 ----
 
 
@@ -205,15 +203,6 @@ for more information.
 |http | 8080 | `TCP`
 |https | 8443 | `TCP`
 |ping | 8888 | `TCP`
-.8+| `${APPLICATION_NAME}-amq`
-|console-jolokia | 8161 | `TCP`
-|amqp | 5672 | `TCP`
-|amqp-ssl | 5671 | `TCP`
-|mqtt | 1883 | `TCP`
-|stomp | 61613 | `TCP`
-|stomp-ssl | 61612 | `TCP`
-|tcp | 61616 | `TCP`
-|tcp-ssl | 61617 | `TCP`
 |=============
 
 
@@ -223,44 +212,47 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.24+| `${APPLICATION_NAME}`
-|`MQ_SERVICE_PREFIX_MAPPING` | -- | `${APPLICATION_NAME}-amq7=MQ`
-|`MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory | `${MQ_JNDI}`
-|`MQ_USERNAME` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
-|`MQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
-|`MQ_PROTOCOL` | Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP. | tcp
-|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
-|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`
-|`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
+.40+| `${APPLICATION_NAME}`
 |`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
+|`HOSTNAME_HTTP` | Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server. | `${HOSTNAME_HTTP}`
+|`HOSTNAME_HTTPS` | Hostname for https service route (e.g. secure-eap-app-myproject.example.com).  Required for SSO-enabled applications.  This is added to the white list of redirects in the SSO server. | `${HOSTNAME_HTTPS}`
 |`HTTPS_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/eap-secret-volume`
 |`HTTPS_KEYSTORE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE}`
 |`HTTPS_KEYSTORE_TYPE` | The name of the keystore file within the secret | `${HTTPS_KEYSTORE_TYPE}`
-|`HTTPS_NAME` | The name associated with the server certificate | `${HTTPS_NAME}`
-|`HTTPS_PASSWORD` | The password for the keystore and certificate | `${HTTPS_PASSWORD}`
+|`HTTPS_NAME` | The name associated with the server certificate (e.g. jboss) | `${HTTPS_NAME}`
+|`HTTPS_PASSWORD` | The password for the keystore and certificate (e.g. mykeystorepass) | `${HTTPS_PASSWORD}`
+|`MQ_CLUSTER_PASSWORD` | AMQ cluster admin password | `${MQ_CLUSTER_PASSWORD}`
+|`MQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
+|`MQ_TOPICS` | Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_TOPICS}`
 |`JGROUPS_ENCRYPT_SECRET` | The name of the secret containing the keystore file | `${JGROUPS_ENCRYPT_SECRET}`
 |`JGROUPS_ENCRYPT_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/jgroups-encrypt-secret-volume`
 |`JGROUPS_ENCRYPT_KEYSTORE` | The name of the keystore file within the secret | `${JGROUPS_ENCRYPT_KEYSTORE}`
-|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate | `${JGROUPS_ENCRYPT_NAME}`
-|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
+|`JGROUPS_ENCRYPT_NAME` | The name associated with the server certificate (e.g. secret-key) | `${JGROUPS_ENCRYPT_NAME}`
+|`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate (e.g. password) | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
+|`SSO_URL` | The URL for the SSO server (e.g. https://secure-sso-myproject.example.com/auth).  This is the URL through which the user will be redirected when a login or token is required by the application. | `${SSO_URL}`
+|`SSO_SERVICE_URL` | The URL for the internal SSO service, where secure-sso (the default) is the kubernetes service exposed by the SSO server.  This is used to create the application client(s) (see SSO_USERNAME).  This can also be the same as SSO_URL. | `${SSO_SERVICE_URL}`
+|`SSO_REALM` | The SSO realm to which the application client(s) should be associated (e.g. demo). | `${SSO_REALM}`
+|`SSO_USERNAME` | The username used to access the SSO service.  This is used to create the appliction client(s) within the specified SSO realm. This should match the SSO_SERVICE_USERNAME specified through one of the sso70-* templates. | `${SSO_USERNAME}`
+|`SSO_PASSWORD` | The password for the SSO service user. | `${SSO_PASSWORD}`
+|`SSO_PUBLIC_KEY` | SSO Public Key. Public key is recommended to be passed into the template to avoid man-in-the-middle security vulnerability | `${SSO_PUBLIC_KEY}`
+|`SSO_BEARER_ONLY` | SSO Client Access Type | `${SSO_BEARER_ONLY}`
+|`SSO_SAML_KEYSTORE_SECRET` | The name of the secret containing the keystore file | `${SSO_SAML_KEYSTORE_SECRET}`
+|`SSO_SAML_KEYSTORE` | The name of the secret containing the keystore file | `${SSO_SAML_KEYSTORE}`
+|`SSO_SAML_KEYSTORE_DIR` | The name of the keystore file within the secret | `/etc/sso-saml-secret-volume`
+|`SSO_SAML_CERTIFICATE_NAME` | The name associated with the server certificate | `${SSO_SAML_CERTIFICATE_NAME}`
+|`SSO_SAML_KEYSTORE_PASSWORD` | The name of the keystore file within the secret | `${SSO_SAML_KEYSTORE_PASSWORD}`
+|`SSO_SECRET` | The SSO Client Secret for Confidential Access | `${SSO_SECRET}`
+|`SSO_ENABLE_CORS` | Enable CORS for SSO applications | `${SSO_ENABLE_CORS}`
+|`SSO_SAML_LOGOUT_PAGE` | SSO logout page for SAML applications | `${SSO_SAML_LOGOUT_PAGE}`
+|`SSO_DISABLE_SSL_CERTIFICATE_VALIDATION` | If true SSL communication between EAP and the SSO Server will be insecure (i.e. certificate validation is disabled with curl) | `${SSO_DISABLE_SSL_CERTIFICATE_VALIDATION}`
+|`SSO_TRUSTSTORE` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE}`
+|`SSO_TRUSTSTORE_DIR` | The name of the truststore file within the secret (e.g. truststore.jks) | `/etc/sso-secret-volume`
+|`SSO_TRUSTSTORE_PASSWORD` | The name of the truststore file within the secret (e.g. truststore.jks) | `${SSO_TRUSTSTORE_PASSWORD}`
 |`ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | `${ENABLE_GENERATE_DEFAULT_DATASOURCE}`
-.12+| `${APPLICATION_NAME}-amq`
-|`AMQ_USER` | User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_USERNAME}`
-|`AMQ_PASSWORD` | Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated. | `${MQ_PASSWORD}`
-|`AMQ_ROLE` | AMQ Role for authenticated user | `${MQ_ROLE}`
-|`AMQ_TRANSPORTS` | -- | `${MQ_PROTOCOL}`
-|`AMQ_QUEUES` | Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker. | `${MQ_QUEUES}`
-|`AMQ_ADDRESSES` | -- | `${MQ_TOPICS}`
-|`MQ_SERIALIZABLE_PACKAGES` | List of packages that are allowed to be serialized for use in ObjectMessage, separated by commas. If your app doesn't use ObjectMessages, leave this blank. This is a security enforcement. For the rationale, see http://activemq.apache.org/objectmessage.html | `${MQ_SERIALIZABLE_PACKAGES}`
-|`AMQ_SPLIT` | Split the data directory for each node in a mesh. | `${AMQ_SPLIT}`
-|`AMQ_MESH_DISCOVERY_TYPE` | The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace. | `${AMQ_MESH_DISCOVERY_TYPE}`
-|`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-mesh`
-|`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
-|`AMQ_STORAGE_USAGE_LIMIT` | The AMQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
 |=======================================================================
 
 
@@ -270,26 +262,11 @@ for more information.
 |=============
 |Deployment |Name  | mountPath | Purpose | readOnly 
 
-|`${APPLICATION_NAME}` | eap-keystore-volume | `/etc/eap-secret-volume` | ssl certs | True
-|`${APPLICATION_NAME}-amq` | `${APPLICATION_NAME}-amq-pvol` | `/opt/amq/data/kahadb` | kahadb | false
+|`${APPLICATION_NAME}` | sso-saml-keystore-volume | `/etc/sso-saml-secret-volume` | ssl certs | True
 |=============
 
 
 === External Dependencies
-
-
-==== Volume Claims
-
-A `PersistentVolume` object is a storage resource in an OpenShift cluster. Storage is provisioned by an administrator
-by creating `PersistentVolume` objects from sources such as GCE Persistent Disks, AWS Elastic Block Stores (EBS), and NFS mounts.
-Refer to the https://docs.openshift.com/container-platform/latest/dev_guide/persistent_volumes.html#overview[Openshift documentation] for
-more information.
-
-|=============
-|Name | Access Mode
-
-|`${APPLICATION_NAME}-amq-claim` | ReadWriteOnce
-|=============
 
 
 

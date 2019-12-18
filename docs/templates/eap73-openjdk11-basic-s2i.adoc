@@ -4,12 +4,12 @@
     generator or the input template (./*.in)
 ////
 
-= eap-cd-basic-s2i
+= eap73-basic-s2i
 :toc:
 :toc-placement!:
 :toclevels: 5
 
-An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc
+An example JBoss Enterprise Application Platform application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/7.3.x/README.adoc
 
 toc::[]
 
@@ -24,6 +24,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |Variable name |Image Environment Variable |Description |Example value |Required
 
 |`APPLICATION_NAME` | -- | The name for the application. | eap-app | True
+|`EAP_IMAGE_NAME` | -- | Name of the EAP image to use, example: jboss-eap73-openjdk11-openshift:7.3 | jboss-eap73-openjdk11-openshift:7.3 | True
+|`EAP_RUNTIME_IMAGE_NAME` | -- | Name of the EAP image to use, example: jboss-eap73-openjdk11-runtime-openshift:7.3 | jboss-eap73-openjdk11-runtime-openshift:7.3 | True
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-developer/jboss-eap-quickstarts.git | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | openshift | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | kitchensink | False
@@ -94,8 +96,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:18 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
-|eap-cd-runtime-openshift:18 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
+|`${EAP_IMAGE_NAME}` |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
+|`${EAP_RUNTIME_IMAGE_NAME}` |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 

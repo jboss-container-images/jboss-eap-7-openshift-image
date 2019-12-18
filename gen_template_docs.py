@@ -23,7 +23,7 @@ TEMPLATE_DOCS = "docs/"
 template_dirs = [ 'templates' ]
 amq_ssl_desc = None
 
-LINKS =  {"eap-cd-openshift:18": "../{outfilesuffix}[``]" }
+LINKS =  {"eap73-openshift:7.3": "../{outfilesuffix}[``]", "eap73-openjdk11-openshift:7.3": "../{outfilesuffix}[``]", "${EAP_IMAGE_NAME}": "../{outfilesuffix}[``]" }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
                    "SOURCE_REPOSITORY_URL": "https://github.com/jboss-openshift/openshift-examples.git", \
