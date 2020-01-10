@@ -25,12 +25,13 @@ toc::[levels=1]
 * link:./templates/eap73-openjdk11-basic-s2i.adoc[eap73-openjdk11-basic-s2i]
 * link:./templates/eap73-openjdk11-https-s2i.adoc[eap73-openjdk11-https-s2i]
 * link:./templates/eap73-openjdk11-sso-s2i.adoc[eap73-openjdk11-sso-s2i]
+* link:./templates/eap73-openjdk11-starter-s2i.adoc[eap73-openjdk11-starter-s2i]
 * link:./templates/eap73-openjdk11-third-party-db-s2i.adoc[eap73-openjdk11-third-party-db-s2i]
 * link:./templates/eap73-openjdk11-tx-recovery-s2i.adoc[eap73-openjdk11-tx-recovery-s2i]
 * link:./templates/eap73-sso-s2i.adoc[eap73-sso-s2i]
+* link:./templates/eap73-starter-s2i.adoc[eap73-starter-s2i]
 * link:./templates/eap73-third-party-db-s2i.adoc[eap73-third-party-db-s2i]
 * link:./templates/eap73-tx-recovery-s2i.adoc[eap73-tx-recovery-s2i]
-* link:./templates/fn.adoc[fn]
 
 ////
   the source for the release notes part of this page is in the file
