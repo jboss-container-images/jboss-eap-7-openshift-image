@@ -28,6 +28,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.4 | False
 |`CUSTOM_INSTALL_DIRECTORIES` | `CUSTOM_INSTALL_DIRECTORIES` | Additional directories from which to install. | extensions/* | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | jta-crash-rec-eap7 | False
+|`GALLEON_PROVISION_LAYERS` | -- | Comma separated list of Galleon layers to provision a server. | -- | False
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | `ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | false | False
 |`VOLUME_CAPACITY` | -- | Size of the volume used by AMQ for persisting messages. | 1Gi | True
 |`MQ_JNDI` | `MQ_JNDI` | JNDI name for connection factory used by applications to connect to the broker, e.g. java:jboss/DefaultJMSConnectionFactory | java:jboss/DefaultJMSConnectionFactory | False
 |`AMQ_SPLIT` | `AMQ_SPLIT` | Split the data directory for each node in a mesh. | false | False
@@ -111,7 +113,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:17 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-openshift:18 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-runtime-openshift:18 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 
@@ -259,7 +262,7 @@ information.
 |`AMQ_MESH_SERVICE_NAME` | -- | `${APPLICATION_NAME}-amq-mesh`
 |`AMQ_MESH_SERVICE_NAMESPACE` | -- | --
 |`AMQ_STORAGE_USAGE_LIMIT` | The AMQ storage usage limit | `${AMQ_STORAGE_USAGE_LIMIT}`
-.14+| `${APPLICATION_NAME}-migration`
+.15+| `${APPLICATION_NAME}-migration`
 |`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
@@ -274,6 +277,7 @@ information.
 |`JGROUPS_CLUSTER_PASSWORD` | JGroups cluster password | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
 |`SPLIT_DATA` | Split the data directory for each node in a cluster. | `${SPLIT_DATA}`
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | `${ENABLE_GENERATE_DEFAULT_DATASOURCE}`
 |=======================================================================
 
 
