@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "17.0"
+version: "18.0"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
@@ -42,52 +42,76 @@ modules:
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: CD16
+                  ref: eap-cd-dev
+          - name: wildfly-cekit-modules
+            git:
+                  url: https://github.com/wildfly/wildfly-cekit-modules.git
+                  ref: master
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
           - name: jboss.container.maven.35.bash
             version: "3.5"
-          - name: eap-cd-latest
+          - name: jboss.container.eap.cd
+            version: "latest"
+          # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
+          # so must be after jboss.container.eap.cd
+          - name: jboss.container.maven.default.bash
           - name: dynamic-resources
-          - name: jboss.container.eap.s2i.bash
-          - name: os-java-jolokia
-          - name: jboss.eap.cd.jolokia
-          - name: os-eap7-openshift
-          - name: jboss.eap.config.openshift
-            version: "CD17.0"
-          - name: jboss.eap.cd.openshift.modules
-          - name: os-eap7-ping
+          - name: jboss.container.eap.s2i.galleon
+          - name: jboss.container.eap.galleon
+          - name: jboss.container.eap.galleon.build-settings
+            version: "public"
+          - name: jboss.container.eap.openshift.modules
           - name: os-eap-activemq-rar
             version: "1.1"
+          - name: jboss.container.eap.amq6
           - name: jboss.container.java.jvm.bash
-          - name: os-eap-launch
-          - name: os-eap7-launch
-          - name: jboss.eap.cd.openshift.launch
-          - name: os-eap-datasource
-            version: "1.0"
-          - name: jboss.eap.cd.logging
-          - name: jboss.eap.config.mp-config
-          - name: jboss.eap.config.jgroups
-          - name: jboss.eap.config.elytron
-          - name: jboss.eap.config.tracing
+          - name: jboss.container.eap.launch
+          - name: jboss.container.wildfly.launch.admin
+          - name: jboss.container.wildfly.launch.access-log-valve
+          - name: jboss.container.wildfly.launch-config.config
+          - name: jboss.container.wildfly.launch-config.os
+          - name: jboss.container.wildfly.launch.datasources
+          - name: jboss.container.wildfly.launch.extensions
+          - name: jboss.container.wildfly.launch.json-logging
+          - name: jboss.container.wildfly.launch.jgroups
+          - name: jboss.container.wildfly.launch.filters
+          - name: jboss.container.wildfly.launch.logger-category
+          - name: jboss.container.wildfly.launch.mp-config
+          - name: jboss.container.wildfly.launch.os.node-name
+          - name: jboss.container.wildfly.launch.tracing
+          - name: jboss.container.wildfly.launch.deployment-scanner
+          - name: jboss.container.wildfly.launch.keycloak
+          - name: jboss.container.wildfly.launch.https
+          - name: jboss.container.wildfly.launch.security-domains
+          - name: jboss.container.wildfly.launch.elytron
+          - name: jboss.container.wildfly.launch.port-offset
+          - name: jboss.container.wildfly.launch.resource-adapters
+          - name: jboss.container.wildfly.launch.messaging
+          - name: jboss.container.wildfly.galleon.fp-content.keycloak
+          - name: jboss.container.wildfly.galleon.fp-content.jolokia
+          - name: jboss.container.wildfly.galleon.fp-content.java
+          - name: jboss.container.wildfly.galleon.fp-content.base-layers
+          - name: jboss.container.wildfly.galleon.fp-content.mvn
+          - name: jboss.container.wildfly.galleon.fp-content.ejb-tx-recovery
           - name: os-eap-probes
-            version: "2.0"
-          - name: jboss-maven
-          - name: os-eap-sso
+            version: "3.0"
           - name: os-eap70-sso
-          - name: os-eap-hawkular
-          - name: os-eap-deployment-scanner
-          - name: os-eap-extensions
+          # We keep this one to only advertise that hawkular is no more supported.
+          - name: jboss.container.eap.hawkular
           - name: openshift-layer
           - name: openshift-passwd
-          - name: os-logging
+          - name: jboss.container.util.logging.bash
           - name: jboss.container.eap.prometheus.config
-            version: "7.2"
           - name: os-eap-txnrecovery.run
             version: 'python3'
           - name: os-eap-python
             version: '3.6'
+           # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
+          - name: jboss.container.wildfly.galleon.build-feature-pack
+          - name: jboss.container.wildfly.galleon.provision-server
+          - name: jboss.container.eap.final-setup
 packages:
       content_sets_file: content_sets.yml
 run:

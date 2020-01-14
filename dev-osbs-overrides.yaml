@@ -21,7 +21,10 @@ modules:
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
                   ref: master
-
+            
+      install:
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
 artifacts:
   - name: maven-repo
     target: maven-repo.zip

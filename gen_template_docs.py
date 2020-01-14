@@ -23,7 +23,7 @@ TEMPLATE_DOCS = "docs/"
 template_dirs = [ 'templates' ]
 amq_ssl_desc = None
 
-LINKS =  {"eap-cd-openshift:17": "../{outfilesuffix}[``]" }
+LINKS =  {"eap-cd-openshift:18": "../{outfilesuffix}[``]" }
 
 PARAMETER_VALUES = {"APPLICATION_DOMAIN": "secure-app.test.router.default.local", \
                    "SOURCE_REPOSITORY_URL": "https://github.com/jboss-openshift/openshift-examples.git", \
@@ -235,7 +235,7 @@ def createObjectTable(data, tableKind):
             s2i = obj["spec"]["strategy"]["sourceStrategy"]["from"]["name"]
             link = " link:" + LINKS[s2i]
          elif obj["spec"]["strategy"]["type"] == 'Docker':
-            s2i = obj["spec"]["strategy"]["dockerStrategy"]["dockerfilePath"]
+            s2i = obj["spec"]["strategy"]["dockerStrategy"]["from"]["name"]
             link = ""
          columns = [s2i, link, obj["spec"]["output"]["to"]["name"], ", ".join([x["type"] for x in obj["spec"]["triggers"] ]) ]
       elif obj["kind"] ==  'PersistentVolumeClaim' and tableKind == 'PersistentVolumeClaim':

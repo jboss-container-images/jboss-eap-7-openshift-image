@@ -29,6 +29,8 @@ https://docs.openshift.org/latest/architecture/core_concepts/templates.html#para
 |`SOURCE_REPOSITORY_URL` | -- | Git source URI for application | https://github.com/jboss-openshift/openshift-quickstarts | True
 |`SOURCE_REPOSITORY_REF` | -- | Git branch/tag reference | 1.3 | False
 |`CONTEXT_DIR` | -- | Path within Git project to build; empty for root project directory. | datavirt/hibernate-webapp | False
+|`GALLEON_PROVISION_LAYERS` | -- | Comma separated list of Galleon layers to provision a server. | -- | False
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | `ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | false | False
 |`EXTENSIONS_IMAGE` | -- | ImageStreamTag definition for the image containing the drivers and configuration, e.g. jboss-datavirt63-driver-openshift:1.1 | jboss-datavirt63-driver-openshift:1.1 | True
 |`EXTENSIONS_IMAGE_NAMESPACE` | -- | Namespace within which the ImageStream definition for the image containing the drivers and configuration is located. | openshift | True
 |`EXTENSIONS_INSTALL_DIR` | -- | Full path to the directory within the extensions image where the extensions are located (e.g. install.sh, modules/, etc.) | `/extensions` | True
@@ -110,7 +112,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:17 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
+|eap-cd-openshift:18 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ImageChange, ConfigChange
+|eap-cd-runtime-openshift:18 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 
@@ -192,7 +195,7 @@ for more information.
 |=======================================================================
 |Deployment |Variable name |Description |Example value
 
-.19+| `${APPLICATION_NAME}`
+.20+| `${APPLICATION_NAME}`
 |`JGROUPS_PING_PROTOCOL` | -- | dns.DNS_PING
 |`OPENSHIFT_DNS_PING_SERVICE_NAME` | -- | `${APPLICATION_NAME}-ping`
 |`OPENSHIFT_DNS_PING_SERVICE_PORT` | -- | 8888
@@ -212,6 +215,7 @@ for more information.
 |`JGROUPS_ENCRYPT_PASSWORD` | The password for the keystore and certificate | `${JGROUPS_ENCRYPT_PASSWORD}`
 |`JGROUPS_CLUSTER_PASSWORD` | Password used by JGroups to authenticate nodes in the cluster. | `${JGROUPS_CLUSTER_PASSWORD}`
 |`AUTO_DEPLOY_EXPLODED` | Controls whether exploded deployment content should be automatically deployed | `${AUTO_DEPLOY_EXPLODED}`
+|`ENABLE_GENERATE_DEFAULT_DATASOURCE` | Enable ExampleDS datasource. | `${ENABLE_GENERATE_DEFAULT_DATASOURCE}`
 |=======================================================================
 
 
