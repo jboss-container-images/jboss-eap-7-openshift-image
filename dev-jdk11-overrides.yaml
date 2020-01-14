@@ -1,13 +1,8 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap73-openjdk8-openshift-rhel8"
+name: "jboss-eap-7/eap73-openjdk11-openshift-rhel8"
 version: "7.3.0"
-from: "ubi7:7-released"
 
-labels:
-    - name: "com.redhat.component"
-      value: "jboss-eap-7-eap73-openjdk8-openshift-rhel7-container"
-      
 modules:
       repositories:
           - name: cct_module
@@ -26,20 +21,15 @@ modules:
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
                   ref: master
-
       install:
-          - name: jboss.container.openjdk.jdk
-            version: "8"
-          - name: jboss.container.maven.35.bash
-            version: "3.5scl"
-          - name: os-eap-txnrecovery.run
-            version: 'python2'
-          - name: os-eap-probes
-            version: "2.0"
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-python
+            version: '3.6'
 
 packages:
-  manager: yum
-  content_sets_file: content_sets_rhel7.yml
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
 
 #artifacts:
 #  - name: maven-repo
@@ -49,9 +39,5 @@ packages:
 osbs:
       repository:
             name: containers/jboss-eap-7
-<<<<<<< HEAD
-            branch: jb-eap-7.3-openjdk-8-openshift-dev-rhel-7
-=======
-            branch: jb-eap-7.3-openjdk-8-openshift-dev-rhel-8
->>>>>>> CLOUD-3454 - updates for EAP 7.3.0 build
+            branch: jb-eap-7.3-openjdk-11-openshift-dev-rhel-8
 

@@ -46,11 +46,11 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  ref: 0.39.0
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
+                  ref: EAP_730_CR2
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
@@ -59,19 +59,15 @@ modules:
           - name: jboss.container.eap.prometheus.runtime
           - name: os-eap-txnrecovery.run
             version: 'python3'
-          - name: os-eap-python
-            version: '3.6'
+
 packages:
-      content_sets_file: content_sets.yml
       install:
           # required by launch scripts
           - hostname
-          # required by probes
-          - python3-requests
-
 osbs:
       configuration:
             container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.3-runtime-openshift-rhel-8
+            branch: jb-eap-7.3-openjdk-11-runtime-openshift-dev-rhel-8
+
