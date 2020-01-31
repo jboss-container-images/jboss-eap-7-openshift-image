@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "18.0"
+version: "19.0"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
@@ -93,7 +93,7 @@ modules:
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
           - name: jboss.container.wildfly.galleon.fp-content.jolokia
           - name: jboss.container.wildfly.galleon.fp-content.java
-          - name: jboss.container.wildfly.galleon.fp-content.base-layers
+          - name: jboss.container.wildfly.galleon.fp-content.config
           - name: jboss.container.wildfly.galleon.fp-content.mvn
           - name: jboss.container.wildfly.galleon.fp-content.ejb-tx-recovery
           - name: os-eap-probes
