@@ -90,6 +90,7 @@ modules:
           - name: jboss.container.wildfly.launch.port-offset
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.launch.messaging
+          - name: jboss.container.wildfly.launch.statefulset
           # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
           - name: os-eap70-sso
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
@@ -97,7 +98,6 @@ modules:
           - name: jboss.container.wildfly.galleon.fp-content.java
           - name: jboss.container.wildfly.galleon.fp-content.config
           - name: jboss.container.wildfly.galleon.fp-content.mvn
-          - name: jboss.container.wildfly.galleon.fp-content.ejb-tx-recovery
           - name: os-eap-probes
             version: "3.0"
          
