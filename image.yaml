@@ -56,8 +56,8 @@ modules:
           - name: jboss.container.eap.setup
           - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
-          # so must be after jboss.container.eap.cd
           - name: jboss.container.maven.default.bash
+            version: "1!3.5"
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
@@ -90,6 +90,8 @@ modules:
           - name: jboss.container.wildfly.launch.port-offset
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.launch.messaging
+          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
+          - name: os-eap70-sso
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
           - name: jboss.container.wildfly.galleon.fp-content.jolokia
           - name: jboss.container.wildfly.galleon.fp-content.java
@@ -98,7 +100,7 @@ modules:
           - name: jboss.container.wildfly.galleon.fp-content.ejb-tx-recovery
           - name: os-eap-probes
             version: "3.0"
-          - name: os-eap70-sso
+         
           # We keep this one to only advertise that hawkular is no more supported.
           - name: jboss.container.eap.hawkular
           - name: openshift-layer
