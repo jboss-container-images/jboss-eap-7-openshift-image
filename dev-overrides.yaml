@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
-version: "18.0"
+version: "19.0"
 
 modules:
       repositories:
@@ -25,7 +25,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: b196001c8e08e480bd3b01970f73aa0c
+    md5: 4b9635a42d81f49d73187b83c6626ac1
 
 osbs:
       repository:
