@@ -111,6 +111,69 @@
                     }
                 ]
             }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-eap72-openj9-11-openshift-rhel8",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.2 OpenJ9 11 UBI 8 Image",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "version": "1.2"
+                }
+            },
+            "labels": {
+                "xpaas": "1.2.0"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "name": "latest",
+                        "annotations": {
+                            "description": "Red Hat JBoss EAP 7.2 OpenJ9 11 S2I Image",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.2,javaee:7,java:11",
+                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "openshift",
+                            "version": "latest",
+                            "openshift.io/display-name": "Red Hat JBoss EAP 7.2 OpenJ9 11 UBI 8"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7/eap72-openj9-11-openshift-rhel8:latest"
+                        }
+                    },
+                    {
+                        "name": "1.2",
+                        "annotations": {
+                            "description": "Red Hat JBoss EAP 7.2 OpenJ9 11 UBI 8 S2I Image",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap,javaee,java,jboss,hidden",
+                            "supports": "eap:7.2,javaee:7,java:11",
+                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
+                            "sampleContextDir": "kitchensink",
+                            "sampleRef": "openshift",
+                            "version": "1.2",
+                            "openshift.io/display-name": "Red Hat JBoss EAP 7.2 OpenJ9 11 UBI 8"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7/eap72-openj9-11-openshift-rhel8:1.2"
+                        }
+                    }
+                ]
+            }
         }
     ]
 }
+
+

@@ -15,6 +15,11 @@ modules:
         url: https://github.com/jboss-container-images/jboss-eap-7-image.git
         ref: EAP_726_CR1
 osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - x86_64
   repository:
     name: containers/jboss-eap-7
     branch: jb-eap-7.2-openjdk-11-openshift-ubi-8

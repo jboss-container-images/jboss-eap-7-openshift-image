@@ -1,0 +1,56 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap72-openj9-11-openshift-rhel8"
+version: "1.2"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-eap72-openj9-11-openshift-rhel8-container"
+
+# workaround for JVM startup issue and 2g default heap
+# envs:
+#    - name: "JAVA_TOOL_OPTIONS"
+#      value: "-Xmx4g"
+
+modules:
+      repositories:
+          - name: cct_module
+            git:
+              url: https://github.com/jboss-openshift/cct_module.git
+              ref: 0.39.0
+          - name: jboss-eap-modules
+            git:
+              url: https://github.com/jboss-container-images/jboss-eap-modules.git
+              ref: 7.2.x-openjdk11
+          - name: jboss-eap-7-image
+            git:
+              url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+              ref: 7.2.x
+      install:
+          - name: jboss.container.maven.35.bash
+            version: "3.5"
+          - name: jboss.container.java.rm-openjdk
+          - name: jboss.container.openjdk.jdk
+            version: "openj9-11"
+packages:
+  manager: dnf
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - s390x
+      compose:
+        pulp_repos: true
+        include_unpublished_pulp_repos: true
+        packages:
+          - java-11-openj9
+          - java-11-openj9-headless
+          - java-11-openj9-devel
+        signing_intent: signed
+        inherit: true
+  repository:
+    name: containers/jboss-eap-7
+    branch: jb-eap-7.2-openj9-11-openshift-dev-rhel8
+

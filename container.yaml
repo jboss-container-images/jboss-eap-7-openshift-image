@@ -1,6 +1,3 @@
 compose:
   pulp_repos: true
-platforms:
-  only:
-  - x86_64
-
+  include_unpublished_pulp_repos: true
