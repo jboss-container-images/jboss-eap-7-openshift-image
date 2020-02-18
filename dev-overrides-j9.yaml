@@ -48,10 +48,9 @@ osbs:
           - java-11-openj9
           - java-11-openj9-headless
           - java-11-openj9-devel
-        signing_intent: unsigned
+        signing_intent: signed
         inherit: true
   repository:
     name: containers/jboss-eap-7
-    #    branch: jb-eap-7.2-openj9-11-openshift-dev-rhel8
-    branch: private-kwills-eap-7.2-openj9-11-rhel8
+    branch: jb-eap-7.2-openj9-11-openshift-dev-rhel8
 
