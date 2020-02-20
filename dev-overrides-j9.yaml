@@ -48,7 +48,7 @@ osbs:
           - java-11-openj9
           - java-11-openj9-headless
           - java-11-openj9-devel
-        signing_intent: signed
+        signing_intent: release
         inherit: true
   repository:
     name: containers/jboss-eap-7

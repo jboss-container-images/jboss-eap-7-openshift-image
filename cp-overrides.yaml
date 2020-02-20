@@ -14,12 +14,16 @@ modules:
       git:
         url: https://github.com/jboss-container-images/jboss-eap-7-image.git
         ref: EAP_726_CR1
+
 osbs:
   configuration:
     container:
       platforms:
         only:
           - x86_64
+      compose:
+        pulp_repos: true
+        include_unpublished_pulp_repos: false
   repository:
     name: containers/jboss-eap-7
     branch: jb-eap-7.2-openjdk-11-openshift-cp-ubi-8
