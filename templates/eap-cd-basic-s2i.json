@@ -143,6 +143,12 @@
             "required": false
         },
         {
+            "description": "Comma separated list of relative paths in source directory which should be included in the image.",
+            "name": "S2I_IMAGE_SOURCE_MOUNTS",
+            "value": "",
+            "required": false
+        },
+        {
             "description": "Container memory limit",
             "name": "MEMORY_LIMIT",
             "value": "1Gi",
@@ -285,6 +291,10 @@
                             {
                                 "name": "ARTIFACT_DIR",
                                 "value": "${ARTIFACT_DIR}"
+                            },
+                            {
+                                "name": "S2I_IMAGE_SOURCE_MOUNTS",
+                                "value": "${S2I_IMAGE_SOURCE_MOUNTS}"
                             }
                         ],
                         "forcePull": true,
