@@ -6,7 +6,7 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
             "version": "7.3",
-            "openshift.io/display-name": "JBoss EAP 7.3 (with passthrough TLS, DB drivers)",
+            "openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 8) with passthrough TLS & DB driver examples",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss Enterprise Application Platform application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/7.3.x/README.adoc.",
             "template.openshift.io/long-description": "This template defines resources needed to develop JBoss Enterprise Application Server based application, including a build configuration, application deployment configuration, using third-party DB drivers and secure communication using passthrough TLS.",
