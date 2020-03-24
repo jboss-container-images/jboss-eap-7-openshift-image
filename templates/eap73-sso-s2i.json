@@ -6,7 +6,7 @@
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss,hidden",
             "version": "7.3",
-            "openshift.io/display-name": "JBoss EAP 7.3 + Single Sign-On with passthrough TLS",
+            "openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 8) + Single Sign-On with passthrough TLS",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss Enterprise Application Platform application Single Sign-On application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/7.3.x/README.adoc",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform based application, including a build configuration, application deployment configuration, integrated with Red Hat Single Sign-On and secure communication using passthrough TLS.",
