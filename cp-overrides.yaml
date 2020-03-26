@@ -9,11 +9,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_727_CR3
+                  ref: EAP_728_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_727_2
+                  ref: EAP_728_CR1
 osbs:
       repository:
             name: containers/jboss-eap-7
