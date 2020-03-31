@@ -1,0 +1,39 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap73-openj9-11-openshift-rhel8"
+description: "The JBoss EAP 7.3 image for OpenJDK 11 with OpenJ9"
+version: "7.3.0"
+
+modules:
+      install:
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-python
+            version: '3.6'
+          - name: jboss.container.java.rm-openjdk
+          - name: jboss.container.openjdk.jdk
+            version: "openj9-11"
+
+packages:
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - s390x
+      compose:
+        pulp_repos: true
+        include_unpublished_pulp_repos: true
+        packages:
+          - java-11-openj9
+          - java-11-openj9-headless
+          - java-11-openj9-devel
+        signing_intent: release
+        inherit: true
+  repository:
+    name: containers/jboss-eap-7
+    branch: jb-eap-7.3-openj9-11-openshift-cp-rhel-8
+
