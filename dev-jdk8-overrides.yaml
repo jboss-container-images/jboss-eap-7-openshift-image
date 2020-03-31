@@ -9,24 +9,6 @@ labels:
       value: "jboss-eap-7-eap73-openjdk8-openshift-rhel7-container"
       
 modules:
-      repositories:
-          - name: cct_module
-            git:
-                  url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
-          - name: jboss-eap-modules
-            git:
-                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
-          - name: jboss-eap-7-image
-            git:
-                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: eap73-dev
-          - name: wildfly-cekit-modules
-            git:
-                  url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: master
-
       install:
           - name: jboss.container.openjdk.jdk
             version: "8"
