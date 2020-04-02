@@ -52,15 +52,16 @@ modules:
             version: "11"
           - name: jboss.container.maven.35.bash
             version: "3.5"
-          - name: eap-cd-env-latest
+          # Install env variables and galleon specifics for cd
+          - name: eap-cd-galleon-latest
           - name: jboss.container.eap.setup
           - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
           - name: jboss.container.maven.default.bash
-            version: "1!3.5"
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
+          - name: jboss.container.eap.galleon.config.ee
           - name: jboss.container.eap.galleon.build-settings
             version: "public"
           - name: jboss.container.eap.openshift.modules

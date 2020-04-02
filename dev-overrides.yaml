@@ -8,7 +8,7 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  ref: 0.39.0
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
@@ -25,7 +25,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 4b9635a42d81f49d73187b83c6626ac1
+    md5: 95cfb9189c0748c5e25191aaffe1aeac
 
 osbs:
       repository:
