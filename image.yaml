@@ -58,7 +58,6 @@ modules:
           - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
           - name: jboss.container.maven.default.bash
-            version: "1!3.5"
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
