@@ -56,6 +56,7 @@ modules:
             version: "11"
           - name: dynamic-resources
           - name: jboss.container.jolokia.bash
+          - name: jboss.container.util.logging.bash
           - name: jboss.container.eap.prometheus.runtime
           - name: os-eap-txnrecovery.run
             version: 'python3'
