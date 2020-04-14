@@ -507,7 +507,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "name": "redhat-sso-cd-openshift:1.0"
+                                "name": "sso74-openshift-rhel8:7.4"
                             },
                             "paths": [
                                 {
