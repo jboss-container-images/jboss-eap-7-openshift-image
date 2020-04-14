@@ -433,7 +433,7 @@
                             "description": "JBoss EAP continuous delivery runtime image version 19 [Tech Preview]",
                             "iconClass": "icon-eap",
                             "tags": "eap,javaee,java,jboss,hidden",
-                            "supports": "eap:7.3,javaee:8,java:11",
+                            "supports": "eap:7.4,javaee:8,java:11",
                             "version": "19",
                             "openshift.io/display-name": "JBoss EAP continuous delivery 19 (Tech Preview)"
                         },
@@ -487,10 +487,10 @@
                     {
                         "name": "19.0",
                         "annotations": {
-                            "description": "JBoss EAP continuous delivery 18 runtime image [Tech Preview]",
+                            "description": "JBoss EAP continuous delivery 19 runtime image [Tech Preview]",
                             "iconClass": "icon-eap",
                             "tags": "eap,javaee,java,jboss,hidden",
-                            "supports": "eap:7.3,javaee:8,java:11",
+                            "supports": "eap:7.4,javaee:8,java:11",
 
                             "version": "19.0",
                             "openshift.io/display-name": "JBoss EAP continuous delivery 19 (Tech Preview)"
