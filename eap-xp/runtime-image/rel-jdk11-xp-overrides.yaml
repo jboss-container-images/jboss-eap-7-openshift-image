@@ -1,0 +1,16 @@
+schema_version: 1
+
+modules:
+      install:
+          - name: os-eap-python
+            version: '3.6'
+
+packages:
+      content_sets_file: ../content_sets_rhel8.yml
+      install:
+          # required by probes (python 3)
+          - python3-requests
+
+osbs:
+      configuration:
+            container_file: ../container.yaml

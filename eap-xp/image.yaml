@@ -1,12 +1,12 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap-xp10-openjdk11-openshift-rhel8"
+name: "jboss-eap-7/eap-xp1-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform XP 1.0 OpenShift container image."
 version: "1.0"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap-xp10-openjdk11-openshift-rhel8-container"
+      value: "jboss-eap-7-xp1-openjdk11-openshift-rhel8-container"
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP XP 1.0"
     - name: "io.k8s.display-name"
@@ -35,16 +35,16 @@ modules:
                   ref: 0.39.0
           - name: jboss-eap-modules
             git:
-                  url: https://github.com/jfdenise/jboss-eap-modules.git
-                  ref: 7.3.1_MP_XP_1.0
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: EAP_731_DEV1
           - name: jboss-eap-7-image
             git:
-                  url: https://github.com/jfdenise/jboss-eap-7-image.git
-                  ref: 7.3.1_and_MPXP
+                  url: https://github.com/luck3y/jboss-eap-7-image.git
+                  ref: CLOUD-3536
           - name: wildfly-cekit-modules
             git:
-                  url: https://github.com/jfdenise/wildfly-cekit-modules.git
-                  ref: 7.3.1_and_MPXP
+                  url: https://github.com/wildfly/wildfly-cekit-modules.git
+                  ref: 0.18.x
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
@@ -116,11 +116,11 @@ modules:
 # cekit doesn't appear to allow this to be overriden from a default
 #packages:
 #      content_sets_file: content_sets.yml
-
+  
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 53d8d7625fe36a390024b949cd330052
+    md5: 0b8c40d5d53e06b4fc02977f55146216
 
 run:
       user: 185
@@ -131,4 +131,4 @@ osbs:
             container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.3-openjdk-11-openshift-dev-rhel-8
+            branch: jb-eap-7.3-xp1-openjdk-11-openshift-dev-rhel-8

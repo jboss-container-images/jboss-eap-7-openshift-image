@@ -1,16 +1,16 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap73-openjdk11-runtime-openshift-rhel8"
-description: "The JBoss EAP 7.3 openjdk11 runtime image"
-version: "7.3.0"
+name: "jboss-eap-7/eap-xp1-openjdk11-runtime-openshift-rhel8"
+description: "The JBoss EAP XP 1.0 openjdk11 runtime image"
+version: "1.0"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap73-openjdk11-runtime-openshift-rhel8-container"
+      value: "jboss-eap-7-xp1-openjdk11-runtime-openshift-rhel8-container"
     - name: "io.k8s.description"
-      value: "Base image to run EAP server and application"
+      value: "Base runtime image to run EAP XP server and application"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP runtime image"
+      value: "JBoss EAP XP runtime image"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
@@ -67,8 +67,8 @@ packages:
           - hostname
 osbs:
       configuration:
-            container_file: container.yaml
+            container_file: ../container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.3-openjdk-11-runtime-openshift-dev-rhel-8
+            branch: jb-eap-7.3-xp1-openjdk-11-runtime-openshift-cp-rhel-8
 
