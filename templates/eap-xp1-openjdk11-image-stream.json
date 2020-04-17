@@ -4,7 +4,7 @@
     "metadata": {
         "name": "jboss-eap-xp1-openjdk11-openshift",
         "annotations": {
-            "description": "ImageStream definition for JBoss Enterprise Application Platform Expansion Pack with OpenJDK 11",
+            "description": "ImageStream definition for JBoss Enterprise Application Platform expansion pack with OpenJDK 11",
             "openshift.io/provider-display-name": "Red Hat."
         }
     },
