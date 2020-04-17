@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: "jboss-eap-7/eap-xp1-openjdk11-runtime-openshift-rhel8"
-description: "The JBoss EAP XP 1.0 openjdk11 runtime image"
+description: "Red Hat JBoss Enterprise Application Platform XP 1.0 OpenShift runtime image with OpenJDK 11"
 version: "1.0"
 from: "ubi8:8-released"
 labels:

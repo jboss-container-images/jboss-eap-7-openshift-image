@@ -5,7 +5,7 @@
         "name": "jboss-eap-xp1-openjdk11-openshift",
         "annotations": {
             "description": "ImageStream definition for JBoss Enterprise Application Platform Expansion Pack with OpenJDK 11",
-            "openshift.io/provider-display-name": "Red Hat, Inc."
+            "openshift.io/provider-display-name": "Red Hat."
         }
     },
     "items": [
@@ -16,7 +16,7 @@
                 "name": "jboss-eap-xp1-openjdk11-openshift",
                 "annotations": {
                     "openshift.io/display-name": "JBoss EAP XP with OpenJDK 11",
-                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "openshift.io/provider-display-name": "Red Hat",
                     "version": "1.0"
                 }
             },
@@ -30,11 +30,8 @@
                         "annotations": {
                             "description": "The latest released build of JBoss EAP XP",
                             "iconClass": "icon-eap",
-                            "tags": "builder,eap,javaee,java,jboss,hidden",
-                            "supports": "eapxp:1.0,javaee:8,java:11",
-                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
-                            "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.3.x-openshift",
+                            "tags": "builder,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:11",
                             "version": "latest",
                             "openshift.io/display-name": "JBoss EAP XP with OpenJDK 11"
                         },
@@ -51,11 +48,8 @@
                         "annotations": {
                             "description": "JBoss EAP XP Builder Image",
                             "iconClass": "icon-eap",
-                            "tags": "builder,eap,javaee,java,jboss,hidden",
-                            "supports": "eapxp:1.0,javaee:8,java:11",
-                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
-                            "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.3.x-openshift",
+                            "tags": "builder,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:11",
                             "version": "1.0",
                             "openshift.io/display-name": "JBoss EAP XP Builder Image with OpenJDK 11"
                         },
@@ -77,7 +71,7 @@
                 "name": "jboss-eap-xp1-openjdk11-runtime-openshift",
                 "annotations": {
                     "openshift.io/display-name": "JBoss EAP XP Runtime Image with OpenJDK 11",
-                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "openshift.io/provider-display-name": "Red Hat",
                     "version": "1.0"
                 }
             },
@@ -91,11 +85,8 @@
                         "annotations": {
                             "description": "The latest released JBoss EAP XP runtime image.",
                             "iconClass": "icon-eap",
-                            "tags": "runtime,eapxp,javaee,java,jboss,hidden",
-                            "supports": "eapxp:1.0,javaee:8,java:11",
-                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
-                            "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.3.x-openshift",
+                            "tags": "runtime,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:11",
                             "version": "latest",
                             "openshift.io/display-name": "JBoss EAP XP Runtime Image with OpenJDK 11"
                         },
@@ -112,11 +103,8 @@
                         "annotations": {
                             "description": "JBoss EAP XP runtime image.",
                             "iconClass": "icon-eap",
-                            "tags": "runtime,eapxp,javaee,java,jboss,hidden",
-                            "supports": "eapxp:1.0,javaee:8,java:8",
-                            "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
-                            "sampleContextDir": "kitchensink",
-                            "sampleRef": "7.3.x-openshift",
+                            "tags": "runtime,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:8",
                             "version": "1.0",
                             "openshift.io/display-name": "JBoss EAP XP Runtime Image with OpenJDK 11"
                         },

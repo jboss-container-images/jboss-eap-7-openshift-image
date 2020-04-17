@@ -10,7 +10,7 @@ labels:
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP XP 1.0"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP XP 1.0"
+      value: "JBoss EAP XP"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
