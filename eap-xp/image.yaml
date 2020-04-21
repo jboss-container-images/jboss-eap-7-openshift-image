@@ -1,20 +1,20 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap73-openjdk11-openshift-rhel8"
-description: "Red Hat JBoss Enterprise Application Platform 7.3 OpenShift container image."
-version: "7.3.1"
+name: "jboss-eap-7/eap-xp1-openjdk11-openshift-rhel8"
+description: "Red Hat JBoss Enterprise Application Platform XP 1.0 OpenShift container image."
+version: "1.0"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-7-eap73-openjdk11-openshift-rhel8-container"
+      value: "jboss-eap-7-xp1-openjdk11-openshift-rhel8-container"
     - name: "io.k8s.description"
-      value: "Platform for building and running JavaEE applications on JBoss EAP 7.3"
+      value: "Platform for building and running JavaEE applications on JBoss EAP XP 1.0"
     - name: "io.k8s.display-name"
-      value: "JBoss EAP 7.3"
+      value: "JBoss EAP XP"
     - name: "io.openshift.expose-services"
       value: "8080:http"
     - name: "io.openshift.tags"
-      value: "builder,javaee,eap,eap7"
+      value: "builder,javaee,eap,eap7,eap-xp"
     - name: "io.openshift.s2i.scripts-url"
       value: "image:///usr/local/s2i"
     - name: "maintainer"
@@ -50,8 +50,8 @@ modules:
             version: "11"
           - name: jboss.container.maven.35.bash
             version: "3.5"
-          - name: eap-73-env
-            version: "7.3.1"
+          - name: eap-xp-10-env
+            version: "1.0.0"
           - name: jboss.container.eap.setup
           - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
@@ -60,7 +60,7 @@ modules:
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
-          - name: jboss.container.eap.galleon.config.ee
+          - name: jboss.container.eap.galleon.config.mp
           - name: jboss.container.eap.galleon.build-settings
             version: "public"
           - name: jboss.container.eap.openshift.modules
@@ -116,11 +116,11 @@ modules:
 # cekit doesn't appear to allow this to be overriden from a default
 #packages:
 #      content_sets_file: content_sets.yml
-
+  
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 5a11f14af5b08c68c9d0a522ba8f9fe3
+    md5: 0b8c40d5d53e06b4fc02977f55146216
 
 run:
       user: 185
@@ -131,4 +131,4 @@ osbs:
             container_file: container.yaml
       repository:
             name: containers/jboss-eap-7
-            branch: jb-eap-7.3-openjdk-11-openshift-dev-rhel-8
+            branch: jb-eap-7.3-xp1-openjdk-11-openshift-dev-rhel-8
