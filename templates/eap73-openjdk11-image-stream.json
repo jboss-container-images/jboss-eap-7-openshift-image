@@ -113,7 +113,7 @@
                             "description": "The latest available build of JBoss EAP 7 runtime image.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
-                            "supports": "eap:7.3,javaee:8,java:8",
+                            "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
@@ -125,7 +125,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7/eap73-openjdk8-runtime-openshift-rhel7:latest"
+                            "name": "registry.redhat.io/jboss-eap-7/eap73-openjdk11-runtime-openshift-rhel8:latest"
                         }
                     },
                     {
@@ -134,7 +134,7 @@
                             "description": "The latest available build of JBoss EAP 7.3 runtime image.",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
-                            "supports": "eap:7.3,javaee:8,java:8",
+                            "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
@@ -146,7 +146,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/jboss-eap-7/eap73-openjdk8-runtime-openshift-rhel7:latest"
+                            "name": "registry.redhat.io/jboss-eap-7/eap73-openjdk11-runtime-openshift-rhel8:latest"
                         }
                     },
                     {
@@ -155,7 +155,7 @@
                             "description": "JBoss EAP 7.3.0 runtime image",
                             "iconClass": "icon-eap",
                             "tags": "builder,eap,javaee,java,jboss,hidden",
-                            "supports": "eap:7.3,javaee:8,java:8",
+                            "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
                             "sampleRef": "openshift",
