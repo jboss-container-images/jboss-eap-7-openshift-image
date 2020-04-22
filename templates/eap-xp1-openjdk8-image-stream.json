@@ -1,0 +1,123 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jboss-eap-xp1-openjdk8-openshift",
+        "annotations": {
+            "description": "ImageStream definition for JBoss Enterprise Application Platform expansion pack with OpenJDK 8",
+            "openshift.io/provider-display-name": "Red Hat"
+        }
+    },
+    "items": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-eap-xp1-openjdk8-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "JBoss EAP XP with OpenJDK 8",
+                    "openshift.io/provider-display-name": "Red Hat",
+                    "version": "1.0"
+                }
+            },
+            "labels": {
+                "xpaas": "1.0"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "name": "latest",
+                        "annotations": {
+                            "description": "The latest released build of JBoss EAP XP",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:8",
+                            "version": "latest",
+                            "openshift.io/display-name": "JBoss EAP XP with OpenJDK 8"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7/eap-xp1-openjdk8-openshift-rhel7:latest"
+                        }
+                    },
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "JBoss EAP XP Builder Image",
+                            "iconClass": "icon-eap",
+                            "tags": "builder,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:8",
+                            "version": "1.0",
+                            "openshift.io/display-name": "JBoss EAP XP Builder Image with OpenJDK 8"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7/eap-xp1-openjdk8-openshift-rhel7:1.0"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jboss-eap-xp1-openjdk8-runtime-openshift",
+                "annotations": {
+                    "openshift.io/display-name": "JBoss EAP XP Runtime Image with OpenJDK 8",
+                    "openshift.io/provider-display-name": "Red Hat",
+                    "version": "1.0"
+                }
+            },
+            "labels": {
+                "xpaas": "1.0"
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "name": "latest",
+                        "annotations": {
+                            "description": "The latest released JBoss EAP XP runtime image.",
+                            "iconClass": "icon-eap",
+                            "tags": "runtime,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:8",
+                            "version": "latest",
+                            "openshift.io/display-name": "JBoss EAP XP Runtime Image with OpenJDK 8"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7/eap-xp1-openjdk8-runtime-openshift-rhel7:latest"
+                        }
+                    },
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "JBoss EAP XP runtime image.",
+                            "iconClass": "icon-eap",
+                            "tags": "runtime,eap-xp,javaee,java,jboss,hidden",
+                            "supports": "eap-xp:1,javaee:8,java:8",
+                            "version": "1.0",
+                            "openshift.io/display-name": "JBoss EAP XP Runtime Image with OpenJDK 8"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.redhat.io/jboss-eap-7/eap-xp1-openjdk8-runtime-openshift-rhel7:1.0"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
