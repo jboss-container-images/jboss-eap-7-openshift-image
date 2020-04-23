@@ -39,12 +39,12 @@ modules:
                   ref: EAP_731_DEV1
           - name: jboss-eap-7-image
             git:
-                  url: https://github.com/luck3y/jboss-eap-7-image.git
-                  ref: CLOUD-3536
+                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                  ref: EAP_731_DEV1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: 0.18.x
+                  ref: 0.18.4
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
