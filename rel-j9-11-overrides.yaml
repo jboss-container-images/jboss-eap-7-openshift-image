@@ -4,6 +4,10 @@ name: "jboss-eap-7/eap73-openj9-11-openshift-rhel8"
 description: "The JBoss EAP 7.3 image for OpenJDK 11 with OpenJ9"
 version: "7.3.0"
 
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-eap73-openj9-11-openshift-rhel8-container"
+
 modules:
       install:
           - name: jboss.container.eap.galleon.build-settings
