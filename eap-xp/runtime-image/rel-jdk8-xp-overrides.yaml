@@ -30,5 +30,5 @@ osbs:
       configuration:
             container_file: ../container.yaml
       repository:
-            name: containers/jboss-eap-7
-            branch: jb-eap-7.3-xp1-openjdk-8-runtime-openshift-cp-rhel-7
+            name: containers/jboss-eap-xp-openjdk8-runtime
+            branch: jb-eap-7.3-openshift-rhel-7
