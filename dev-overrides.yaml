@@ -1,14 +1,14 @@
 schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
-version: "18.0"
+version: "19.0"
 
 modules:
       repositories:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
+                  ref: 0.39.0
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
@@ -25,7 +25,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: b196001c8e08e480bd3b01970f73aa0c
+    md5: 95cfb9189c0748c5e25191aaffe1aeac
 
 osbs:
       repository:
