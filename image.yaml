@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift container image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "18.0"
+version: "19.0"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
@@ -34,32 +34,34 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: sprint-35
+                  ref: 0.39.0
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: CD16
+                  ref: CD19_CR2
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: eap-cd-dev
+                  ref: CD19
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: master
+                  ref: 0.19.1
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
           - name: jboss.container.maven.35.bash
             version: "3.5"
-          - name: jboss.container.eap.cd
-            version: "latest"
+          # Install env variables and galleon specifics for cd
+          - name: eap-cd-galleon-latest
+          - name: jboss.container.eap.setup
+          - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
-          # so must be after jboss.container.eap.cd
           - name: jboss.container.maven.default.bash
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
+          - name: jboss.container.eap.galleon.config.ee
           - name: jboss.container.eap.galleon.build-settings
             version: "public"
           - name: jboss.container.eap.openshift.modules
@@ -89,15 +91,17 @@ modules:
           - name: jboss.container.wildfly.launch.port-offset
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.launch.messaging
+          - name: jboss.container.wildfly.launch.statefulset
+          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
+          - name: os-eap70-sso
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
           - name: jboss.container.wildfly.galleon.fp-content.jolokia
           - name: jboss.container.wildfly.galleon.fp-content.java
-          - name: jboss.container.wildfly.galleon.fp-content.base-layers
+          - name: jboss.container.wildfly.galleon.fp-content.config
           - name: jboss.container.wildfly.galleon.fp-content.mvn
-          - name: jboss.container.wildfly.galleon.fp-content.ejb-tx-recovery
           - name: os-eap-probes
             version: "3.0"
-          - name: os-eap70-sso
+         
           # We keep this one to only advertise that hawkular is no more supported.
           - name: jboss.container.eap.hawkular
           - name: openshift-layer
@@ -114,6 +118,12 @@ modules:
           - name: jboss.container.eap.final-setup
 packages:
       content_sets_file: content_sets.yml
+
+artifacts:
+  - name: maven-repo
+    target: maven-repo.zip
+    md5: 95cfb9189c0748c5e25191aaffe1aeac
+
 run:
       user: 185
       cmd:
