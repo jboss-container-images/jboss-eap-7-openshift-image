@@ -1,7 +1,6 @@
 schema_version: 1
 
 name: "jboss-eap-7/eap73-openjdk8-openshift-rhel7"
-version: "7.3.0"
 from: "ubi7:7-released"
 
 labels:

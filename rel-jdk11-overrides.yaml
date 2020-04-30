@@ -1,7 +1,6 @@
 schema_version: 1
 
 name: "jboss-eap-7/eap73-openjdk11-openshift-rhel8"
-version: "7.3.0"
 
 modules:
       install:
