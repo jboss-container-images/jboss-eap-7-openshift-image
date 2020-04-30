@@ -2,7 +2,6 @@ schema_version: 1
 
 name: "jboss-eap-7/eap73-openj9-11-runtime-openshift-rhel8"
 description: "The JBoss EAP 7.3 runtime image for OpenJDK 11 with OpenJ9"
-version: "7.3.0"
 from: "ubi8:8-released"
 
 labels:
