@@ -34,7 +34,7 @@
                             "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "openshift",
+                            "sampleRef": "7.3.x-openshift",
                             "version": "latest",
                             "openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 11)"
                         },
@@ -55,7 +55,7 @@
                             "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "openshift",
+                            "sampleRef": "7.3.x-openshift",
                             "version": "latest",
                             "openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 11)"
                         },
@@ -76,7 +76,7 @@
                             "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "openshift",
+                            "sampleRef": "7.3.x-openshift",
                             "version": "7.3.0",
                             "openshift.io/display-name": "JBoss EAP 7.3.0 (OpenJDK 11)"
                         },
@@ -116,7 +116,7 @@
                             "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "openshift",
+                            "sampleRef": "7.3.x-openshift",
                             "version": "latest",
                             "openshift.io/display-name": "JBoss EAP 7.3 Runtime Image (OpenJDK 11)"
                         },
@@ -137,7 +137,7 @@
                             "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "openshift",
+                            "sampleRef": "7.3.x-openshift",
                             "version": "latest",
                             "openshift.io/display-name": "JBoss EAP 7.3 Runtime Image (OpenJDK 11)"
                         },
@@ -158,7 +158,7 @@
                             "supports": "eap:7.3,javaee:8,java:11",
                             "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
                             "sampleContextDir": "kitchensink",
-                            "sampleRef": "openshift",
+                            "sampleRef": "7.3.x-openshift",
                             "version": "7.3.0",
                             "openshift.io/display-name": "JBoss EAP 7.3.0 Runtime Image (OpenJDK 11)"
                         },
