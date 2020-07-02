@@ -21,7 +21,7 @@ modules:
             version: 'python2'
 
 packages:
-      content_sets_file: ../content_sets_rhel7.yml
+      content_sets_file: content_sets_rhel7.yml
       install:
           # required by probes (python 2)
           - python-requests
