@@ -30,7 +30,6 @@ osbs:
           - s390x
       compose:
         pulp_repos: true
-        include_unpublished_pulp_repos: true
         packages:
           - java-11-openj9
           - java-11-openj9-headless
