@@ -5,8 +5,8 @@
         "annotations": {
             "iconClass": "icon-eap",
             "tags": "eap,javaee,java,jboss",
-            "version": "19.0",
-            "openshift.io/display-name": "JBoss EAP CD 19",
+            "version": "20.0",
+            "openshift.io/display-name": "JBoss EAP CD 20",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
@@ -17,7 +17,7 @@
     },
     "labels": {
         "template": "eap-cd-basic-s2i",
-        "xpaas": "19.0"
+        "xpaas": "20.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
     "parameters": [
@@ -292,7 +292,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "eap-cd-openshift:19"
+                            "name": "eap-cd-openshift:20"
                         }
                     }
                 },
@@ -342,7 +342,7 @@
                     }
                 },
                 "source": {
-                    "dockerfile": "FROM eap-cd-runtime-openshift:19\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME && chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
+                    "dockerfile": "FROM eap-cd-runtime-openshift:20\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME && chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
                     "images": [
                         {
                             "from": {
@@ -363,7 +363,7 @@
                         "imageOptimizationPolicy": "SkipLayers",
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "eap-cd-runtime-openshift:19",
+                            "name": "eap-cd-runtime-openshift:20",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
