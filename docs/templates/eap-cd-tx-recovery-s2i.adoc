@@ -113,8 +113,8 @@ for more information.
 |=============
 | S2I image  | link | Build output | BuildTriggers and Settings
 
-|eap-cd-openshift:20 |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
-|eap-cd-runtime-openshift:20 |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
+|eap-cd-openshift:latest |  link:../{outfilesuffix}[``] | `${APPLICATION_NAME}-build-artifacts:latest` | GitHub, Generic, ImageChange, ConfigChange
+|eap-cd-runtime-openshift:latest |  | `${APPLICATION_NAME}:latest` | ImageChange, ConfigChange
 |=============
 
 
