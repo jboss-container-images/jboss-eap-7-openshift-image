@@ -1,8 +1,5 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
-version: "19.0"
-
 #
 # override this as needed, image.yaml should have the correct build artifacts for the current release.
 modules:
