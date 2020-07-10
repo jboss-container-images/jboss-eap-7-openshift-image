@@ -14,8 +14,8 @@ modules:
           - name: os-eap-python
             version: '3.6'
           - name: jboss.container.java.rm-openjdk
-          - name: jboss.container.openjdk.jdk             
-            version: "openj9-11"             
+          - name: jboss.container.openjdk.jdk
+            version: "openj9-11"
 
 packages:
   manager: dnf
@@ -27,6 +27,7 @@ osbs:
       platforms:
         only:
           - s390x
+          - ppc64le
       compose:
         pulp_repos: true
         packages:

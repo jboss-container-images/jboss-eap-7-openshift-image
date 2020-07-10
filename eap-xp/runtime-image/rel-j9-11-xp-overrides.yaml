@@ -27,6 +27,7 @@ osbs:
       platforms:
         only:
           - s390x
+          - ppc64le
       compose:
         pulp_repos: true
         packages:
@@ -38,4 +39,4 @@ osbs:
 
   repository:
     name:  containers/jboss-eap-xp-openj9-11-runtime
-    branch: jb-eap-7.3-openshift-rhel-8     
+    branch: jb-eap-7.3-openshift-rhel-8
