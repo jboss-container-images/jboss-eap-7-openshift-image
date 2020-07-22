@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap73-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.3 OpenShift container image."
-version: "7.3.1"
+version: "7.3.2"
 from: "ubi8:8-released"
 labels:
     - name: "com.redhat.component"
@@ -36,22 +36,22 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_731_CR2
+                  ref: EAP_732_CR2
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_731_CR2
+                  ref: EAP_732_CR2
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: 0.18.4
+                  ref: 0.18.5
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
           - name: jboss.container.maven.35.bash
             version: "3.5"
           - name: eap-73-env
-            version: "7.3.1"
+            version: "7.3.2"
           - name: jboss.container.eap.setup
           - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
@@ -120,7 +120,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: c7f3fc5c796188dacdafc7cf096d616c
+    md5: 6e05a1cc5462c7c3fe77b39a9cfab87c
 
 run:
       user: 185
