@@ -36,11 +36,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_728_CR2_1
+                  ref: EAP_729_CR2
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_728_1
+                  ref: EAP_729_CR2
       install:
           - name: jboss.container.openjdk.jdk
             version: "8"
