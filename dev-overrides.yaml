@@ -1,31 +1,30 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
-version: "19.0"
-
+#
+# override this as needed, image.yaml should have the correct build artifacts for the current release.
 modules:
       repositories:
-          - name: cct_module
-            git:
-                  url: https://github.com/jboss-openshift/cct_module.git
-                  ref: 0.39.0
-          - name: jboss-eap-modules
-            git:
-                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
-          - name: jboss-eap-7-image
-            git:
-                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: eap-cd-dev
-          - name: wildfly-cekit-modules
-            git:
-                  url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: master
+#          - name: cct_module
+#            git:
+#                  url: https://github.com/jboss-openshift/cct_module.git
+#                  ref: 0.39.0
+#          - name: jboss-eap-modules
+#            git:
+#                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+#                  ref: CD20_CR2
+#          - name: jboss-eap-7-image
+#            git:
+#                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+#                  ref: CD20_CR2
+#          - name: wildfly-cekit-modules
+#           git:
+#                 url: https://github.com/wildfly/wildfly-cekit-modules.git
+#                 ref: 0.20.0
 
-artifacts:
-  - name: maven-repo
-    target: maven-repo.zip
-    md5: 95cfb9189c0748c5e25191aaffe1aeac
+#artifacts:
+#  - name: maven-repo
+#    target: maven-repo.zip
+#    md5: 46d0618620e1a44bde1b1cdb0b7fd1cb
 
 osbs:
       repository:

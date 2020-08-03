@@ -1,8 +1,5 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap-cd-openshift-rhel8"
-version: "19.0"
-
 modules:
       install:
           - name: jboss.container.eap.galleon.build-settings
