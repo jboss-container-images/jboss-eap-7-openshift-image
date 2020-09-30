@@ -1,11 +1,11 @@
 # JBoss Enterprise Application Platform continuous delivery OpenShift container image
 
-NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image/tree/7.3.x[JBoss EAP 7.3 container image]
+NOTE: Extends link:https://github.com/jboss-container-images/jboss-eap-7-image[JBoss EAP 7.3 container image]
 
 ## Importing Imagestreams and Templates
 
 You should have the 'oc' tools available and be logged in to your OpenShift instance. For more details on how to do this, please consult the OpenShift documentation.
-For example, for OpenShift Online, see: https://docs.openshift.com/online/cli_reference/get_started_cli.html
+For example, for OpenShift Online, see: https://docs.openshift.com/online/pro/cli_reference/get_started_cli.html
 [source, bash]
 ----
 for resource in eap73-image-stream.json \
