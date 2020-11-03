@@ -120,7 +120,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 2cfe2c1053c433c9594c8c9639f83fe9
+    md5: 1f3c35c791e60f7f620bc90d36f2fa3f
 
 run:
       user: 185
