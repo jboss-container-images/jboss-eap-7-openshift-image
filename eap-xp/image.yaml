@@ -36,11 +36,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_733_CR2
+                  ref: EAP_734_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_733_CR2
+                  ref: EAP_734_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
@@ -51,7 +51,7 @@ modules:
           - name: jboss.container.maven.35.bash
             version: "3.5"
           - name: eap-xp-10-env
-            version: "1.0.2"
+            version: "1.0.3"
           - name: jboss.container.eap.setup
           - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
@@ -120,7 +120,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 1f3c35c791e60f7f620bc90d36f2fa3f
+    md5: bbedb5734a0ec3f1f2969012f1bc113d
 
 run:
       user: 185
