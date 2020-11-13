@@ -2,8 +2,8 @@ schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap-cd-runtime-openshift-rhel8"
 description: "The JBoss EAP continuous delivery (JBoss EAP CD) releases are intended to be Technology Preview - The JBoss EAP CD OpenShift runtime image is provided as technology preview. It is intended for development use only. It should NOT be deployed on production or in environments that are not intended for development use."
-version: "20.0"
-from: "ubi8:8-released"
+version: "21.0"
+from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
       value: "jboss-eap-7-eap-cd-runtime-openshift-rhel8-container"
@@ -50,7 +50,7 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: CD20_CR2
+                  ref: CD21_CR1
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
