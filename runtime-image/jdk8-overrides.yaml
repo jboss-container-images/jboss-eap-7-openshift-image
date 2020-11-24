@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap73-openjdk8-runtime-openshift-rhel7"
 description: "The JBoss EAP 7.3 openjdk8 runtime image"
-from: "ubi7:7-released"
+from: "registry.redhat.io/rhel7/rhel:latest"
 
 labels:
     - name: "com.redhat.component"
