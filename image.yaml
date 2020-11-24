@@ -61,6 +61,7 @@ modules:
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
           - name: jboss.container.eap.galleon.config.ee
+          - name: jboss.container.eap.galleon.eap73-compat
           - name: jboss.container.eap.galleon.build-settings
             version: "public"
           - name: jboss.container.eap.openshift.modules
