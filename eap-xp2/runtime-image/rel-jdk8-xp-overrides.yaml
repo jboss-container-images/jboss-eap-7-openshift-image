@@ -1,0 +1,34 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap-xp2-openjdk8-runtime-openshift-rhel7"
+description: "Red Hat JBoss Enterprise Application Platform XP 2.0 OpenShift runtime image with OpenJDK 8"
+from: "registry.redhat.io/ubi7/ubi:latest"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-xp2-openjdk8-runtime-openshift-rhel7-container"
+envs:
+    # env var set by modules in the builder image context, duplicating them here.
+    # CLOUD-3466 - add com.sun.crypto.provider for JDK8
+    - name: JBOSS_MODULES_SYSTEM_PKGS
+      value: "org.jboss.logmanager,jdk.nashorn.api,com.sun.crypto.provider"
+
+modules:
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+          - name: os-eap-txnrecovery.run
+            version: 'python2'
+
+packages:
+      content_sets_file: content_sets_rhel7.yml
+      install:
+          # required by probes (python 2)
+          - python-requests
+          
+osbs:
+      configuration:
+            container_file: ../container.yaml
+      repository:
+            name: containers/jboss-eap-xp2-openjdk8-runtime
+            branch: jb-eap-7.3-openshift-rhel-7

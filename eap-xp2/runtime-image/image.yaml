@@ -1,0 +1,74 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap-xp2-openjdk11-runtime-openshift-rhel8"
+description: "Red Hat JBoss Enterprise Application Platform XP 2.0 OpenShift runtime image with OpenJDK 11"
+version: "1.0"
+from: "registry.redhat.io/ubi8/ubi:latest"
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-xp2-openjdk11-runtime-openshift-rhel8-container"
+    - name: "io.k8s.description"
+      value: "Base runtime image to run EAP XP server and application"
+    - name: "io.k8s.display-name"
+      value: "JBoss EAP XP runtime image"
+    - name: "io.openshift.expose-services"
+      value: "8080:http"
+    - name: "io.openshift.tags"
+      value: "javaee,eap,eap7"
+    - name: "maintainer"
+      value: "Red Hat"
+envs:
+    - name: "LAUNCH_JBOSS_IN_BACKGROUND"
+      value: "true"
+    - name: HTTPS_ENABLE_HTTP2
+      value: "true"
+    - name: SCRIPT_DEBUG
+      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+      example: "true"
+    - name: JBOSS_HOME
+      value: "/opt/eap"
+    # env var set by modules in the builder image context, duplicating them here.
+    - name: JBOSS_MODULES_SYSTEM_PKGS
+      value: "org.jboss.logmanager,jdk.nashorn.api"
+    - name: DEFAULT_ADMIN_USERNAME
+      value: "eapadmin"
+    - name: MICROPROFILE_CONFIG_DIR_ORDINAL
+      value: "500"
+    - name: SSO_FORCE_LEGACY_SECURITY
+      value: "true"
+ports:
+    - value: 8443
+    - value: 8080
+    - value: 8787
+      expose: false
+modules:
+      repositories:
+          - name: cct_module
+            git:
+                  url: https://github.com/jboss-openshift/cct_module.git
+                  ref: 0.39.0
+          - name: jboss-eap-modules
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: EAP_XP_2_CR1
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "11"
+          - name: dynamic-resources
+          - name: jboss.container.jolokia.bash
+          - name: jboss.container.util.logging.bash
+          - name: jboss.container.eap.prometheus.runtime
+          - name: os-eap-txnrecovery.run
+            version: 'python3'
+
+packages:
+      install:
+          # required by launch scripts
+          - hostname
+osbs:
+      configuration:
+            container_file: ../container.yaml
+      repository:
+            name: containers/jboss-eap-xp2-openjdk11-runtime
+            branch: jb-eap-7.3-openshift-rhel-8
+
