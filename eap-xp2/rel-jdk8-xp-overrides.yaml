@@ -1,0 +1,32 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap-xp2-openjdk8-openshift-rhel7"
+from: "registry.redhat.io/ubi7/ubi:latest"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-xp2-openjdk8-openshift-rhel7-container"
+
+modules:
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "8"
+          - name: jboss.container.maven.35.bash
+            version: "3.5scl"
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-txnrecovery.run
+            version: 'python2'
+          - name: os-eap-probes
+            version: "2.0"
+
+packages:
+  manager: yum
+  content_sets_file: content_sets_rhel7.yml
+
+osbs:
+      repository:
+            name: containers/jboss-eap-xp2-openjdk8-builder
+            branch: jb-eap-7.3-openshift-rhel-7
+
+

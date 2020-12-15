@@ -1,0 +1,41 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap-xp2-openj9-11-openshift-rhel8"
+description: "Red Hat JBoss Enterprise Application Platform XP 2.0 OpenShift container image."
+
+labels:
+      - name: "com.redhat.component"
+        value: "jboss-eap-7-xp2-openj9-11-openshift-rhel8-container"
+
+modules:
+      install:
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-python
+            version: '3.6'
+          - name: jboss.container.java.rm-openjdk
+          - name: jboss.container.openjdk.jdk
+            version: "openj9-11"
+
+packages:
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - s390x
+          - ppc64le
+      compose:
+        pulp_repos: true
+        packages:
+          - java-11-openj9
+          - java-11-openj9-headless
+          - java-11-openj9-devel
+        signing_intent: release
+        inherit: true
+  repository:
+    name:  containers/jboss-eap-xp2-openj9-11-builder
+    branch: jb-eap-7.3-openshift-rhel-8
