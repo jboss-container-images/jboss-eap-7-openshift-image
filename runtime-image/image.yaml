@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap73-openjdk11-runtime-openshift-rhel8"
 description: "The JBoss EAP 7.3 openjdk11 runtime image"
-version: "7.3.4"
+version: "7.3.5"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
@@ -50,7 +50,7 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_734_CR2
+                  ref: EAP_735_CR1
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
