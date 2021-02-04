@@ -1,0 +1,5 @@
+# Red Hat JBoss Enterprise Application Platform 7.4 Beta Container Image
+
+# License
+
+See link:LICENSE[LICENSE] file.
