@@ -1,0 +1,19 @@
+schema_version: 1
+
+name: "jboss-eap-7-tech-preview/eap74-openjdk11-openshift-rhel8"
+
+modules:
+      install:
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-python
+            version: '3.6'
+
+packages:
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
+
+osbs:
+      repository:
+            name: containers/jboss-eap-74-beta-openjdk11-builder
+            branch: jb-eap-7.4-rhel-8

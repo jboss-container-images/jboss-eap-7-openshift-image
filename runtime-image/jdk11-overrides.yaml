@@ -1,0 +1,27 @@
+schema_version: 1
+
+name: "jboss-eap-7-tech-preview/eap74-openjdk11-runtime-openshift-rhel8"
+description: "The JBoss EAP 7.4.0.Beta openjdk11 runtime image"
+from: "registry.redhat.io/ubi8/ubi:latest"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-74-beta-openjdk11-runtime-openshift-rhel8-container"
+
+modules:
+      install:
+          - name: os-eap-python
+            version: '3.6'
+
+packages:
+      content_sets_file: content_sets_rhel8.yml
+      install:
+          # required by probes (python 3)
+          - python3-requests
+
+osbs:
+      configuration:
+            container_file: container.yaml
+      repository:
+            name: containers/jboss-eap-74-beta-openjdk11-runtime
+            branch: jb-eap-7.4-rhel-8
