@@ -1,0 +1,42 @@
+schema_version: 1
+
+name: "jboss-eap-7-tech-preview/eap74-openj9-11-openshift-rhel8"
+description: "The JBoss EAP 7.4.0.Beta image for OpenJDK 11 with OpenJ9"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-74-beta-openj9-11-builder-openshift-rhel8-container"
+
+modules:
+      install:
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-python
+            version: '3.6'
+          - name: jboss.container.java.rm-openjdk
+          - name: jboss.container.openjdk.jdk
+            version: "openj9-11"
+
+packages:
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - s390x
+          - ppc64le
+      compose:
+        pulp_repos: true
+        packages:
+          - java-11-openj9
+          - java-11-openj9-headless
+          - java-11-openj9-devel
+        signing_intent: release
+        inherit: true
+  repository:
+    name: containers/jboss-eap-74-beta-openj9-11-builder
+    branch: jb-eap-7.4-rhel-8
+
