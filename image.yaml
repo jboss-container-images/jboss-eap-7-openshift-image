@@ -87,6 +87,7 @@ modules:
           - name: jboss.container.wildfly.launch.port-offset
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.launch.messaging
+          - name: jboss.container.wildfly.launch.statefulset
           # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
           - name: os-eap70-sso
           - name: jboss.container.wildfly.galleon.fp-content.keycloak
