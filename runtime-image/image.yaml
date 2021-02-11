@@ -29,7 +29,7 @@ envs:
       value: "/opt/eap"
     # env var set by modules in the builder image context, duplicating them here.
     - name: JBOSS_MODULES_SYSTEM_PKGS
-      value: "org.jboss.logmanager,jdk.nashorn.api"
+      value: "jdk.nashorn.api"
     - name: DEFAULT_ADMIN_USERNAME
       value: "eapadmin"
     - name: SSO_FORCE_LEGACY_SECURITY
