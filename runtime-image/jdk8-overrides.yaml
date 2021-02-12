@@ -11,7 +11,7 @@ envs:
     # env var set by modules in the builder image context, duplicating them here.
     # CLOUD-3466 - add com.sun.crypto.provider for JDK8
     - name: JBOSS_MODULES_SYSTEM_PKGS
-      value: "org.jboss.logmanager,jdk.nashorn.api,com.sun.crypto.provider"
+      value: "jdk.nashorn.api,com.sun.crypto.provider"
 
 modules:
       install:
