@@ -12,6 +12,10 @@ modules:
       install:
           - name: os-eap-python
             version: '3.6'
+          - name: jboss.container.jolokia
+            version: '7'
+          - name: jboss.container.prometheus
+            version: '7'
 
 packages:
       content_sets_file: content_sets_rhel8.yml
