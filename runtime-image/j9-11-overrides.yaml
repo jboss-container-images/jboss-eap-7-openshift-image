@@ -19,7 +19,6 @@ modules:
             version: "7"
           - name: jboss.container.maven
             version: "8.0.3.5"
-          - name: jboss.container.java.s2i.bash
           - name: jboss.container.java.singleton-jdk
 
 packages:
