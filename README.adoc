@@ -1,4 +1,4 @@
-# JBoss Enterprise Application Platform 7.4.0.Beta OpenShift container image
+# JBoss Enterprise Application Platform 7.4 OpenShift container image
 
 ## Importing Imagestreams and Templates
 
@@ -10,14 +10,14 @@ Import JDK 8 image streams:
 
 [source, bash]
 ----
-oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74-beta/eap74-beta-openjdk8-image-stream.json
+oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk8-image-stream.json
 ----
 
 Import JDK 11 image stream:
 
 [source, bash]
 ----
-oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74-beta/eap74-beta-openjdk11-image-stream.json
+oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk11-image-stream.json
 ----
 
 Import the OpenShift templates:
@@ -25,17 +25,15 @@ Import the OpenShift templates:
 [source, bash]
 ----
 for resource in \
-  eap74-beta-amq-persistent-s2i.json \
-  eap74-beta-amq-s2i.json \
-  eap74-beta-basic-s2i.json \
-  eap74-beta-https-s2i.json \
-  eap74-beta-sso-s2i.json \
-  eap74-beta-starter-s2i.json \
-  eap74-beta-third-party-db-s2i.json \
-  eap74-beta-tx-recovery-s2i.json
+  eap74-amq-persistent-s2i.json \
+  eap74-amq-s2i.json \
+  eap74-basic-s2i.json \
+  eap74-https-s2i.json \
+  eap74-sso-s2i.json \
+  eap74-tx-recovery-s2i.json
 do
   oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74-beta/templates/${resource}
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/${resource}
 done
 ----
 
@@ -46,17 +44,17 @@ If you have administrative access to the general `openshift` namespace and want 
 oc replace -n openshift --force -f ...
 ----
 
-See the OpenShift documentation at https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4.Beta/html/ for more details on importing templates.
+See the OpenShift documentation at https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/ for more details on importing templates.
 
 #### Updating Existing Images
 To update an to the most recent image:
 
 [source, bash]
 ----
-oc import-image jboss-eap74-beta-openjdk8-openshift:7.4.0.Beta
-oc import-image jboss-eap74-beta-openjdk8-runtime-openshift:7.4.0.Beta
-oc import-image jboss-eap74-beta-openjdk11-openshift:7.4.0.Beta
-oc import-image jboss-eap74-beta-openjdk11-runtime-openshift:7.4.0.Beta
+oc import-image jboss-eap74-openjdk8-openshift:7.4.0
+oc import-image jboss-eap74-openjdk8-runtime-openshift:7.4.0
+oc import-image jboss-eap74-openjdk11-openshift:7.4.0
+oc import-image jboss-eap74-openjdk11-runtime-openshift:7.4.0
 ----
 
 Optionally include namespace to the import:
@@ -70,15 +68,15 @@ Example:
 
 [source, bash]
 ----
-oc new-app --template=eap74-beta-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap74-beta-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap74-beta-openjdk8-runtime-openshift:latest \
+oc new-app --template=eap74-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap74-openjdk8-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap74-openjdk8-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="myproject" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
  -p SOURCE_REPOSITORY_REF="7.4.x"
 ----
 
-For more information on application creation and deployment see the OpenShift documentation at https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4.Beta/html/ for more details on importing templates.
+For more information on application creation and deployment see the OpenShift documentation at https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/ for more details on importing templates.
 
 ## Creating Secrets
 
@@ -102,7 +100,7 @@ oc create -n myproject -f https://raw.githubusercontent.com/jboss-openshift/appl
 
 Please refer to the EAP Documentation for additional details.
 
-https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4.Beta/html/ 
+https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/ 
 
 ## License
 

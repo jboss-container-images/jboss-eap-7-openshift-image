@@ -1,12 +1,12 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap74-openjdk11-runtime-openshift-rhel8"
-description: "The JBoss EAP 7.4.0.Beta openjdk11 runtime image"
-version: "7.4.0.Beta"
+name: "jboss-eap-7/eap74-openjdk11-runtime-openshift-rhel8"
+description: "The JBoss EAP 7.4 OpenJDK 11 runtime image"
+version: "7.4.0"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-74-beta-openjdk11-runtime-openshift-rhel8-container"
+      value: "jboss-eap-74-openjdk11-runtime-openshift-rhel8-container"
     - name: "io.k8s.description"
       value: "Base image to run an EAP server and application"
     - name: "io.k8s.display-name"
@@ -17,6 +17,9 @@ labels:
       value: "javaee,eap,eap7"
     - name: "maintainer"
       value: "Red Hat"
+    - name: "com.redhat.deployments-dir"
+      value: "/opt/eap/standalone/deployments"
+
 envs:
     - name: "LAUNCH_JBOSS_IN_BACKGROUND"
       value: "true"
@@ -46,11 +49,11 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: 0.44.0
+                  ref: 0.45.2
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_740_BETA_CR1
+                  ref: EAP_740_CR1
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
@@ -69,6 +72,6 @@ osbs:
       configuration:
             container_file: container.yaml
       repository:
-            name: containers/jboss-eap-74-beta-openjdk11-runtime
+            name: containers/jboss-eap-74-openjdk11-runtime
             branch: jb-eap-7.4-rhel-8
 

@@ -1,7 +1,7 @@
 = Application Templates
 
-This project contains OpenShift v3 application templates which support applications based on JBoss EAP 7.4.0.Beta
-Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap74-beta[here].
+This project contains OpenShift v3 application templates which support applications based on JBoss EAP 7.4.0
+Source can be found https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap74[here].
 
 :icons: font
 :toc: macro

@@ -1,7 +1,6 @@
 schema_version: 1
 
 name: "jboss-eap-7/eap74-openjdk11-openshift-rhel8"
-
 modules:
       install:
           - name: jboss.container.eap.galleon.build-settings
@@ -21,5 +20,5 @@ packages:
 
 osbs:
       repository:
-            name: containers/jboss-eap-74-beta-openjdk11-builder
+            name: containers/jboss-eap-74-openjdk11-builder
             branch: jb-eap-7.4-rhel-8
