@@ -1,0 +1,138 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap-xp3-openjdk11-openshift-rhel8"
+description: "Red Hat JBoss Enterprise Application Platform XP 3.0 OpenShift container image."
+version: "3.0"
+from: "registry.redhat.io/ubi8/ubi:latest"
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-7-xp3-openjdk11-openshift-rhel8-container"
+    - name: "io.k8s.description"
+      value: "Platform for building and running JavaEE applications on JBoss EAP XP 3.0"
+    - name: "io.k8s.display-name"
+      value: "JBoss EAP XP"
+    - name: "io.openshift.expose-services"
+      value: "8080:http"
+    - name: "io.openshift.tags"
+      value: "builder,javaee,eap,eap7,eap-xp"
+    - name: "io.openshift.s2i.scripts-url"
+      value: "image:///usr/local/s2i"
+    - name: "maintainer"
+      value: "Red Hat"
+envs:
+    - name: HTTPS_ENABLE_HTTP2
+      value: "true"
+    - name: SCRIPT_DEBUG
+      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+      example: "true"
+ports:
+    - value: 8443
+modules:
+      repositories:
+          - name: cct_module
+            git:
+                  url: https://github.com/jboss-openshift/cct_module.git
+                  ref: 0.45.2
+          - name: jboss-eap-modules
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: EAP_XP3_CR1
+          - name: jboss-eap-7-image
+            git:
+                  url: https://github.com/jboss-container-images/jboss-eap-7-image.git
+                  ref: EAP_XP3_CR1
+          - name: wildfly-cekit-modules
+            git:
+                  url: https://github.com/wildfly/wildfly-cekit-modules.git
+                  ref: 0.23.2
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "11"
+          - name: jboss.container.maven
+            version: "8.2.3.6"
+          - name: eap-xp-30-env
+            version: "1.0.0"
+          - name: jboss.container.eap.setup
+          - name: eap-install-cleanup
+          # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
+          # so must be after jboss.container.eap.cd
+          - name: jboss.container.maven.default
+          - name: dynamic-resources
+          - name: jboss.container.eap.s2i.galleon
+          - name: jboss.container.eap.galleon
+          - name: jboss.container.eap.galleon.config.mp
+          - name: jboss.container.eap.galleon.build-settings
+            version: "public"
+          - name: jboss.container.eap.openshift.modules
+          - name: os-eap-activemq-rar
+            version: "1.1"
+          - name: jboss.container.eap.amq6
+          - name: jboss.container.java.jvm.bash
+          - name: jboss.container.eap.launch
+          - name: jboss.container.wildfly.launch.admin
+          - name: jboss.container.wildfly.launch.access-log-valve
+          - name: jboss.container.wildfly.launch-config.config
+          - name: jboss.container.wildfly.launch-config.os
+          - name: jboss.container.wildfly.launch.datasources
+          - name: jboss.container.wildfly.launch.extensions
+          - name: jboss.container.wildfly.launch.json-logging
+          - name: jboss.container.wildfly.launch.jgroups
+          - name: jboss.container.wildfly.launch.filters
+          - name: jboss.container.wildfly.launch.logger-category
+          - name: jboss.container.wildfly.launch.mp-config
+          - name: jboss.container.wildfly.launch.os.node-name
+          - name: jboss.container.wildfly.launch.tracing
+          - name: jboss.container.wildfly.launch.deployment-scanner
+          - name: jboss.container.wildfly.launch.keycloak
+          - name: jboss.container.wildfly.launch.https
+          - name: jboss.container.wildfly.launch.security-domains
+          - name: jboss.container.wildfly.launch.elytron
+          - name: jboss.container.wildfly.launch.port-offset
+          - name: jboss.container.wildfly.launch.resource-adapters
+          - name: jboss.container.wildfly.launch.messaging
+          - name: jboss.container.wildfly.launch.statefulset
+          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
+          - name: os-eap70-sso
+          - name: jboss.container.wildfly.galleon.fp-content.keycloak
+          - name: jboss.container.wildfly.galleon.fp-content.jolokia
+          - name: jboss.container.wildfly.galleon.fp-content.java
+          - name: jboss.container.wildfly.galleon.fp-content.config
+          - name: jboss.container.wildfly.galleon.fp-content.mvn
+          - name: jboss.container.wildfly.galleon.fp-content.ejb-tx-recovery
+          - name: os-eap-probes
+            version: "3.0"
+         
+          # We keep this one to only advertise that hawkular is no more supported.
+          - name: jboss.container.eap.hawkular
+          - name: openshift-layer
+          - name: openshift-passwd
+          - name: jboss.container.util.logging.bash
+          - name: jboss.container.eap.prometheus.config
+          - name: os-eap-txnrecovery.run
+            version: 'python3'
+
+          # At this point, all scripts must have been added to JBOSS_HOME and to custom galleon packages location
+          - name: jboss.container.wildfly.galleon.build-feature-pack
+          - name: jboss.container.wildfly.galleon.provision-server
+          - name: jboss.container.eap.final-setup
+
+# note that building in OSBS using ODCS requires a content set to be specified, these are done in the overrides
+# cekit doesn't appear to allow this to be overriden from a default
+#packages:
+#      content_sets_file: content_sets.yml
+  
+artifacts:
+  - name: maven-repo
+    target: maven-repo.zip
+    md5: bfe004ecce719ea68516b3c828a62a27
+
+run:
+      user: 185
+      cmd:
+          - "/opt/eap/bin/openshift-launch.sh"
+osbs:
+      configuration:
+            container_file: container.yaml
+      repository:
+            name: containers/jboss-eap-xp3-openjdk11-builder
+            branch: jb-eap-xp3-rhel-8
