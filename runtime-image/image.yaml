@@ -17,6 +17,9 @@ labels:
       value: "javaee,eap,eap7"
     - name: "maintainer"
       value: "Red Hat"
+    - name: "com.redhat.deployments-dir"
+      value: "/opt/eap/standalone/deployments"
+
 envs:
     - name: "LAUNCH_JBOSS_IN_BACKGROUND"
       value: "true"
