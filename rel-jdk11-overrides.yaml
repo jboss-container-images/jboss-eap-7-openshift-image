@@ -1,11 +1,13 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap74-openjdk11-openshift-rhel8"
+name: "jboss-eap-7/eap74-openjdk11-openshift-rhel8"
 
 modules:
       install:
           - name: jboss.container.eap.galleon.build-settings
             version: "osbs"
+          - name: jboss.container.maven.module
+            version: "3.6"
           - name: os-eap-python
             version: '3.6'
           - name: jboss.container.jolokia

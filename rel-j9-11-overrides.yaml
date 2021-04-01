@@ -1,7 +1,7 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap74-openj9-11-openshift-rhel8"
-description: "The JBoss EAP 7.4.0.Beta image for OpenJDK 11 with OpenJ9"
+name: "jboss-eap-7/eap74-openj9-11-openshift-rhel8"
+description: "The JBoss EAP 7.4.0 image for OpenJDK 11 with OpenJ9"
 
 labels:
     - name: "com.redhat.component"
@@ -19,8 +19,8 @@ modules:
             version: "7"
           - name: jboss.container.jolokia
             version: "7"
-          - name: jboss.container.maven
-            version: "8.0.3.5"
+          - name: jboss.container.maven.module
+            version: "3.6"
           - name: jboss.container.java.singleton-jdk
 
 packages:
