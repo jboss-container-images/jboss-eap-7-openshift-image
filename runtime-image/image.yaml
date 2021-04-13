@@ -34,6 +34,8 @@ envs:
       value: "eapadmin"
     - name: SSO_FORCE_LEGACY_SECURITY
       value: "true"
+    - name: AB_PROMETHEUS_JMX_EXPORTER_PORT
+      value: 9799
 ports:
     - value: 8443
     - value: 8080
