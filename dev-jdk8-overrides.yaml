@@ -29,8 +29,8 @@ modules:
       install:
           - name: jboss.container.openjdk.jdk
             version: "8"
-          - name: jboss.container.maven.35.bash
-            version: "3.5scl"
+          - name: jboss.container.maven.36.bash
+            version: "3.6scl"
           - name: os-eap-txnrecovery.run
             version: 'python2'
           - name: os-eap-probes
