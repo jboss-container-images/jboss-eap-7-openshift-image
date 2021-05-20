@@ -1,12 +1,12 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap74-openjdk8-runtime-openshift-rhel7"
-description: "The JBoss EAP 7.4.0.Beta openjdk8 runtime image"
+name: "jboss-eap-7/eap74-openjdk8-runtime-openshift-rhel7"
+description: "The JBoss EAP 7.4 OpenJDK 8 runtime image"
 from: "registry.redhat.io/ubi7/ubi:latest"
 
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-74-beta-openjdk8-runtime-openshift-rhel7-container"
+      value: "jboss-eap-74-openjdk8-runtime-openshift-rhel7-container"
 envs:
     # env var set by modules in the builder image context, duplicating them here.
     # CLOUD-3466 - add com.sun.crypto.provider for JDK8
@@ -34,5 +34,5 @@ osbs:
       configuration:
             container_file: container.yaml
       repository:
-            name: containers/jboss-eap-74-beta-openjdk8-runtime
+            name: containers/jboss-eap-74-openjdk8-runtime
             branch: jb-eap-7.4-rhel-7

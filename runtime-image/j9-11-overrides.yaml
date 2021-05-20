@@ -1,11 +1,11 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap74-openj9-11-runtime-openshift-rhel8"
-description: "The JBoss EAP 7.4.0.Beta runtime image for OpenJDK 11 with OpenJ9"
+name: "jboss-eap-7/eap74-openj9-11-runtime-openshift-rhel8"
+description: "The JBoss EAP 7.4 runtime image for OpenJDK 11 with OpenJ9"
 
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-74-beta-openj9-11-runtime-openshift-rhel8-container"
+      value: "jboss-eap-74-openj9-11-runtime-openshift-rhel8-container"
 
 modules:
       install:
@@ -38,5 +38,5 @@ osbs:
         pulp_repos: true
         signing_intent: release
   repository:
-    name: containers/jboss-eap-74-beta-openj9-11-runtime
+    name: containers/jboss-eap-74-openj9-11-runtime
     branch: jb-eap-7.4-rhel-8
