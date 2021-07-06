@@ -1,0 +1,23 @@
+schema_version: 1
+
+modules:
+      install:
+          - name: jboss.container.eap.galleon.build-settings
+            version: "osbs"
+          - name: os-eap-python
+            version: '3.6'
+          - name: jboss.container.maven.module
+            version: "3.6"
+          - name: jboss.container.jolokia
+            version: '7'
+          - name: jboss.container.prometheus
+            version: '7'
+
+packages:
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
+
+osbs:
+      repository:
+            name: containers/jboss-eap-xp3-openjdk11-builder
+            branch: jb-eap-xp3-rhel-8
