@@ -5,7 +5,7 @@ description: "Red Hat JBoss Enterprise Application Platform XP 3.0 OpenShift run
 
 labels:
       - name: "com.redhat.component"
-        value: "jboss-eap-7-xp3-openj9-11-runtime-openshift-rhel8-container"
+        value: "jboss-eap-xp3-openj9-11-runtime-openshift-rhel8-container"
 modules:
       install:
           - name: os-eap-python

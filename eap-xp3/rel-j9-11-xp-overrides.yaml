@@ -5,7 +5,7 @@ description: "Red Hat JBoss Enterprise Application Platform XP 3.0 OpenShift con
 
 labels:
       - name: "com.redhat.component"
-        value: "jboss-eap-7-xp3-openj9-11-openshift-rhel8-container"
+        value: "jboss-eap-xp3-openj9-11-builder-openshift-rhel8-container"
 
 modules:
       install:
