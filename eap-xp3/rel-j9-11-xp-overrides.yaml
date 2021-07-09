@@ -30,12 +30,7 @@ osbs:
           - ppc64le
       compose:
         pulp_repos: true
-        packages:
-          - java-11-openj9
-          - java-11-openj9-headless
-          - java-11-openj9-devel
         signing_intent: release
-        inherit: true
   repository:
     name:  containers/jboss-eap-xp3-openj9-11-builder
     branch: jb-eap-xp3-rhel-8
