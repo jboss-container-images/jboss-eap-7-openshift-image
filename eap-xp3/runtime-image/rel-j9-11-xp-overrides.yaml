@@ -12,8 +12,7 @@ modules:
             version: '3.6'
           - name: jboss.container.openjdk.jdk
             version: "openj9-11"
-
-
+          - name: jboss.container.java.singleton-jdk
 
 packages:
      content_sets_file: content_sets_rhel8.yml
