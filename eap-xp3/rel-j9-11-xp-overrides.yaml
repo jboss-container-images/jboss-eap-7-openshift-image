@@ -16,6 +16,12 @@ modules:
           - name: jboss.container.openjdk.jdk
             version: "openj9-11"
           - name: jboss.container.java.singleton-jdk
+          - name: jboss.container.maven.module
+            version: "3.6"
+          - name: jboss.container.jolokia
+            version: '7'
+          - name: jboss.container.prometheus
+            version: '7'
 
 packages:
   manager: dnf
