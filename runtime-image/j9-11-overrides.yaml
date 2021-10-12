@@ -12,7 +12,7 @@ modules:
           - name: os-eap-python
             version: '3.6'
           - name: jboss.container.openjdk.jdk
-            version: "openj9-11"
+            version: "semeru-11-open"
           - name: jboss.container.prometheus
             version: "7"
           - name: jboss.container.jolokia
