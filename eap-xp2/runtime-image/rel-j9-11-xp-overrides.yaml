@@ -11,7 +11,7 @@ modules:
           - name: os-eap-python
             version: '3.6'
           - name: jboss.container.openjdk.jdk
-            version: "openj9-11"
+            version: "semeru-11-open"
 
 
 
@@ -30,10 +30,6 @@ osbs:
           - ppc64le
       compose:
         pulp_repos: true
-        packages:
-          - java-11-openj9
-          - java-11-openj9-headless
-          - java-11-openj9-devel
         signing_intent: release
         inherit: true
 
