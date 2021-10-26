@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap73-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.3 OpenShift container image."
-version: "7.3.9"
+version: "7.3.10"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
@@ -51,7 +51,7 @@ modules:
           - name: jboss.container.maven.36.bash
             version: "3.6"
           - name: eap-73-env
-            version: "7.3.9"
+            version: "7.3.10"
           - name: jboss.container.eap.setup
           - name: eap-install-cleanup
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
