@@ -42,7 +42,7 @@ modules:
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_742_CR1_2
+                  ref: EAP_742_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
