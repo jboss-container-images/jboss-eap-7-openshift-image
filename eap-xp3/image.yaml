@@ -36,11 +36,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_XP3_741_CR1
+                  ref: EAP_XP3_742_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_XP3_741_CR1
+                  ref: EAP_XP3_742_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
@@ -124,7 +124,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: e700e0bd5134f82379e9abc4973ef55a
+    md5: 2c7350bdb0b880acfb82917273bd8b63
 
 run:
       user: 185
