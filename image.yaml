@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap74-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.4 OpenShift container image."
-version: "7.4.2"
+version: "7.4.3"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
