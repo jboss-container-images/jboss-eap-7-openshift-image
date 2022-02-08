@@ -56,7 +56,10 @@ modules:
             version: "11"
           - name: dynamic-resources
           - name: jboss.container.jolokia
+            version: "7"
           - name: jboss.container.util.logging.bash
+          - name: jboss.container.prometheus
+            version: "7"
           - name: jboss.container.eap.prometheus.runtime
           - name: os-eap-txnrecovery.run
             version: 'python3'
@@ -65,10 +68,19 @@ packages:
       install:
           # required by launch scripts
           - hostname
+
 osbs:
-      configuration:
-            container_file: ../container.yaml
-      repository:
-            name: containers/jboss-eap-xp3-openjdk11-runtime
-            branch: jb-eap-xp3-rhel-8
+  configuration:
+    container:
+      platforms:
+        only:
+          - x86_64
+          - s390x
+          - ppc64le
+      compose:
+        pulp_repos: true
+        signing_intent: release
+  repository:
+    name: containers/jboss-eap-xp3-openjdk11-runtime
+    branch: jb-eap-xp3-rhel-8
 

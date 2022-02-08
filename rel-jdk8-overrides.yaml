@@ -28,8 +28,17 @@ packages:
   manager: yum
   content_sets_file: content_sets_rhel7.yml
 
+
 osbs:
-      repository:
-            name: containers/jboss-eap-74-openjdk8-builder
-            branch: jb-eap-7.4-rhel-7
+  configuration:
+    container:
+      platforms:
+        only:
+          - x86_64
+      compose:
+        pulp_repos: true
+        signing_intent: release
+  repository:
+    name: containers/jboss-eap-74-openjdk8-builder
+    branch: jb-eap-7.4-rhel-7
 

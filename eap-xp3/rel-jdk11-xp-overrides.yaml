@@ -16,8 +16,3 @@ modules:
 packages:
   manager: dnf
   content_sets_file: content_sets_rhel8.yml
-
-osbs:
-      repository:
-            name: containers/jboss-eap-xp3-openjdk11-builder
-            branch: jb-eap-xp3-rhel-8
