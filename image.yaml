@@ -128,9 +128,18 @@ run:
       user: 185
       cmd:
           - "/opt/eap/bin/openshift-launch.sh"
+
 osbs:
-      configuration:
-            container_file: container.yaml
-      repository:
-            name: containers/jboss-eap-74-openjdk11-builder
-            branch: jb-eap-7.4-rhel-8
+  configuration:
+    container:
+      platforms:
+        only:
+          - x86_64
+          - s390x
+          - ppc64le
+      compose:
+        pulp_repos: true
+        signing_intent: release
+  repository:
+    name: containers/jboss-eap-74-openjdk11-builder
+    branch: jb-eap-7.4-rhel-8

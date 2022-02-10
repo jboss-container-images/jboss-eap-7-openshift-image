@@ -68,10 +68,3 @@ packages:
       install:
           # required by launch scripts
           - hostname
-osbs:
-      configuration:
-            container_file: container.yaml
-      repository:
-            name: containers/jboss-eap-74-openjdk11-runtime
-            branch: jb-eap-7.4-rhel-8
-
