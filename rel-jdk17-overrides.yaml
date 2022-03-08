@@ -1,0 +1,55 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap74-openjdk17-openshift-rhel8"
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-74-openjdk17-builder-openshift-rhel8-container"
+envs:
+      - name: DISABLE_LEGACY_SECURITY
+        value: "true"
+      - name: AB_JOLOKIA_OFF
+        value: "true"
+      - name: CONFIGURE_ELYTRON_SSL
+        value: "true"
+      - name: SSO_FORCE_LEGACY_SECURITY
+        value: "false"
+modules:
+      repositories:
+          - name: jdk-modules
+            path: modules
+      install:
+           - name: jboss.container.eap.galleon.build-settings
+             version: "osbs"
+           - name: jboss.container.eap.galleon.config.ee
+             version: "1.0-elytron"
+           - name: jboss.container.openjdk.jdk
+             version: "17"
+           - name: jboss.container.java.jvm.bash
+             version: "2.0"
+           - name: jboss.container.maven.module
+             version: "3.6"
+           - name: os-eap-python
+             version: '3.6'
+           - name: jboss.container.jolokia
+             version: '7'
+           - name: jboss.container.prometheus
+             version: '7'
+
+packages:
+  manager: dnf
+  content_sets_file: content_sets_rhel8.yml
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - x86_64
+          - s390x
+          - ppc64le
+      compose:
+        pulp_repos: true
+        signing_intent: release
+  repository:
+    name: containers/jboss-eap-74-openjdk17-builder
+    branch: jb-eap-7.4-rhel-8

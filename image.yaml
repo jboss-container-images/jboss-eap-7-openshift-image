@@ -37,16 +37,16 @@ modules:
                   ref: 0.45.4
           - name: jboss-eap-modules
             git:
-                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_745_CR1
+                  url: https://github.com/jfdenise/jboss-eap-modules.git
+                  ref:  jdk17-changes
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
                   ref: EAP_745_CR1
           - name: wildfly-cekit-modules
             git:
-                  url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: 0.23.5
+                  url: https://github.com/jfdenise/wildfly-cekit-modules.git
+                  ref: jdk17-changes
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
@@ -62,6 +62,7 @@ modules:
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
           - name: jboss.container.eap.galleon.config.ee
+            version: "1.0"
           - name: jboss.container.eap.galleon.build-settings
             version: "public"
           - name: jboss.container.eap.openshift.modules

@@ -1,0 +1,55 @@
+schema_version: 1
+
+name: "jboss-eap-7/eap74-openjdk17-runtime-openshift-rhel8"
+description: "The JBoss EAP 7.4 OpenJDK 17 runtime image"
+from: "registry.redhat.io/ubi8/ubi:latest"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-74-openjdk17-runtime-openshift-rhel8-container"
+
+envs:
+     - name: DISABLE_LEGACY_SECURITY
+       value: "true"
+     - name: AB_JOLOKIA_OFF
+       value: "true"
+     - name: CONFIGURE_ELYTRON_SSL
+       value: "true"
+     - name: SSO_FORCE_LEGACY_SECURITY
+       value: "false"
+modules:
+      repositories:
+          - name: jdk-modules
+            path: ../modules
+      install:
+          - name: jboss.container.openjdk.jdk
+            version: "17"
+          - name: jboss.container.java.jvm.bash
+            version: "2.0"
+          - name: os-eap-python
+            version: '3.6'
+          - name: jboss.container.jolokia
+            version: '7'
+          - name: jboss.container.prometheus
+            version: '7'
+
+packages:
+      content_sets_file: content_sets_rhel8.yml
+      install:
+          # required by probes (python 3)
+          - python3-requests
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - x86_64
+          - s390x
+          - ppc64le
+      compose:
+        pulp_repos: true
+        signing_intent: release
+  repository:
+    name: containers/jboss-eap-74-openjdk17-runtime
+    branch: jb-eap-7.4-rhel-8
