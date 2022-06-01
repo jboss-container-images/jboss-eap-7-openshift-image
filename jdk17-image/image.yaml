@@ -44,14 +44,14 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_745_CR1_JDK11
+                  ref: EAP_745_CR1_JDK17
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
                   ref: EAP_745_CR1
           - name: wildfly-cekit-modules
             git:
-                  url: https://github.com/jfdenise/wildfly-cekit-modules.git
+                  url: https://github.com/wildfly/wildfly-cekit-modules.git
                   ref: 0.23.6
           - name: jdk-modules
             path: ../modules
