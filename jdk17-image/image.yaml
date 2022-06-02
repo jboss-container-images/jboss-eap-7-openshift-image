@@ -1,12 +1,12 @@
 schema_version: 1
 
-name: "jboss-eap-7/eap74-openjdk11-openshift-rhel8"
+name: "jboss-eap-7-tech-preview/eap74-openjdk17-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.4 OpenShift container image."
 version: "7.4.5"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
-      value: "jboss-eap-74-openjdk11-builder-openshift-rhel8-container"
+      value: "jboss-eap-74-openjdk17-builder-openshift-rhel8-container"
     - name: "io.k8s.description"
       value: "Platform for building and running JavaEE applications on JBoss EAP 7.4"
     - name: "io.k8s.display-name"
@@ -20,13 +20,19 @@ labels:
     - name: "maintainer"
       value: "Red Hat"
 envs:
-    - name: HTTPS_ENABLE_HTTP2
-      value: "true"
-    - name: SCRIPT_DEBUG
-      description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
-      example: "true"
-    - name: AB_PROMETHEUS_JMX_EXPORTER_PORT
-      value: 9799
+      - name: DISABLE_LEGACY_SECURITY
+        value: "true"
+      - name: CONFIGURE_ELYTRON_SSL
+        value: "true"
+      - name: SSO_FORCE_LEGACY_SECURITY
+        value: "false"
+      - name: HTTPS_ENABLE_HTTP2
+        value: "true"
+      - name: SCRIPT_DEBUG
+        description: If set to true, ensures that the bash scripts are executed with the -x option, printing the commands and their arguments as they are executed.
+        example: "true"
+      - name: AB_PROMETHEUS_JMX_EXPORTER_PORT
+        value: 9799
 ports:
     - value: 8443
 modules:
@@ -38,7 +44,7 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_745_CR1
+                  ref: EAP_745_CR1_JDK17
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
@@ -46,10 +52,12 @@ modules:
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: 0.23.5
+                  ref: 0.23.6
+          - name: jdk-modules
+            path: ../modules
       install:
           - name: jboss.container.openjdk.jdk
-            version: "11"
+            version: "17"
           - name: jboss.container.maven
             version: "8.2.3.6"
           - name: eap-74-galleon-latest
@@ -58,19 +66,23 @@ modules:
           # This one indirectly installs common logging by creating a link to $BIN_HOME/bin/launch
           # so must be after jboss.container.eap.cd
           - name: jboss.container.maven.default
+          - name: jboss.container.maven.module
+            version: "3.6"
           - name: dynamic-resources
           - name: jboss.container.eap.s2i.galleon
           - name: jboss.container.eap.galleon
           - name: jboss.container.eap.galleon.config.ee
-            version: "1.0"
+            version: "1.0-elytron"
           - name: jboss.container.eap.galleon.build-settings
-            version: "public"
+            version: "osbs"
           - name: jboss.container.eap.openshift.modules
           - name: os-eap-activemq-rar
             version: "1.1"
           - name: jboss.container.eap.amq6
           - name: jboss.container.java.jvm.bash
+            version: "2.0"
           - name: jboss.container.eap.launch
+            version: "1.0-no-sso"
           - name: jboss.container.wildfly.launch.admin
           - name: jboss.container.wildfly.launch.access-log-valve
           - name: jboss.container.wildfly.launch-config.config
@@ -83,7 +95,6 @@ modules:
           - name: jboss.container.wildfly.launch.logger-category
           - name: jboss.container.wildfly.launch.os.node-name
           - name: jboss.container.wildfly.launch.deployment-scanner
-          - name: jboss.container.wildfly.launch.keycloak
           - name: jboss.container.wildfly.launch.https
           - name: jboss.container.wildfly.launch.security-domains
           - name: jboss.container.wildfly.launch.elytron
@@ -91,9 +102,6 @@ modules:
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.launch.messaging
           - name: jboss.container.wildfly.launch.statefulset
-          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
-          - name: os-eap70-sso
-          - name: jboss.container.wildfly.galleon.fp-content.keycloak
           - name: jboss.container.wildfly.galleon.fp-content.jolokia
           - name: jboss.container.wildfly.galleon.fp-content.java
           - name: jboss.container.wildfly.galleon.fp-content.config
@@ -115,20 +123,26 @@ modules:
           - name: jboss.container.wildfly.galleon.provision-server
           - name: jboss.container.eap.final-setup
 
-# note that building in OSBS using ODCS requires a content set to be specified, these are done in the overrides
-# cekit doesn't appear to allow this to be overriden from a default
-#packages:
-#      content_sets_file: content_sets.yml
+          - name: os-eap-python
+            version: '3.6'
+          - name: jboss.container.jolokia
+            version: '7'
+          - name: jboss.container.prometheus
+            version: '7'
 
 artifacts:
   - name: maven-repo
-    target: maven-repo.zip
+    target: maven-repo.zip  
     md5: 75a9b57163f7b87df393b05bf3f58637
 
 run:
       user: 185
       cmd:
           - "/opt/eap/bin/openshift-launch.sh"
+
+packages:
+  manager: dnf
+  content_sets_file: ../content_sets_rhel8.yml
 
 osbs:
   configuration:
@@ -142,5 +156,5 @@ osbs:
         pulp_repos: true
         signing_intent: release
   repository:
-    name: containers/jboss-eap-74-openjdk11-builder
+    name: containers/jboss-eap-74-openjdk17-builder
     branch: jb-eap-7.4-rhel-8
