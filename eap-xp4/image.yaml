@@ -32,19 +32,19 @@ modules:
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: 0.45.3
+                  ref: 0.45.4
           - name: jboss-eap-modules
             git:
-                  url: https://github.com/luck3y/jboss-eap-modules.git
-                  ref: xp4
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
+                  ref: EAP_XP4_745_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_XP4_CR1
+                  ref: EAP_XP4_745_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
-                  ref: 0.23.4
+                  ref: 0.23.6
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
@@ -132,7 +132,7 @@ packages:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 15b2375284d906da2bb43cf597d25df4
+    md5: 35beb145e09ab95c1c8ef76caf1c01b0
 
 run:
       user: 185
