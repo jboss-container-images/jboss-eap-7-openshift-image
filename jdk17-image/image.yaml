@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7-tech-preview/eap74-openjdk17-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.4 OpenShift container image."
-version: "7.4.5"
+version: "7.4.6"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
@@ -44,7 +44,7 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_746_CR2_JDK17
+                  ref: EAP_746_CR1_JDK17
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
@@ -142,7 +142,7 @@ run:
 
 packages:
   manager: dnf
-  content_sets_file: ../content_sets_rhel8.yml
+  content_sets_file: content_sets_rhel8.yml
 
 osbs:
   configuration:
@@ -152,6 +152,7 @@ osbs:
           - x86_64
           - s390x
           - ppc64le
+          - aarch64
       compose:
         pulp_repos: true
         signing_intent: release
