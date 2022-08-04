@@ -32,7 +32,7 @@ modules:
             version: '7'
 
 packages:
-      content_sets_file: content_sets_rhel8.yml
+      content_sets_file: content_sets_rhel8-all.yml
       install:
           # required by probes (python 3)
           - python3-requests
@@ -45,6 +45,7 @@ osbs:
           - x86_64
           - s390x
           - ppc64le
+          - aarch64
       compose:
         pulp_repos: true
         signing_intent: release
