@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: "jboss-eap-7-tech-preview/eap74-openjdk17-runtime-openshift-rhel8"
+name: "jboss-eap-7/eap74-openjdk17-runtime-openshift-rhel8"
 description: "The JBoss EAP 7.4 OpenJDK 17 runtime image"
 from: "registry.redhat.io/ubi8/ubi:latest"
 
