@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap74-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.4 OpenShift container image."
-version: "7.4.9"
+version: "7.4.8"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
@@ -38,11 +38,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_749_CR2
+                  ref: EAP_748_CR2
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_749_CR2
+                  ref: EAP_748_CR2
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
@@ -124,7 +124,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 460661c4fccfdb909822fc6c6c30c5f1
+    md5: 835257e0cb49030dcfd8be3d0bf5e908
 
 run:
       user: 185
