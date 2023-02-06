@@ -1,6 +1,11 @@
 schema_version: 1
 
 name: "jboss-eap-7/eap74-openjdk8-openshift-rhel8"
+
+labels:
+    - name: "com.redhat.component"
+      value: "jboss-eap-74-openjdk8-builder-openshift-rhel8-container"
+
 modules:
       install:
           - name: jboss.container.openjdk.jdk
