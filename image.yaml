@@ -37,12 +37,12 @@ modules:
                   ref: 0.45.4
           - name: jboss-eap-modules
             git:
-                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_7410_CR2
+                  url: https://github.com/rdnovell/jboss-eap-modules.git
+                  ref: EAP_XP_join
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_7410_CR2
+                  ref: eap74-dev
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
