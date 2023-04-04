@@ -28,11 +28,6 @@ modules:
           - name: jboss.container.eap.galleon.config.mp
             version: "1.0-elytron" 
 
-artifacts:
-  - name: maven-repo
-    target: maven-repo.zip
-    md5: b7de184ff70fed707e12f605459ba8d2
-
 osbs:
   configuration:
     container:
