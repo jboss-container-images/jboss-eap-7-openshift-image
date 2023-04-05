@@ -19,7 +19,7 @@ envs:
 modules:
       repositories:
           - name: jdk-modules
-            path: ../modules                  
+            path: ../../modules                  
       install:
           - name: jboss.container.openjdk.jdk
             version: "17"
