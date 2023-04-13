@@ -48,7 +48,7 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_XP4_7410_CR1
+                  ref: EAP_XP4_7410_CR4
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
