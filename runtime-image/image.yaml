@@ -52,7 +52,7 @@ modules:
                   ref: 0.45.4
           - name: jboss-eap-modules
             git:
-                  url: https://github.com/rdnovell/jboss-eap-modules.git
+                  url: https://github.com/jboss-container-images/jboss-eap-modules.git
                   ref: EAP_7411_CR2
       install:
           - name: jboss.container.openjdk.jdk
