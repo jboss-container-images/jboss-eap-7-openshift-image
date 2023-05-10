@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "jboss-eap-7/eap74-openjdk11-openshift-rhel8"
 description: "Red Hat JBoss Enterprise Application Platform 7.4 OpenShift container image."
-version: "7.4.10"
+version: "7.4.11"
 from: "registry.redhat.io/ubi8/ubi:latest"
 labels:
     - name: "com.redhat.component"
@@ -38,7 +38,7 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/rdnovell/jboss-eap-modules.git
-                  ref: EAP_XP_join
+                  ref: EAP_7411_CR2
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
@@ -124,7 +124,7 @@ modules:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 6b42a592858527f4498a43f9f9ebad44
+    md5: e81620520e6dfe0d11e59281f943e783
 
 run:
       user: 185
