@@ -22,8 +22,6 @@ labels:
 envs:
     - name: DISABLE_LEGACY_SECURITY
       value: "true"
-    - name: AB_JOLOKIA_OFF
-      value: "true"
     - name: CONFIGURE_ELYTRON_SSL
       value: "true"
     - name: SSO_FORCE_LEGACY_SECURITY
