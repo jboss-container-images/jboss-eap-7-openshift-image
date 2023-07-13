@@ -36,11 +36,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_XP4_7411_CR1
+                  ref: EAP_XP401_7411_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_XP4_7411_CR1
+                  ref: EAP_XP401_7411_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
@@ -51,7 +51,7 @@ modules:
           - name: jboss.container.maven
             version: "8.2.3.6"
           - name: eap-xp-40-env
-            version: "1.0.0"
+            version: "4.0.1"
           - name: os-eap-python
             version: '3.6'
           - name: jboss.container.maven.module
@@ -134,7 +134,7 @@ packages:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 8bafbcf44da1aa61a4af96b6be6e74c9
+    md5: 4a18308e2d9cbc4d7a0d7c728ee88fb0
 
 run:
       user: 185
