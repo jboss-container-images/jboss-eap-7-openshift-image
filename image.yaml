@@ -116,6 +116,7 @@ modules:
           - name: jboss.container.wildfly.galleon.build-feature-pack
           - name: jboss.container.wildfly.galleon.provision-server
           - name: jboss.container.eap.final-setup
+          - name: jboss.container.eap.jdk-cert-remove   
 
 # note that building in OSBS using ODCS requires a content set to be specified, these are done in the overrides
 # cekit doesn't appear to allow this to be overriden from a default

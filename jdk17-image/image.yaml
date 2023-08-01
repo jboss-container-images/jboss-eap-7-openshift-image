@@ -130,6 +130,7 @@ modules:
             version: '7'
           - name: jboss.container.prometheus
             version: '7'
+          - name: jboss.container.eap.jdk-cert-remove            
 
 artifacts:
   - name: maven-repo
