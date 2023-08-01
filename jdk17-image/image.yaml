@@ -56,6 +56,7 @@ modules:
           - name: jdk-modules
             path: ../modules
       install:
+          - name: jboss.container.eap.jdk-cert      
           - name: jboss.container.openjdk.jdk
             version: "17"
           - name: jboss.container.maven
