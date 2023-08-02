@@ -3,7 +3,6 @@ schema_version: 1
 name: "jboss-eap-7/eap74-openjdk11-openshift-rhel8"
 modules:
       install:
-          - name: jboss.container.eap.tzdata-java      
           - name: jboss.container.eap.galleon.build-settings
             version: "osbs"
           - name: jboss.container.maven.module
