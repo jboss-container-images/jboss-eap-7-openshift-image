@@ -10,6 +10,7 @@ labels:
 
 modules:
       install:
+          - name: jboss.container.eap.tzdata-java      
           - name: os-eap-python
             version: '3.6'
           - name: jboss.container.jolokia
