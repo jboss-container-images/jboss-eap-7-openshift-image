@@ -36,18 +36,20 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_XP401_7411_CR1
+                  ref: EAP_XP401_7412_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_XP401_7411_CR1
+                  ref: EAP_XP401_7412_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
                   ref: 0.23.9
       install:
+          - name: jboss.container.eap.jdk-cert
           - name: jboss.container.openjdk.jdk
             version: "11"
+          - name: jboss.container.eap.tzdata-java
           - name: jboss.container.maven
             version: "8.2.3.6"
           - name: eap-xp-40-env
@@ -126,6 +128,7 @@ modules:
           - name: jboss.container.wildfly.galleon.build-feature-pack
           - name: jboss.container.wildfly.galleon.provision-server
           - name: jboss.container.eap.final-setup
+          - name: jboss.container.eap.jdk-cert-remove          
 
 packages:
   manager: dnf
@@ -134,7 +137,7 @@ packages:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 4a18308e2d9cbc4d7a0d7c728ee88fb0
+    md5: 8e00cfb1a1297aa2fdb96520993293f6
 
 run:
       user: 185
