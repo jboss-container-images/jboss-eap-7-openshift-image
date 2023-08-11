@@ -48,10 +48,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_XP401_7411_CR1
+                  ref: EAP_XP401_7412_CR1
       install:
           - name: jboss.container.openjdk.jdk
             version: "11"
+          - name: jboss.container.eap.tzdata-java            
           - name: dynamic-resources
           - name: jboss.container.java.jvm.bash
             version: "1.0"
