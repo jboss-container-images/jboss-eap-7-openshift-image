@@ -42,7 +42,7 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: EAP_XP401_7412_CR1
+                  ref: master
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
@@ -88,7 +88,7 @@ modules:
           - name: jboss.container.java.jvm.bash
             version: "2.0"
           - name: jboss.container.eap.launch
-            version: "1.0-mp-no-sso"
+            version: "1.0-mp"
           - name: jboss.container.wildfly.launch.admin
           - name: jboss.container.wildfly.launch.access-log-valve
           - name: jboss.container.wildfly.launch-config.config
@@ -103,8 +103,7 @@ modules:
           - name: jboss.container.wildfly.launch.os.node-name
           - name: jboss.container.wildfly.launch.tracing
           - name: jboss.container.wildfly.launch.deployment-scanner
-          # No SSO
-          #- name: jboss.container.wildfly.launch.keycloak
+          - name: jboss.container.wildfly.launch.keycloak
           - name: jboss.container.wildfly.launch.https
           - name: jboss.container.wildfly.launch.security-domains
           - name: jboss.container.wildfly.launch.elytron
@@ -112,11 +111,9 @@ modules:
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.launch.messaging
           - name: jboss.container.wildfly.launch.statefulset
-          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
-          # No SSO          
-          #- name: os-eap70-sso
-          # No SSO
-          #- name: jboss.container.wildfly.galleon.fp-content.keycloak
+          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages        
+          - name: os-eap70-sso
+          - name: jboss.container.wildfly.galleon.fp-content.keycloak
           - name: jboss.container.wildfly.galleon.fp-content.jolokia
           - name: jboss.container.wildfly.galleon.fp-content.java
           - name: jboss.container.wildfly.galleon.fp-content.config
