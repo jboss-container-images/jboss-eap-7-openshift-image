@@ -42,11 +42,11 @@ modules:
           - name: jboss-eap-modules
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-modules.git
-                  ref: master
+                  ref: EAP_XP401_7413_CR1
           - name: jboss-eap-7-image
             git:
                   url: https://github.com/jboss-container-images/jboss-eap-7-image.git
-                  ref: EAP_XP401_7412_CR1
+                  ref: EAP_XP401_7413_CR1
           - name: wildfly-cekit-modules
             git:
                   url: https://github.com/wildfly/wildfly-cekit-modules.git
@@ -88,7 +88,7 @@ modules:
           - name: jboss.container.java.jvm.bash
             version: "2.0"
           - name: jboss.container.eap.launch
-            version: "1.0-mp"
+            version: "1.0-mp-no-sso"
           - name: jboss.container.wildfly.launch.admin
           - name: jboss.container.wildfly.launch.access-log-valve
           - name: jboss.container.wildfly.launch-config.config
@@ -103,7 +103,8 @@ modules:
           - name: jboss.container.wildfly.launch.os.node-name
           - name: jboss.container.wildfly.launch.tracing
           - name: jboss.container.wildfly.launch.deployment-scanner
-          - name: jboss.container.wildfly.launch.keycloak
+          # No SSO
+          #- name: jboss.container.wildfly.launch.keycloak
           - name: jboss.container.wildfly.launch.https
           - name: jboss.container.wildfly.launch.security-domains
           - name: jboss.container.wildfly.launch.elytron
@@ -111,9 +112,11 @@ modules:
           - name: jboss.container.wildfly.launch.resource-adapters
           - name: jboss.container.wildfly.launch.messaging
           - name: jboss.container.wildfly.launch.statefulset
-          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages        
-          - name: os-eap70-sso
-          - name: jboss.container.wildfly.galleon.fp-content.keycloak
+          # needs to be before fp-content.keycloak to copy modules used to generate galleon packages
+          # No SSO          
+          #- name: os-eap70-sso
+          # No SSO
+          #- name: jboss.container.wildfly.galleon.fp-content.keycloak
           - name: jboss.container.wildfly.galleon.fp-content.jolokia
           - name: jboss.container.wildfly.galleon.fp-content.java
           - name: jboss.container.wildfly.galleon.fp-content.config
@@ -144,7 +147,7 @@ packages:
 artifacts:
   - name: maven-repo
     target: maven-repo.zip
-    md5: 8e00cfb1a1297aa2fdb96520993293f6
+    md5: 62ab46bcb0d76a317cafdf77714560b6
 
 run:
       user: 185
