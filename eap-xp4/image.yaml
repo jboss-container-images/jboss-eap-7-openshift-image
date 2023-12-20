@@ -53,7 +53,7 @@ modules:
           - name: jboss.container.maven
             version: "8.2.3.6"
           - name: eap-xp-40-env
-            version: "4.0.1"
+            version: "4.0.2"
           - name: os-eap-python
             version: '3.6'
           - name: jboss.container.maven.module
