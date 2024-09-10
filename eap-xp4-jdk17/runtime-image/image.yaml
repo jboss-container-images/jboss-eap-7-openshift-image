@@ -48,6 +48,10 @@ ports:
       expose: false
 modules:
       repositories:
+          - name: openjdk
+            git:
+                  url: https://github.com/jboss-container-images/openjdk
+                  ref: wildfly-container-29.0      
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
@@ -59,6 +63,7 @@ modules:
           - name: jdk-modules
             path: ../../modules                  
       install:
+          - name: jboss.container.util.pkg-update      
           - name: jboss.container.openjdk.jdk
             version: "17"
           - name: dynamic-resources
