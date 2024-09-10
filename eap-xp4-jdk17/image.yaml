@@ -35,10 +35,6 @@ ports:
     - value: 8443
 modules:
       repositories:
-          - name: openjdk
-            git:
-                  url: https://github.com/jboss-container-images/openjdk
-                  ref: wildfly-container-29.0
           - name: cct_module
             git:
                   url: https://github.com/jboss-openshift/cct_module.git
