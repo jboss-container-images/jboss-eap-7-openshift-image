@@ -22,14 +22,14 @@ envs:
   description: By default the feature-pack sources are deleted. Set this variable to true to keep it in the image (mainly for debug purpose).
 
 artifacts:
-  - url: https://download.devel.redhat.com/devel/candidates/middleware/eap/JBEAP-7.4.25.GA-JBEAP-34146/jboss-eap-7.4.25.GA-JBEAP-34146-image-builder-maven-repository.zip
-    md5: 45d51dae4276986453681c8fa32c8276
+  - url: https://download.devel.redhat.com/devel/candidates/middleware/eap/JBEAP-7.4.26.GA-CR2/jboss-eap-7.4.26.GA-CR2-image-builder-maven-repository.zip
+    md5: 9d7918a554c2e246754f3b9404df3dbf
     # Optionally, overwrite target name
     target: maven-repo.zip
     # Optionally, provide source of the artifact
-    source-url: https://download.devel.redhat.com/devel/candidates/middleware/eap/JBEAP-7.4.25.GA-CR1/jboss-eap-7.4.25.GA-CR1.zip
+    source-url: https://download.devel.redhat.com/devel/candidates/middleware/eap/JBEAP-7.4.26.GA-CR2/jboss-eap-7.4.26.GA-CR2.zip
     # When source-url is specified, checksum must be provided
-    source-md5: 1169dcc454a9aca0e878ddfd16454ff0
+    source-md5: df2fdfdd763739b68f7d77dabae42b15
 
 execute:
 - script: configure.sh
